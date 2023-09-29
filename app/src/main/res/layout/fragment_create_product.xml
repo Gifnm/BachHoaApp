@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fm.CreateProduct"
+    android:background="@color/white"
+    >
+
+    <ScrollView
+        android:layout_margin="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/findSetting"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/white"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="8dp"
+                >
+                <EditText
+                    android:id="@+id/cp_barcode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:padding="12dp"
+                    android:hint="Nhập mã barcode"
+                    android:background="@drawable/custom_edit_text"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/grey"
+                    android:inputType="number"
+                    ></EditText>
+                <ImageButton
+                    android:id="@+id/create_product_scan"
+                    android:layout_marginLeft="8dp"
+                    android:layout_width="48dp"
+                android:layout_height="48dp"
+                    android:textColor="@color/white"
+                    android:src="@drawable/ic_baseline_qr_code_scanner_24"
+                    android:drawableTint="@color/black"
+                    android:background="@color/grey"
+
+                    />
+            </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tên sản phẩm:"
+                android:textSize="@dimen/text_size_medium"
+                android:textColor="@color/black"
+                android:layout_marginBottom="8dp"
+                />
+          <EditText
+              android:id="@+id/cp_name_product"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:padding="12dp"
+              android:textSize="@dimen/text_size_medium"
+              android:textColorHint="@color/grey"
+              android:hint="Tên sản phẩm"
+              android:textColor="@color/black"
+              android:background="@drawable/custom_edit_text"
+              android:layout_marginBottom="8dp"
+              />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Giá nhập: (đơn vị VND)"
+                android:textSize="@dimen/text_size_medium"
+                android:textColor="@color/black"
+                android:layout_marginBottom="8dp"
+                />
+            <EditText
+                android:id="@+id/cp_priceSell"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="12dp"
+                android:textSize="@dimen/text_size_medium"
+                android:textColorHint="@color/grey"
+                android:hint="Giá nhập (VD: 31000)"
+                android:background="@drawable/custom_edit_text"
+                android:layout_marginBottom="8dp"
+                android:textColor="@color/black"
+                android:inputType="number"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Giá bán: (đơn vị VND)"
+                android:textSize="@dimen/text_size_medium"
+                android:textColor="@color/black"
+                android:layout_marginBottom="8dp"
+                />
+            <EditText
+                android:id="@+id/cp_price"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="12dp"
+                android:textSize="@dimen/text_size_medium"
+                android:textColorHint="@color/grey"
+                android:hint="Nhập giá bán (VD: 32500)"
+                android:background="@drawable/custom_edit_text"
+                android:layout_marginBottom="8dp"
+                android:textColor="@color/black"
+                android:inputType="number"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tồn kho:"
+                android:textSize="@dimen/text_size_medium"
+                android:textColor="@color/black"
+                android:layout_marginBottom="8dp"
+                />
+            <EditText
+                android:id="@+id/cp_quanity"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="12dp"
+                android:textSize="@dimen/text_size_medium"
+                android:textColor="@color/black"
+                android:textColorHint="@color/grey"
+                android:hint="Nhập tồn kho của sản phẩm"
+                android:background="@drawable/custom_edit_text"
+                android:layout_marginBottom="8dp"
+                android:inputType="number"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="8dp"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Chọn ảnh:"
+                    android:textSize="@dimen/text_size_medium"
+                    android:textColor="@color/black"
+android:layout_marginRight="8dp"
+                    android:layout_marginBottom="8dp"
+                    />
+                <ImageView
+                    android:id="@+id/cp_img_selected"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:background="@color/grey"
+                    android:src="@drawable/ic_baseline_image_24"
+                    />
+                <Button
+                    android:id="@+id/cp_select_img"
+                    android:layout_marginLeft="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:drawableRight="@drawable/ic_baseline_image_24"
+                    android:textSize="12sp"
+                    android:text="Chọn"
+                    android:drawableTint="@color/white"
+
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="8dp"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="VAT:"
+                    android:textSize="@dimen/text_size_medium"
+                    android:textColor="@color/black"
+                    android:layout_marginBottom="8dp"
+                    />
+               <EditText
+                   android:id="@+id/cp_vat"
+                   android:layout_marginLeft="8dp"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:padding="12dp"
+                   android:textSize="@dimen/text_size_medium"
+                   android:hint="VAT"
+                   android:textColor="@color/black"
+                   android:textColorHint="@color/grey"
+                   android:background="@drawable/custom_edit_text"
+                   android:inputType="number"
+                   ></EditText>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="(Đơn vị %)"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_size_medium"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Trạng thái:"
+                    android:textSize="@dimen/text_size_medium"
+                    android:textColor="@color/black"
+                    android:layout_marginBottom="8dp"
+                    />
+                <RadioGroup
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+
+                    <RadioButton
+                        android:id="@+id/cp_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:text="Kinh doanh"
+                        android:textColor="@color/black"
+                        android:checked="true"
+                        />
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:text="Ngưng kinh doanh"
+android:textColor="@color/black"
+                        />
+                </RadioGroup>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="Hạn sử dụng (EXP):"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_size_medium"
+                    />
+                <EditText
+
+                    android:id="@+id/cp_date_exp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:padding="12dp"
+                    android:textSize="@dimen/text_size_medium"
+                    android:textColorHint="@color/grey"
+                    android:textColor="@color/black"
+                    android:hint="yyyy-MM-dd"
+                    android:background="@drawable/custom_edit_text"
+                    android:layout_marginBottom="8dp"
+                    android:inputType="date"
+                    />
+                <ImageButton
+                    android:id="@+id/choose_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:src="@drawable/ic_baseline_calendar_month_24"
+                    />
+
+            </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="Loại:"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_medium" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <Spinner
+                    android:id="@+id/cp_categories"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:background="@color/zxing_transparent"
+
+                    ></Spinner>
+                <Button
+                    android:id="@+id/cp_btn_addCategories"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:text="+"
+                    android:textColor="@color/white"
+                    ></Button>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/cp_save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lưu"
+                android:layout_gravity="center"
+                android:textColor="@color/white"
+                ></Button>
+
+        </LinearLayout>
+
+
+
+    </ScrollView>
+</LinearLayout>

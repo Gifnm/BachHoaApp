@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    tools:context=".fm.AddPosition_fm">
+
+    <LinearLayout
+        android:id="@+id/select_product"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <Spinner
+            android:id="@+id/ap_list_shelf"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_weight="3"></Spinner>
+
+        <ImageButton
+            android:id="@+id/ap_add_shelf"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@color/grey"
+            android:src="@drawable/ic_baseline_plus_one_24"
+            android:layout_marginRight="8dp"
+            />
+        <ImageButton
+            android:id="@+id/ap_scan"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@color/grey"
+            android:src="@drawable/ic_baseline_qr_code_scanner_24" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/select_platter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/select_product"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/ap_prevous"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_baseline_navigate_before_24"></ImageButton>
+
+        <TextView
+            android:id="@+id/ap_pallter"
+            android:layout_width="60dp"
+            android:layout_height="48dp"
+            android:background="@drawable/custom_edit_text"
+            android:hint="0"
+            android:padding="8dp"
+            android:textAlignment="center"
+            android:textSize="@dimen/text_size_large"
+            android:textStyle="bold"></TextView>
+
+        <ImageButton
+            android:id="@+id/ap_next"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_baseline_navigate_next_24"></ImageButton>
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/ap_list_posstion"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/select_platter"></androidx.recyclerview.widget.RecyclerView>
+</RelativeLayout>
