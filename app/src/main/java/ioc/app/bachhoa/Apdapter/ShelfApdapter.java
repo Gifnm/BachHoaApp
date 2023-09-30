@@ -44,7 +44,7 @@ List<DisplayShelves> list;
         }
         return convertView;
     }
-    private void setChangeData(List<DisplayShelves> displayShelves){
+    public void setChangeData(List<DisplayShelves> displayShelves){
         list = displayShelves;
         notifyDataSetChanged();
     }

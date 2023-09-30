@@ -58,15 +58,21 @@
             android:hint="0"
             android:padding="8dp"
             android:textAlignment="center"
+            android:textColor="@color/black"
             android:textSize="@dimen/text_size_large"
-            android:textStyle="bold"></TextView>
+            android:textStyle="bold"
+            ></TextView>
 
         <ImageButton
             android:id="@+id/ap_next"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:src="@drawable/ic_baseline_navigate_next_24"></ImageButton>
-
+        <ImageButton
+            android:id="@+id/ap_more_platter"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_baseline_plus_one_24"></ImageButton>
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView

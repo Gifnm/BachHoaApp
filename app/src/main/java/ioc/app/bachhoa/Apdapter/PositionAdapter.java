@@ -50,7 +50,7 @@ holder.nameOfProduct.setText(productPositioning.getProduct().getProductName());
         }
         return 0;
     }
-private void setData(List<ProductPositioning> list){
+public void setData(List<ProductPositioning> list){
         this.list = list;
         notifyDataSetChanged();
 

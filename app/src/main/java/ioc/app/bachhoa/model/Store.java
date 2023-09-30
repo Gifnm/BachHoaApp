@@ -21,6 +21,10 @@ public class Store {
 		this.size = size;
 	}
 
+	public Store(int storeID) {
+		this.storeID = storeID;
+	}
+
 	public Store() {
 	}
 

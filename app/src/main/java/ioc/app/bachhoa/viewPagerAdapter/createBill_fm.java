@@ -1,5 +1,6 @@
 package ioc.app.bachhoa.viewPagerAdapter;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.cardview.widget.CardView;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import ioc.app.bachhoa.Make_Bill;
 import ioc.app.bachhoa.R;
 import ioc.app.bachhoa.fm.AccountDetail;
 import ioc.app.bachhoa.fm.AddPosition_fm;
@@ -24,7 +26,7 @@ import ioc.app.bachhoa.fm.CreateProduct;
  * create an instance of this fragment.
  */
 public class createBill_fm extends Fragment {
-CardView createProduct, position;
+CardView createProduct, position, makeBill;
 View view;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -73,10 +75,12 @@ View view;
         view = inflater.inflate(R.layout.fragment_home_fm, container, false);
         anhxa();
         addEvent();
+        AddEventToMakeBill();
         return view;
     }
 
     private void anhxa() {
+        makeBill = (CardView) view.findViewById(R.id.home_make_bill);
         final BottomNavigationView navigationView = getActivity().findViewById(R.id.navigation);
         createProduct = (CardView) view.findViewById(R.id.create_product);
 position = (CardView) view.findViewById(R.id.home_position);
@@ -111,6 +115,17 @@ position = (CardView) view.findViewById(R.id.home_position);
                 // Ẩn BottomNavigationView khi chuyển đổi đến Fragment khác
                 navigationView.setVisibility(View.GONE);
 
+            }
+        });
+
+    }
+    private void AddEventToMakeBill(){
+        makeBill.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), Make_Bill
+                        .class);
+                startActivity(intent);
             }
         });
 

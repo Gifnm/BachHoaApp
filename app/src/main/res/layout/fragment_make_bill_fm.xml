@@ -3,9 +3,62 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fm.MakeBill_fm">
 
     <!-- TODO: Update blank fragment layout -->
 
+    <com.budiyev.android.codescanner.CodeScannerView
+        android:id="@+id/scanner_view"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        app:autoFocusButtonColor="@color/white"
+        app:flashButtonColor="@color/white"
+        app:flashButtonVisible="true"
+        app:autoFocusButtonVisible="true"
+        app:maskColor="#6C000000"
+        />
+   <androidx.recyclerview.widget.RecyclerView
+       android:id="@+id/mb_list_view"
+       android:layout_below="@+id/scanner_view"
+       android:layout_above="@+id/mb_counter"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+
+       ></androidx.recyclerview.widget.RecyclerView>
+    <LinearLayout
+        android:layout_margin="5dp"
+        android:id="@+id/mb_counter"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/background"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tổng tiền: "
+            android:textSize="28sp"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/mb_fm_totalAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:textAlignment="textStart"
+            android:textSize="28sp"
+            android:textColor="@color/black"
+            android:layout_marginLeft="8dp" />
+
+        <ImageButton
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_baseline_local_printshop_24"
+             />
+
+    </LinearLayout>
 
 </RelativeLayout>

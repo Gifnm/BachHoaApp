@@ -12,6 +12,17 @@ public class BillDetail {
 
 	private float totalAmount;
 
+	public BillDetail(String billID, Bill bill, Product product, int quantity, float totalAmount) {
+		this.billID = billID;
+		this.bill = bill;
+		this.product = product;
+		this.quantity = quantity;
+		this.totalAmount = totalAmount;
+	}
+
+	public BillDetail() {
+	}
+
 	public String getId() {
 		return billID;
 	}
@@ -50,6 +61,11 @@ public class BillDetail {
 
 	public void setTotalAmount(float totalAmount) {
 		this.totalAmount = totalAmount;
+	}
+
+	public float countTotalAmount(){
+		return this.quantity * this.product.getPrice();
+
 	}
 
 }

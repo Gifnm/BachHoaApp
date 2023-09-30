@@ -172,7 +172,7 @@ public class CreateProduct extends Fragment {
 
     public void ScanCode() {
         ScanOptions scanOptions = new ScanOptions();
-        scanOptions.setPrompt("Volume up to flash on");
+        scanOptions.setPrompt("Quét mã Barcode và QR code");
         scanOptions.setBeepEnabled(true);
         scanOptions.setOrientationLocked(true);
         scanOptions.setCaptureActivity(CaptureAct.class);

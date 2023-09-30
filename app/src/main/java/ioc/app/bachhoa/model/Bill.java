@@ -11,6 +11,21 @@ public class Bill {
     private float totalAmount;
     private Timestamp timeCreate;
 
+	public Bill(String billID) {
+		this.billID = billID;
+	}
+
+	public Bill() {
+	}
+
+	public Bill(String billID, Store store, Employee employee, float totalAmount, Timestamp timeCreate) {
+		this.billID = billID;
+		this.store = store;
+		this.employee = employee;
+		this.totalAmount = totalAmount;
+		this.timeCreate = timeCreate;
+	}
+
 	public String getBillID() {
 		return billID;
 	}
