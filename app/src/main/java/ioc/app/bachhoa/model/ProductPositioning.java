@@ -3,13 +3,22 @@ package ioc.app.bachhoa.model;
 
 public class ProductPositioning {
 	private Integer id;
-
 	private DisplayPlatter displayPlatter;
 	private DisplayShelves displayShelves;
-
 	private Product product;
-
 	private int displayQuantity;
+private Store store;
+	public ProductPositioning(Integer id, DisplayPlatter displayPlatter, DisplayShelves displayShelves, Product product, int displayQuantity, Store store) {
+		this.id = id;
+		this.displayPlatter = displayPlatter;
+		this.displayShelves = displayShelves;
+		this.product = product;
+		this.displayQuantity = displayQuantity;
+		this.store = store;
+	}
+
+	public ProductPositioning() {
+	}
 
 	public Integer getId() {
 		return id;
@@ -51,4 +60,13 @@ public class ProductPositioning {
 		this.displayQuantity = displayQuantity;
 	}
 
+
+
+	public Store getStore() {
+		return store;
+	}
+
+	public void setStore(Store store) {
+		this.store = store;
+	}
 }

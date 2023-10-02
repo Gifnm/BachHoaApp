@@ -18,7 +18,8 @@
             android:id="@+id/ap_list_shelf"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:layout_weight="3"></Spinner>
+            android:layout_weight="3"
+            ></Spinner>
 
         <ImageButton
             android:id="@+id/ap_add_shelf"
@@ -52,15 +53,13 @@
 
         <TextView
             android:id="@+id/ap_pallter"
-            android:layout_width="60dp"
-            android:layout_height="48dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:background="@drawable/custom_edit_text"
-            android:hint="0"
             android:padding="8dp"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="@dimen/text_size_large"
-            android:textStyle="bold"
             ></TextView>
 
         <ImageButton
@@ -72,9 +71,15 @@
             android:id="@+id/ap_more_platter"
             android:layout_width="48dp"
             android:layout_height="48dp"
+
             android:src="@drawable/ic_baseline_plus_one_24"></ImageButton>
     </LinearLayout>
-
+<View
+    android:layout_width="match_parent"
+    android:layout_height="0.5dp"
+    android:background="@color/grey"
+    android:layout_above="@+id/ap_list_posstion"
+    />
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/ap_list_posstion"
         android:layout_width="match_parent"

@@ -2,9 +2,7 @@ package ioc.app.bachhoa.fm;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -40,11 +38,8 @@ import com.journeyapps.barcodescanner.ScanContract;
 import com.journeyapps.barcodescanner.ScanOptions;
 
 import java.io.File;
-import java.io.IOException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -53,6 +48,7 @@ import ioc.app.bachhoa.R;
 import ioc.app.bachhoa.api.APIService;
 import ioc.app.bachhoa.model.Categories;
 import ioc.app.bachhoa.model.Product;
+import ioc.app.bachhoa.model.Store;
 import ioc.app.bachhoa.ultil.CaptureAct;
 import ioc.app.bachhoa.ultil.RealPathUtil;
 import okhttp3.MediaType;
@@ -61,7 +57,6 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.http.Multipart;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -193,6 +188,8 @@ public class CreateProduct extends Fragment {
                 product.setImportPrice(Float.parseFloat(priceSell.getText().toString()));
                 product.setStatus(status.isSelected());
                 product.setVat(Integer.parseInt(vat.getText().toString()));
+                product.setStore(new Store(1));
+                product.setInventory(Integer.parseInt(quanity.getText().toString()));
 //                product.setNearestExpDate(exp);
                 product.setCategories(new Categories(categoryID));
                 String realPath = RealPathUtil.getRealPath(getContext(), muri);
@@ -203,8 +200,6 @@ public class CreateProduct extends Fragment {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
                         clearForm();
-
-
                     }
 
                     @Override
@@ -379,5 +374,8 @@ setCategories(categories);
         nameProduct.setText("");
         price.setText("");
         muri = null;
+        quanity.setText("");
+        priceSell.setText("");
+        img_selected.setBackgroundResource(R.drawable.ic_baseline_image_24);
     }
 }

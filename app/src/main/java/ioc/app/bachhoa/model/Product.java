@@ -19,6 +19,28 @@ public class Product {
 	private Boolean status;
 	private String image;
 	private float importPrice;
+	private Store  store;
+	private int inventory;
+	public Product() {
+	}
+
+	public Product(String productID, Categories categories, float price, int vat, Date nearestExpDate, String productName, Boolean status, String image, float importPrice, Store store, int inventory) {
+		this.productID = productID;
+		this.categories = categories;
+		this.price = price;
+		this.vat = vat;
+		this.nearestExpDate = nearestExpDate;
+		this.productName = productName;
+		this.status = status;
+		this.image = image;
+		this.importPrice = importPrice;
+		this.store = store;
+		this.inventory = inventory;
+	}
+
+	public Product(String productID) {
+		this.productID = productID;
+	}
 
 	public String getProductID() {
 		return productID;
@@ -91,6 +113,23 @@ public class Product {
 	public void setImportPrice(float importPrice) {
 		this.importPrice = importPrice;
 	}
+
+	public Store getStore() {
+		return store;
+	}
+
+	public void setStore(Store store) {
+		this.store = store;
+	}
+
+	public int getInventory() {
+		return inventory;
+	}
+
+	public void setInventory(int inventory) {
+		this.inventory = inventory;
+	}
+
 	//    @OneToMany(mappedBy = "product")
 //    private List<Warehouse> warehouses;
 //

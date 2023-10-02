@@ -13,7 +13,6 @@ import ioc.app.bachhoa.model.DisplayShelves;
 import ioc.app.bachhoa.model.Employee;
 import ioc.app.bachhoa.model.Product;
 import ioc.app.bachhoa.model.ProductPositioning;
-import ioc.app.bachhoa.tapAdapter.viewProduct_pm;
 import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -30,10 +29,12 @@ public interface APIService {
     String baseURL = "http:192.168.1.6:8083/bachhoa/api/";
     Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
     APIService apiService = new Retrofit.Builder().baseUrl(baseURL).addConverterFactory(GsonConverterFactory.create(gson)).build().create(APIService.class);
-
+// Employee API
     @GET("getembyid")
     Call<Employee> getEmployeeByID(@Query("id") Integer id);
 
+    @GET("login/{passW}/{user}")
+    Call<Employee> login(@Path("passW") String passW, @Path("user") int id);
     // create nhan vien
     @POST("insert")
     Call<Employee> createEmployee(@Body Employee employee);
@@ -65,7 +66,8 @@ public interface APIService {
     @GET("platter/getPlatters/{id}")
     Call<List<DisplayPlatter>> getListFlatter(@Path("id") int id);
 // Thêm một mâm mới
-
+@POST("platter/inserPlatter")
+Call<Void> insertPlatter(@Body DisplayPlatter displayPlatter);
     // BillAPI
     @POST("createBill")
     Call<Void> createBill(@Body Bill bill);
@@ -82,5 +84,7 @@ public interface APIService {
     // ProductPositoning API
     @GET("productPositioning/{shelfID}/{platterNb}/{storeID}")
     Call<List<ProductPositioning>> getLitsProductPoiton(@Path("shelfID") int shelfID, @Path("platterNb") int platterID, @Path("storeID") int storeID);
+    @POST("productPositioning/insert")
+        Call<ProductPositioning> insertProPosion(@Body ProductPositioning productPositioning);
 }
 

@@ -15,11 +15,20 @@
         android:textColor="@color/main_color"
         android:textSize="36sp"
         android:textStyle="bold" />
+    <TextView
+        android:id="@+id/lg_errol"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="#F44336"
+        ></TextView>
     <EditText
-        android:id="@+id/username"
+        android:id="@+id/lg_username"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginTop="40dp"
+
         android:background="@drawable/custom_background"
         android:drawableLeft="@drawable/ic_baseline_person_24"
         android:drawablePadding="8dp"
@@ -29,7 +38,7 @@
         android:textColor="@color/black"
         android:textColorHighlight="@color/cardview_dark_background" />
     <EditText
-        android:id="@+id/password"
+        android:id="@+id/lg_password"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="20dp"
@@ -43,7 +52,7 @@
         android:textColor="@color/black"
         android:textColorHighlight="@color/cardview_dark_background" />
     <Button
-        android:id="@+id/loginButton"
+        android:id="@+id/lg_loginButton"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginTop="30dp"

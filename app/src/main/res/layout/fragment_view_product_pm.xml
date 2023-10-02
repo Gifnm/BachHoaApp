@@ -5,35 +5,195 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".tapAdapter.viewProduct_pm"
-    android:background="@color/white">
+    android:background="@color/background"
+    >
 
 <LinearLayout
+    android:id="@+id/vp_search_product"
     android:layout_margin="8dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     >
     <EditText
+        android:id="@+id/vpo_seach"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="3"
         android:textColor="@color/black"
         android:hint="Nhập mã sản phẩm"
-        android:textColorHint="@color/grey"
+        android:textColorHint="#959090"
         android:textSize="@dimen/text_size_medium"
         android:background="@drawable/custom_edit_text"
         android:padding="12dp"
 />
 
     <ImageButton
+        android:id="@+id/vpo_scan"
         android:layout_marginLeft="8dp"
         android:layout_width="48dp"
         android:layout_height="48dp"
 android:textColor="@color/white"
         android:src="@drawable/ic_baseline_qr_code_scanner_24"
         android:drawableTint="@color/black"
-        android:background="@color/grey"
         />
 </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/vpo_product_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/vp_search_product"
+
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/vpo_shelf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Kệ: "
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_size_large"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/vpo_platter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="8dp"
+                android:text="Mâm: "
+                android:textColor="@color/purple_700"
+                android:textSize="@dimen/text_size_medium"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/vpo_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="8dp"
+                android:text="Vị trí: "
+                android:textColor="@color/orange"
+                android:textSize="@dimen/text_size_medium"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="8dp"
+                android:text="Trưng: "
+                android:textColor="@color/red"
+                android:textSize="@dimen/text_size_medium"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/vpo_quantity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="8dp"
+                android:text="SL: "
+                android:textColor="@color/purple_700"
+                android:textSize="@dimen/text_size_medium"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/vpo_inventory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="8dp"
+                android:text="Tồn: "
+                android:textColor="@color/green"
+                android:textSize="@dimen/text_size_medium"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <LinearLayout
+                android:layout_marginTop="12dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+                <ImageView
+                    android:id="@+id/vpo_img"
+                    android:layout_width="136dp"
+                    android:layout_height="136dp"
+                    android:src="@drawable/ic_baseline_image_24"
+                    >
+
+                </ImageView>
+                <Button
+                    android:id="@+id/vpo_print"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="In tem giá"
+                    android:background="@color/main_color"
+                    android:textColor="@color/white"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+                <TextView
+                    android:id="@+id/vpo_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/text_size_large"
+                    android:textColor="@color/black"
+                    android:text="GIẤY VỆ SINH KHÔNG LÕI PURI LỐC 12 CUỘN - 2 LỚP - 23M"
+                    />
+                <TextView
+                    android:id="@+id/vpo_barcode"
+                    android:layout_marginTop="12dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/text_size_medium"
+                    android:textColor="@color/black"
+                    android:text="Barcode: 89121140001228"
+                    />
+                <TextView
+                    android:id="@+id/vpo_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/text_size_medium"
+                    android:textColor="#3F51B5"
+                    android:text="KD bình thường"
+                    />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+    <View
+        android:id="@+id/line"
+        android:layout_below="@+id/vpo_product_info"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/grey"
+        />
+    <TextView
+        android:layout_below="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Báo thiếu hàng, xem sức bán"
+        android:textAlignment="center"
+        android:textColor="#3F51B5"
+        />
 
 </RelativeLayout>

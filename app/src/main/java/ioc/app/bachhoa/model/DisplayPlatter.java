@@ -4,6 +4,7 @@ package ioc.app.bachhoa.model;
 public class DisplayPlatter {
 	private int disPlaID;
 	private String rowName;
+	private Store store;
 
 	public int getDisPlaID() {
 		return disPlaID;
@@ -21,4 +22,11 @@ public class DisplayPlatter {
 		this.rowName = rowName;
 	}
 
+	public Store getStore() {
+		return store;
+	}
+
+	public void setStore(Store store) {
+		this.store = store;
+	}
 }

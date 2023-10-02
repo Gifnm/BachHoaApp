@@ -19,8 +19,8 @@ public class First_activity extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-                    Thread.sleep(3000);
-                    Intent intent = new Intent(First_activity.this, DangNhap.class);
+                    Thread.sleep(1000);
+                    Intent intent = new Intent(First_activity.this, MainActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
                 } catch (InterruptedException e) {

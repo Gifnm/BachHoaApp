@@ -1,5 +1,8 @@
 package ioc.app.bachhoa.fm;
 
+import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -7,19 +10,25 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.journeyapps.barcodescanner.ScanContract;
 import com.journeyapps.barcodescanner.ScanOptions;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ioc.app.bachhoa.Apdapter.PositionAdapter;
@@ -29,6 +38,7 @@ import ioc.app.bachhoa.R;
 import ioc.app.bachhoa.api.APIService;
 import ioc.app.bachhoa.model.DisplayPlatter;
 import ioc.app.bachhoa.model.DisplayShelves;
+import ioc.app.bachhoa.model.Product;
 import ioc.app.bachhoa.model.ProductPositioning;
 import ioc.app.bachhoa.model.Store;
 import ioc.app.bachhoa.ultil.CaptureAct;
@@ -45,16 +55,21 @@ public class AddPosition_fm extends Fragment {
     // Khai báo các biến cục bộ
     View view;
     Spinner shelfSpinner;
-    ImageButton addOneShelf, scan, prevous, next;
+    ImageButton addOneShelf, scan, prevous, next, addOnePlatter;
     TextView platterNumber;
     RecyclerView listPositionItem;
     List<DisplayShelves> listShelf;
     List<DisplayPlatter> displayPlatterList;
-    List<ProductPositioning> listPossitioning;
-    int index =0;
-    int indexShelf =0;
+    List<ProductPositioning> listPossitioning = new ArrayList<>();
+    int index = 0;
+    int indexShelf = 0;
     ShelfApdapter shelfApdapter;
     PositionAdapter positionAdapter;
+    DisplayShelves displShelfIsSelcted;
+    EditText indexOfProduct, quantityDi;
+    Button saveDia, cancelDia;
+    Dialog dialog = null;
+    String result;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -102,13 +117,11 @@ public class AddPosition_fm extends Fragment {
         // Inflate the layout for this fragment
         // Gắn giao diện cho đối tượng view
         view = inflater.inflate(R.layout.fragment_add_position_fm, container, false);
-        // Ánh xạ view
+        // Ánh xạ các view trong giao diện
+        // Tải dữ liệu ban đâu từ server
         uiInit();
-        // Lấy danh sách kệ
-        getListShelf();
-        getListPlatterFrom();
-        // set Adapter cho RecycleView
-        setAdapterList();
+
+
         return view;
     }
 
@@ -121,8 +134,47 @@ public class AddPosition_fm extends Fragment {
         prevous = (ImageButton) view.findViewById(R.id.ap_prevous);
         next = (ImageButton) view.findViewById(R.id.ap_next);
         platterNumber = (TextView) view.findViewById(R.id.ap_pallter);
-toNextRow();
-toPrevousRow();
+        addOnePlatter = (ImageButton) view.findViewById(R.id.ap_more_platter);
+        getListShelf();
+        getListPlatterFrom();
+        setAdapterList();
+        addEvent();
+        dialog = new Dialog(getContext());
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.index_and_quantity);
+
+        Window window = dialog.getWindow();
+        if (window == null) {
+
+            return;
+        }
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        WindowManager.LayoutParams winLayoutParams = window.getAttributes();
+        winLayoutParams.gravity = Gravity.CENTER;
+        window.setAttributes(winLayoutParams);
+        dialog.setCancelable(false);
+        indexOfProduct = dialog.findViewById(R.id.index_product);
+        quantityDi = dialog.findViewById(R.id.quantity_display);
+        saveDia = dialog.findViewById(R.id.btn_saveIndex);
+        cancelDia = dialog.findViewById(R.id.btn_cancel_index);
+        saveDia.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (quantityDi.getText().toString().isEmpty()) {
+                    Toast.makeText(getActivity(), "Nhập số lượng trưng bày", Toast.LENGTH_SHORT).show();
+                } else {
+                    insertPosition(result);
+                    dialog.dismiss();
+                }
+            }
+        });
+        cancelDia.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
     }
 
     // onDestroy: hàm này được gọi khi giao diện bị phá hủy
@@ -138,15 +190,22 @@ toPrevousRow();
             navigationView.setVisibility(View.VISIBLE);
         }
     }
-// Thêm một Kệ mới vào cơ sở dữ liệu
+
+    // Thêm một Kệ mới vào cơ sở dữ liệu
     private void insertShelf() {
+
         addOneShelf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                APIService.apiService.insertShelf(new DisplayShelves()).enqueue(new Callback<DisplayShelves>() {
+                DisplayShelves displayShelves = new DisplayShelves(listShelf.size(), "Kệ " + listShelf.size(), new Store(1));
+                APIService.apiService.insertShelf(displayShelves).enqueue(new Callback<DisplayShelves>() {
                     @Override
                     public void onResponse(Call<DisplayShelves> call, Response<DisplayShelves> response) {
 
+                        listShelf.add(displayShelves);
+                        indexShelf = listShelf.size() - 1;
+                        shelfSpinner.setSelection(indexShelf);
+                        shelfApdapter.setChangeData(listShelf);
                     }
 
                     @Override
@@ -157,15 +216,18 @@ toPrevousRow();
             }
         });
     }
-// Lấy danh sách kệ hiện có
+
+    // Lấy danh sách kệ hiện có
     private List<DisplayShelves> getListShelf() {
         List<DisplayShelves> shelvesList = null;
         APIService.apiService.getshelfs(1).enqueue(new Callback<List<DisplayShelves>>() {
             @Override
             public void onResponse(Call<List<DisplayShelves>> call, Response<List<DisplayShelves>> response) {
                 List<DisplayShelves> list = response.body();
-//                list.add(new DisplayShelves(0, "Chọn kệ", null));
+                list.add(0, new DisplayShelves(0, "Chọn kệ", null));
+                listShelf = list;
                 setShelfSpinner(list);
+
             }
 
             @Override
@@ -176,28 +238,32 @@ toPrevousRow();
         return shelvesList;
 
     }
-// Gắng danh sách kệ vào Spinner
-    private void setShelfSpinner(List<DisplayShelves> displayShelves) {
-        shelfApdapter = new ShelfApdapter(getContext(), R.layout.item_shelf_selected, displayShelves);
-        shelfSpinner.setAdapter(shelfApdapter);
-        shelfSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+    private void getListPlatter(List<DisplayPlatter> list) {
+        displayPlatterList = list;
+        platterNumber.setText(displayPlatterList.get(index).getRowName());
+    }
+    // Thêm một kệ mới
+
+
+    private void getLitsProductPoiton(int shelfid, int platterID, int storeID) {
+        APIService.apiService.getLitsProductPoiton(shelfid, platterID, storeID).enqueue(new Callback<List<ProductPositioning>>() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                // Xử lý khi một mục được chọn
-                DisplayShelves displayShelves1 = shelfApdapter.getItem(position);
-                if(!displayShelves1.getShelfName().equals("Chọn kệ")){
-
-                }
-
+            public void onResponse(Call<List<ProductPositioning>> call, Response<List<ProductPositioning>> response) {
+                listPossitioning = response.body();
+                positionAdapter.setData(listPossitioning);
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                // Xử lý khi không có mục nào được chọn
+            public void onFailure(Call<List<ProductPositioning>> call, Throwable t) {
+
             }
         });
+
     }
-// Lấy danh sách mâm của cửa hàng
+
+
+    // Lấy danh sách mâm của cửa hàng
     private void getListPlatterFrom() {
         APIService.apiService.getListFlatter(1).enqueue(new Callback<List<DisplayPlatter>>() {
             @Override
@@ -216,46 +282,42 @@ toPrevousRow();
             }
         });
     }
-private void getListPlatter(List<DisplayPlatter> list){
-displayPlatterList = list;
-platterNumber.setText(displayPlatterList.get(index).getRowName());}
-private void toNextRow(){
 
-        next.setOnClickListener(new View.OnClickListener() {
+    // Gắng danh sách kệ vào Spinner
+    private void setShelfSpinner(List<DisplayShelves> displayShelves) {
+        shelfApdapter = new ShelfApdapter(getContext(), R.layout.item_shelf_selected, displayShelves);
+        shelfSpinner.setAdapter(shelfApdapter);
+        shelfSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onClick(View v) {
-               if(index<displayPlatterList.size()){
-                   index++;
-                   platterNumber.setText(displayPlatterList.get(index).getRowName());
-               }
-            }
-        });
-}
-private void toPrevousRow(){
-        prevous.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(index>0){
-                    index++;
-                    platterNumber.setText(displayPlatterList.get(index).getRowName());
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                // Xử lý khi một mục được chọn
+                DisplayShelves displayShelves1 = shelfApdapter.getItem(position);
+                displShelfIsSelcted = displayShelves1;
+                indexShelf = position;
+                if (!displayShelves1.getShelfName().equals("Chọn kệ")) {
+                    getLitsProductPoiton(displayShelves1.getDisSheID(), displayPlatterList.get(index).getDisPlaID(), 1);
                 }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Xử lý khi không có mục nào được chọn
             }
         });
-}
-// Thêm một kệ mới
-private void AddShelf(){
+    }
+
+    private void AddShelf() {
         addOneShelf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DisplayShelves displayShelves = new DisplayShelves(listShelf.size(),"Kệ "+ listShelf.size(),new Store(1));
+                DisplayShelves displayShelves = new DisplayShelves(listShelf.size(), "Kệ " + listShelf.size(), new Store(1));
                 APIService.apiService.insertShelf(displayShelves).enqueue(new Callback<DisplayShelves>() {
                     @Override
                     public void onResponse(Call<DisplayShelves> call, Response<DisplayShelves> response) {
                         listShelf.add(displayShelves);
                         shelfApdapter.setChangeData(listShelf);
                         shelfSpinner.setSelection(listShelf.size());
-
-
                     }
 
                     @Override
@@ -267,39 +329,69 @@ private void AddShelf(){
             }
         });
 
-}
-private void getLitsProductPoiton(int shelfid, int platterID,int storeID){
-APIService.apiService.getLitsProductPoiton(shelfid,platterID,storeID).enqueue(new Callback<List<ProductPositioning>>() {
-    @Override
-    public void onResponse(Call<List<ProductPositioning>> call, Response<List<ProductPositioning>> response) {
-positionAdapter.setData(response.body());
     }
 
-    @Override
-    public void onFailure(Call<List<ProductPositioning>> call, Throwable t) {
+    private void insertPlatter() {
+        addOnePlatter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DisplayPlatter displayPlatter = new DisplayPlatter();
+                displayPlatter.setDisPlaID(displayPlatterList.size() + 1);
+                displayPlatter.setRowName("Mâm " + (displayPlatterList.size() + 1));
+                displayPlatter.setStore(new Store(1));
+                APIService.apiService.insertPlatter(displayPlatter).enqueue(new Callback<Void>() {
+                    @Override
+                    public void onResponse(Call<Void> call, Response<Void> response) {
+                        displayPlatterList.add(displayPlatter);
+                        platterNumber.setText(displayPlatter.getRowName());
+                        index = displayPlatterList.size() - 1;
+                        listPossitioning.clear();
+                        positionAdapter.setData(listPossitioning);
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<Void> call, Throwable t) {
+
+                    }
+                });
+            }
+        });
 
     }
-});
 
-}
-private void setAdapterList(){
-positionAdapter = new PositionAdapter(getContext());
-    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(),RecyclerView.VERTICAL,false);
-    listPositionItem.setLayoutManager(linearLayoutManager);
-    listPositionItem.setAdapter(positionAdapter);
-}
+    private void addEvent() {
+        insertShelf();
+        addPositionByScan();
+        toNextRow();
+        toPrevousRow();
+        insertPlatter();
+    }
 
-private void addPositionByScan(){
+    private void setAdapterList() {
+        positionAdapter = new PositionAdapter(getContext());
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
+        listPositionItem.setLayoutManager(linearLayoutManager);
+        listPositionItem.setAdapter(positionAdapter);
+    }
+
+    private void addPositionByScan() {
         scan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ScanCode();
+
+                if (!(indexShelf == 0)) {
+                    ScanCode();
+                } else {
+                    Toast.makeText(getActivity(), "Hãy chọn kệ!", Toast.LENGTH_SHORT).show();
+
+                }
             }
 
 
         });
+    }
 
-}
     private void ScanCode() {
         ScanOptions scanOptions = new ScanOptions();
         scanOptions.setPrompt("Quét mã Barcode và QR code");
@@ -308,12 +400,71 @@ private void addPositionByScan(){
         scanOptions.setCaptureActivity(CaptureAct.class);
         activityResultLauncher.launch(scanOptions);
     }
+
     ActivityResultLauncher<ScanOptions> activityResultLauncher = registerForActivityResult(new ScanContract(), result -> {
         if (result.getContents() != null) {
-            //barcode.setText(result.getContents());
-            // Nhận barcode và thêm vị trí
-
+            this.result = result.getContents();
+            OpenDialog();
         }
-
     });
+
+    private void toNextRow() {
+
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (indexShelf != 0) {
+                    if (index < displayPlatterList.size()) {
+                        index++;
+                        platterNumber.setText(displayPlatterList.get(index).getRowName());
+                        getLitsProductPoiton(displShelfIsSelcted.getDisSheID(), displayPlatterList.get(index).getDisPlaID(), 1);
+                    }
+                } else {
+
+                    Toast.makeText(getActivity(), "Hãy chọn kệ:", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+
+        });
+    }
+
+    private void toPrevousRow() {
+        prevous.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (indexShelf != 0) {
+                    if (index > 0) {
+                        index--;
+                        platterNumber.setText(displayPlatterList.get(index).getRowName());
+                        getLitsProductPoiton(displShelfIsSelcted.getDisSheID(), displayPlatterList.get(index).getDisPlaID(), 1);
+                    }
+                } else {
+                    Toast.makeText(getActivity(), "Hãy chọn kệ", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    private void insertPosition(String produtID) {
+        ProductPositioning productPositioning = new ProductPositioning(1, displayPlatterList.get(index), listShelf.get(indexShelf), new Product(produtID), Integer.parseInt(quantityDi.getText().toString()), new Store(1));
+        APIService.apiService.insertProPosion(productPositioning).enqueue(new Callback<ProductPositioning>() {
+            @Override
+            public void onResponse(Call<ProductPositioning> call, Response<ProductPositioning> response) {
+
+                listPossitioning.add(response.body());
+                positionAdapter.setData(listPossitioning);
+            }
+
+            @Override
+            public void onFailure(Call<ProductPositioning> call, Throwable t) {
+
+            }
+        });
+
+    }
+
+    private void OpenDialog() {
+        dialog.show();
+    }
 }
