@@ -13,4 +13,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="main_color">#1877F2</color>
     <color name="background">#F5F5F5</color>
+    <color name="yellow">#FFEB3B</color>
 </resources>
