@@ -31,8 +31,9 @@
             android:id="@+id/mb_scan"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:background="@drawable/custom_edit_text"
-            android:src="@drawable/ic_baseline_qr_code_scanner_24"></ImageButton>
+            android:layout_marginLeft="8dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/scan_barcode_svgrepo_com"></ImageButton>
     </LinearLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:layout_below="@+id/mb_find_produt"

@@ -16,9 +16,9 @@ public class fragmentPagerAdapter extends FragmentPagerAdapter {
         switch (position){
 
             case 0:
-                return new displayProduct_pm();
+                return new createBill_fm();
             case 1:
-                return  new createBill_fm();
+                return  new displayProduct_pm();
             case 2: return  new acount_fm();
             default: return new createBill_fm();
         }

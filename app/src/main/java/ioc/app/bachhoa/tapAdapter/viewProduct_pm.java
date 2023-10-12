@@ -1,9 +1,12 @@
 package ioc.app.bachhoa.tapAdapter;
 
+import android.Manifest;
 import android.os.Bundle;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,10 +21,17 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.journeyapps.barcodescanner.ScanContract;
 import com.journeyapps.barcodescanner.ScanOptions;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionDeniedResponse;
+import com.karumi.dexter.listener.PermissionGrantedResponse;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.single.PermissionListener;
 
 import ioc.app.bachhoa.R;
 import ioc.app.bachhoa.api.ProductPositionService;
 import ioc.app.bachhoa.api.ProductService;
+import ioc.app.bachhoa.fm.ProductInfo_fm;
 import ioc.app.bachhoa.model.Product;
 import ioc.app.bachhoa.model.ProductPositioning;
 import ioc.app.bachhoa.ultil.CaptureAct;
@@ -37,9 +47,7 @@ import retrofit2.Response;
 public class viewProduct_pm extends Fragment {
     // Khai bao cac bien dung de anh xa giao dien
     ImageButton scan;
-    ImageView img;
-    TextView shelf, platter, location, quantity, inventory, status, nameOfProd, barcode;
-    Button print;
+
     EditText editText;
     // Bien view dung de anh xa giao dien
     View view;
@@ -95,21 +103,34 @@ public class viewProduct_pm extends Fragment {
 
     // Phuong thưc anh xa giao dien va khoi tao giao dien ban dau
     private void uiInit() {
-        img = view.findViewById(R.id.vpo_img);
+
         scan = view.findViewById(R.id.vpo_scan);
-        print = view.findViewById((R.id.vpo_print));
-        shelf = view.findViewById(R.id.vpo_shelf);
-        platter = view.findViewById(R.id.vpo_platter);
-        location = view.findViewById(R.id.vpo_location);
-        quantity = view.findViewById(R.id.vpo_quantity);
-        inventory = view.findViewById(R.id.vpo_inventory);
-        nameOfProd = view.findViewById(R.id.vpo_name);
-        barcode = view.findViewById(R.id.vpo_barcode);
+
 
     }
 
     private void AddEvent() {
-scanCode();
+        Scancode();
+    }
+
+    private void checkPermission() {
+        Dexter.withContext(getContext()).withPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE).withListener(new PermissionListener() {
+            @Override
+            public void onPermissionGranted(PermissionGrantedResponse permissionGrantedResponse) {
+
+            }
+
+            @Override
+            public void onPermissionDenied(PermissionDeniedResponse permissionDeniedResponse) {
+
+            }
+
+            @Override
+            public void onPermissionRationaleShouldBeShown(PermissionRequest permissionRequest, PermissionToken permissionToken) {
+                permissionToken.continuePermissionRequest();
+            }
+        }).check();
+
 
     }
 
@@ -117,7 +138,7 @@ scanCode();
         scan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-scanCode();
+                scanCode();
             }
         });
 
@@ -136,29 +157,48 @@ scanCode();
     }
 
     ActivityResultLauncher<ScanOptions> activityResultLauncher = registerForActivityResult(new ScanContract(), result -> {
-
-        findLocation(result.getContents());
+        if (result.getContents() != null) {
+            findLocation(result.getContents());
+        }
     });
 
     private void findLocation(String id) {
         //  ProductPositionService.apiService.f
-        ProductPositionService.apiService.findByProductID(id,1).enqueue(new Callback<ProductPositioning>() {
+        ProductPositionService.apiService.findByProductID(id, 1).enqueue(new Callback<ProductPositioning>() {
             @Override
             public void onResponse(Call<ProductPositioning> call, Response<ProductPositioning> response) {
                 if (response.body() != null) {
                     ProductPositioning proPosition = response.body();
-                    shelf.setText("Kệ: " + proPosition.getDisplayShelves().getDisSheID());
-                    platter.setText("Mâm: " + proPosition.getDisplayPlatter().getDisPlaID());
-                    location.setText("Vị trí: " + proPosition.getId());
-                    quantity.setText("SL: " + proPosition.getDisplayQuantity());
-                    inventory.setText("Tồn: " + proPosition.getProduct().getInventory());
-                    nameOfProd.setText(proPosition.getProduct().getProductName());
-                    barcode.setText("Barcode: " + proPosition.getProduct().getProductID());
-                    status.setText(proPosition.getProduct().getStatus() ? "KD bình thường" : "Ngưng kinh doanh");
-                    Glide.with(getContext())
-                            .load(proPosition.getProduct().getImage())
-                            .error(R.drawable.ic_baseline_cloud_download_24)
-                            .into(img);
+                    // Gắn fragment để hiển thị thông tin sản phẩm
+                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    ProductInfo_fm productInfo_fm = new ProductInfo_fm();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("shelf","Kệ: " + proPosition.getDisplayShelves().getDisSheID());
+                    bundle.putString("platter","Mâm: " + proPosition.getDisplayPlatter().getDisPlaID());
+                    bundle.putString("location","Vị trí: " + proPosition.getId());
+                    bundle.putString("quantity", "SL: " + proPosition.getDisplayQuantity());
+                    bundle.putString("inventory","Tồn: " + proPosition.getProduct().getInventory() );
+                    bundle.putString("name", proPosition.getProduct().getProductName());
+                    bundle.putString("barcode","Barcode: " + proPosition.getProduct().getProductID() );
+                    bundle.putString("status", proPosition.getProduct().getStatus() ? "KD bình thường" : "Ngưng kinh doanh");
+                    bundle.putString("image",proPosition.getProduct().getImage() );
+                    productInfo_fm.setArguments(bundle);
+                    fragmentTransaction.replace(R.id.vpo_product_info,productInfo_fm);
+                    fragmentTransaction.commit();
+
+                  // productInfo_fm.getShelf().setText("Kệ: " + proPosition.getDisplayShelves().getDisSheID());
+//                    productInfo_fm.getPlatter().setText("Mâm: " + proPosition.getDisplayPlatter().getDisPlaID());
+//                    productInfo_fm.getLocation().setText("Vị trí: " + proPosition.getId());
+//                    productInfo_fm.getQuantity().setText("SL: " + proPosition.getDisplayQuantity());
+//                    productInfo_fm.getInventory().setText("Tồn: " + proPosition.getProduct().getInventory());
+//                    productInfo_fm.getNameOfProd().setText(proPosition.getProduct().getProductName());
+//                    productInfo_fm.getBarcode().setText("Barcode: " + proPosition.getProduct().getProductID());
+//                    productInfo_fm.getStatus().setText(proPosition.getProduct().getStatus() ? "KD bình thường" : "Ngưng kinh doanh");
+//                    Glide.with(getContext())
+//                            .load(proPosition.getProduct().getImage())
+//                            .error(R.drawable.ic_baseline_cloud_download_24)
+//                            .into(productInfo_fm.getImg());
                 } else {
                     findProduct(id);
 
@@ -180,19 +220,25 @@ scanCode();
                 if (response.isSuccessful()) {
                     if (response.body() != null) {
                         Product product = response.body();
-                        nameOfProd.setText(product.getProductName());
-                        barcode.setText("Barcode: " + product.getProductID());
-                        inventory.setText("Tồn: " + product.getInventory());
-                        status.setText(product.getStatus() ? "KD bình thường" : "Ngưng kinh doanh");
+                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        ProductInfo_fm productInfo_fm = new ProductInfo_fm();
+                        fragmentTransaction.replace(R.id.vpo_product_info,productInfo_fm);
+                        productInfo_fm.getNameOfProd().setText(product.getProductName());
+                        productInfo_fm.getBarcode().setText("Barcode: " + product.getProductID());
+                        productInfo_fm.getInventory().setText("Tồn: " + product.getInventory());
+                        productInfo_fm.getStatus().setText(product.getStatus() ? "KD bình thường" : "Ngưng kinh doanh");
                         Glide.with(getContext())
                                 .load(product.getImage())
                                 .error(R.drawable.ic_baseline_cloud_download_24)
-                                .into(img);
+                                .into(productInfo_fm.getImg());
+                        fragmentTransaction.commit();
                     } else {
                         Toast.makeText(getActivity(), "Sản phẩm không tồn tại!", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
+
             @Override
             public void onFailure(Call<Product> call, Throwable t) {
 

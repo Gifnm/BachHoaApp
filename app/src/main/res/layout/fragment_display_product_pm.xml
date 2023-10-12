@@ -17,10 +17,14 @@
     <com.google.android.material.tabs.TabLayout
 
         android:id="@+id/tap"
+        android:background="@color/main_color"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/main_color"
+        app:tabBackground="@color/tab_selected"
         app:tabMode="scrollable"
-        app:tabTextColor="@color/white"></com.google.android.material.tabs.TabLayout>
+        app:tabTextColor="@color/white"
+        app:tabSelectedTextColor="@color/black"
+
+        ></com.google.android.material.tabs.TabLayout>
 
 </RelativeLayout>

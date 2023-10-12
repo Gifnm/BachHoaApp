@@ -12,7 +12,6 @@ android {
         targetSdk 33
         versionCode 1
         versionName "1.0"
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -22,10 +21,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
 }
 
 dependencies {
@@ -45,4 +46,6 @@ dependencies {
     implementation 'com.github.yuriy-budiyev:code-scanner:2.3.2'
     implementation 'com.karumi:dexter:6.2.3'
     implementation 'com.github.bumptech.glide:glide:4.16.0'
+    implementation 'com.itextpdf:itext7-core:7.1.15'
+//    implementation 'com.itextpdf:itextpdf:5.5.13.2'
 }

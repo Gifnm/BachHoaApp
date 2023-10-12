@@ -29,12 +29,14 @@ public interface APIService {
     String baseURL = "http:192.168.1.6:8083/bachhoa/api/";
     Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
     APIService apiService = new Retrofit.Builder().baseUrl(baseURL).addConverterFactory(GsonConverterFactory.create(gson)).build().create(APIService.class);
-// Employee API
+
+    // Employee API
     @GET("getembyid")
     Call<Employee> getEmployeeByID(@Query("id") Integer id);
 
     @GET("login/{passW}/{user}")
     Call<Employee> login(@Path("passW") String passW, @Path("user") int id);
+
     // create nhan vien
     @POST("insert")
     Call<Employee> createEmployee(@Body Employee employee);
@@ -65,9 +67,11 @@ public interface APIService {
     // Lấy danh sách mâm hiện có tại cửa hàng
     @GET("platter/getPlatters/{id}")
     Call<List<DisplayPlatter>> getListFlatter(@Path("id") int id);
-// Thêm một mâm mới
-@POST("platter/inserPlatter")
-Call<Void> insertPlatter(@Body DisplayPlatter displayPlatter);
+
+    // Thêm một mâm mới
+    @POST("platter/inserPlatter")
+    Call<Void> insertPlatter(@Body DisplayPlatter displayPlatter);
+
     // BillAPI
     @POST("createBill")
     Call<Void> createBill(@Body Bill bill);
@@ -84,7 +88,8 @@ Call<Void> insertPlatter(@Body DisplayPlatter displayPlatter);
     // ProductPositoning API
     @GET("productPositioning/{shelfID}/{platterNb}/{storeID}")
     Call<List<ProductPositioning>> getLitsProductPoiton(@Path("shelfID") int shelfID, @Path("platterNb") int platterID, @Path("storeID") int storeID);
+
     @POST("productPositioning/insert")
-        Call<ProductPositioning> insertProPosion(@Body ProductPositioning productPositioning);
+    Call<ProductPositioning> insertProPosion(@Body ProductPositioning productPositioning);
 }
 

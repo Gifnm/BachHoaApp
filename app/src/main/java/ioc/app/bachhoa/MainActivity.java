@@ -35,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
         fragmentPagerAdapter = new fragmentPagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         viewPager.setAdapter(fragmentPagerAdapter);
-        bottomNavigationView.getMenu().findItem(R.id.home_item).setChecked(true);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -46,10 +45,10 @@ public class MainActivity extends AppCompatActivity {
             public void onPageSelected(int position) {
                 switch (position) {
                     case 0:
-                        bottomNavigationView.getMenu().findItem(R.id.count_item).setChecked(true);
+                        bottomNavigationView.getMenu().findItem(R.id.home).setChecked(true);
                         break;
                     case 1:
-                        bottomNavigationView.getMenu().findItem(R.id.home_item).setChecked(true);
+                        bottomNavigationView.getMenu().findItem(R.id.count_item).setChecked(true);
                         break;
                     case 2:
                         bottomNavigationView.getMenu().findItem(R.id.account_item).setChecked(true);
@@ -68,10 +67,10 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
 
-                    case R.id.count_item:
+                    case R.id.home:
                         viewPager.setCurrentItem(0);
                         break;
-                    case R.id.home_item:
+                    case R.id.count_item:
                         viewPager.setCurrentItem(1);
                         break;
                     case R.id.account_item:

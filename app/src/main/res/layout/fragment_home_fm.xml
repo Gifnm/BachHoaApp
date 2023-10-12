@@ -101,7 +101,7 @@
                 <ImageView
                     android:layout_width="32dp"
                     android:layout_height="32dp"
-                    android:src="@drawable/sell"></ImageView>
+                    android:src="@drawable/barcode_scanner_svgrepo_com"></ImageView>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -130,7 +130,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/cash_back"></ImageView>
+                    android:src="@drawable/return_svgrepo_com"></ImageView>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -168,7 +168,7 @@ app:cardBackgroundColor="@color/white"
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/receipt"></ImageView>
+                        android:src="@drawable/timeline_svgrepo_com"></ImageView>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -197,7 +197,7 @@ app:cardBackgroundColor="@color/white"
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/create_product"></ImageView>
+                        android:src="@drawable/products_supermarket_svgrepo_com"></ImageView>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -256,7 +256,7 @@ app:cardBackgroundColor="@color/white"
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/shefl"></ImageView>
+                        android:src="@drawable/shelf_svgrepo_com"></ImageView>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -267,6 +267,7 @@ app:cardBackgroundColor="@color/white"
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
             <androidx.cardview.widget.CardView
+                android:id="@+id/home_create_RP"
                 android:layout_weight="1"
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
@@ -284,7 +285,7 @@ app:cardBackgroundColor="@color/white"
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/teamwork"></ImageView>
+                        android:src="@drawable/work_svgrepo_com"></ImageView>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -313,24 +314,13 @@ app:cardBackgroundColor="@color/white"
                 app:cardBackgroundColor="@color/white"
                 >
 
-                <LinearLayout
+                <TextView
                     android:padding="5dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/forklift"></ImageView>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Châm hàng"
-                        android:textSize="@dimen/text_size_medium"
-                        android:textColor="@color/black"></TextView>
-                </LinearLayout>
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableTop="@drawable/cart_shop_sell_buy_svgrepo_com"
+                    android:text="Châm hàng"
+                    />
             </androidx.cardview.widget.CardView>
             <androidx.cardview.widget.CardView
                 android:layout_weight="1"
@@ -350,7 +340,7 @@ app:cardBackgroundColor="@color/white"
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/expiry_date"></ImageView>
+                        android:src="@drawable/date_alt_cross_svgrepo_com"></ImageView>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -397,7 +387,7 @@ app:cardBackgroundColor="@color/white"
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/printer"></ImageView>
+                        android:src="@drawable/printer_svg"></ImageView>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -425,7 +415,7 @@ app:cardBackgroundColor="@color/white"
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/transaction"></ImageView>
+                        android:src="@drawable/bill_invoice_payment_receipt_billing_svgrepo_com"></ImageView>
 
                     <TextView
                         android:layout_width="wrap_content"

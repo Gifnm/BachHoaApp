@@ -2,71 +2,71 @@ package ioc.app.bachhoa.model;
 
 
 public class ProductPositioning {
-	private Integer id;
-	private DisplayPlatter displayPlatter;
-	private DisplayShelves displayShelves;
-	private Product product;
-	private int displayQuantity;
-private Store store;
-	public ProductPositioning(Integer id, DisplayPlatter displayPlatter, DisplayShelves displayShelves, Product product, int displayQuantity, Store store) {
-		this.id = id;
-		this.displayPlatter = displayPlatter;
-		this.displayShelves = displayShelves;
-		this.product = product;
-		this.displayQuantity = displayQuantity;
-		this.store = store;
-	}
+    private Integer id;
+    private DisplayPlatter displayPlatter;
+    private DisplayShelves displayShelves;
+    private Product product;
+    private int displayQuantity;
+    private Store store;
 
-	public ProductPositioning() {
-	}
+    public ProductPositioning(Integer id, DisplayPlatter displayPlatter, DisplayShelves displayShelves, Product product, int displayQuantity, Store store) {
+        this.id = id;
+        this.displayPlatter = displayPlatter;
+        this.displayShelves = displayShelves;
+        this.product = product;
+        this.displayQuantity = displayQuantity;
+        this.store = store;
+    }
 
-	public Integer getId() {
-		return id;
-	}
+    public ProductPositioning() {
+    }
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public DisplayPlatter getDisplayPlatter() {
-		return displayPlatter;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public void setDisplayPlatter(DisplayPlatter displayPlatter) {
-		this.displayPlatter = displayPlatter;
-	}
+    public DisplayPlatter getDisplayPlatter() {
+        return displayPlatter;
+    }
 
-	public DisplayShelves getDisplayShelves() {
-		return displayShelves;
-	}
+    public void setDisplayPlatter(DisplayPlatter displayPlatter) {
+        this.displayPlatter = displayPlatter;
+    }
 
-	public void setDisplayShelves(DisplayShelves displayShelves) {
-		this.displayShelves = displayShelves;
-	}
+    public DisplayShelves getDisplayShelves() {
+        return displayShelves;
+    }
 
-	public Product getProduct() {
-		return product;
-	}
+    public void setDisplayShelves(DisplayShelves displayShelves) {
+        this.displayShelves = displayShelves;
+    }
 
-	public void setProduct(Product product) {
-		this.product = product;
-	}
+    public Product getProduct() {
+        return product;
+    }
 
-	public int getDisplayQuantity() {
-		return displayQuantity;
-	}
+    public void setProduct(Product product) {
+        this.product = product;
+    }
 
-	public void setDisplayQuantity(int displayQuantity) {
-		this.displayQuantity = displayQuantity;
-	}
+    public int getDisplayQuantity() {
+        return displayQuantity;
+    }
+
+    public void setDisplayQuantity(int displayQuantity) {
+        this.displayQuantity = displayQuantity;
+    }
 
 
+    public Store getStore() {
+        return store;
+    }
 
-	public Store getStore() {
-		return store;
-	}
-
-	public void setStore(Store store) {
-		this.store = store;
-	}
+    public void setStore(Store store) {
+        this.store = store;
+    }
 }

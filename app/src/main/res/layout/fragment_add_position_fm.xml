@@ -25,7 +25,7 @@
             android:id="@+id/ap_add_shelf"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:background="@color/grey"
+
             android:src="@drawable/ic_baseline_plus_one_24"
             android:layout_marginRight="8dp"
             />
@@ -33,8 +33,8 @@
             android:id="@+id/ap_scan"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:background="@color/grey"
-            android:src="@drawable/ic_baseline_qr_code_scanner_24" />
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/scan_barcode_svgrepo_com" />
     </LinearLayout>
 
     <LinearLayout

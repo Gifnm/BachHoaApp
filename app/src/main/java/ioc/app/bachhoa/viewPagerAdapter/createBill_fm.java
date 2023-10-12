@@ -14,8 +14,10 @@ import android.view.ViewGroup;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import ioc.app.bachhoa.MainActivity;
 import ioc.app.bachhoa.Make_Bill;
 import ioc.app.bachhoa.R;
+import ioc.app.bachhoa.ReplenishmentPeriod;
 import ioc.app.bachhoa.fm.AccountDetail;
 import ioc.app.bachhoa.fm.AddPosition_fm;
 import ioc.app.bachhoa.fm.CreateProduct;
@@ -26,8 +28,8 @@ import ioc.app.bachhoa.fm.CreateProduct;
  * create an instance of this fragment.
  */
 public class createBill_fm extends Fragment {
-CardView createProduct, position, makeBill;
-View view;
+    CardView createProduct, position, makeBill, create_RP;
+    View view;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -80,10 +82,11 @@ View view;
     }
 
     private void anhxa() {
+        create_RP = (CardView) view.findViewById(R.id.home_create_RP);
         makeBill = (CardView) view.findViewById(R.id.home_make_bill);
         final BottomNavigationView navigationView = getActivity().findViewById(R.id.navigation);
         createProduct = (CardView) view.findViewById(R.id.create_product);
-position = (CardView) view.findViewById(R.id.home_position);
+        position = (CardView) view.findViewById(R.id.home_position);
         createProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,9 +103,11 @@ position = (CardView) view.findViewById(R.id.home_position);
         });
 
     }
-    private void addEvent(){
+
+    private void addEvent() {
         position.setOnClickListener(new View.OnClickListener() {
             final BottomNavigationView navigationView = getActivity().findViewById(R.id.navigation);
+
             @Override
             public void onClick(View v) {
                 FragmentManager fragmentManager = getFragmentManager();
@@ -118,8 +123,10 @@ position = (CardView) view.findViewById(R.id.home_position);
             }
         });
 
+        addEventToCreateRP();
     }
-    private void AddEventToMakeBill(){
+
+    private void AddEventToMakeBill() {
         makeBill.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -131,4 +138,13 @@ position = (CardView) view.findViewById(R.id.home_position);
 
     }
 
+    private void addEventToCreateRP() {
+        create_RP.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ReplenishmentPeriod.class);
+                startActivity(intent);
+            }
+        });
+    }
 }

@@ -414,7 +414,7 @@ public class AddPosition_fm extends Fragment {
             @Override
             public void onClick(View v) {
                 if (indexShelf != 0) {
-                    if (index < displayPlatterList.size()) {
+                    if (index < displayPlatterList.size()-1) {
                         index++;
                         platterNumber.setText(displayPlatterList.get(index).getRowName());
                         getLitsProductPoiton(displShelfIsSelcted.getDisSheID(), displayPlatterList.get(index).getDisPlaID(), 1);

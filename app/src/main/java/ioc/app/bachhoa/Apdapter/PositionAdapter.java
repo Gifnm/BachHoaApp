@@ -41,7 +41,7 @@ public class PositionAdapter extends RecyclerView.Adapter<PositionAdapter.Positi
         }
         holder.shelf.setText(productPositioning.getDisplayShelves().getDisSheID() + "");
         holder.barcode.setText(productPositioning.getProduct().getProductID());
-        holder.locaion.setText(productPositioning.getId());
+        holder.locaion.setText(productPositioning.getId()+"");
         holder.nameOfProduct.setText(productPositioning.getProduct().getProductName());
         holder.quanity.setText(productPositioning.getDisplayQuantity() + "");
         Glide.with(context)
@@ -81,7 +81,7 @@ public class PositionAdapter extends RecyclerView.Adapter<PositionAdapter.Positi
 
         public PositionHolder(@NonNull View itemView) {
             super(itemView);
-            delete.findViewById(R.id.ip_delete);
+            delete = itemView.findViewById(R.id.ip_delete);
             shelf = itemView.findViewById(R.id.ip_shelf);
             locaion = itemView.findViewById(R.id.ip_locaion);
             quanity = itemView.findViewById(R.id.ip_quanity);
