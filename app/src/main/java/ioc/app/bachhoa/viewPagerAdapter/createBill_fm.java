@@ -144,6 +144,7 @@ public class createBill_fm extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), ReplenishmentPeriod.class);
                 startActivity(intent);
+
             }
         });
     }

@@ -97,7 +97,8 @@ android:orientation="vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="In tem giá"
-                android:textColor="@color/black"
+                android:textColor="@color/textButton"
+android:background="@drawable/my_button_bg2"
 
                 ></Button>
         </LinearLayout>

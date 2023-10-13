@@ -11,7 +11,13 @@
     <color name="red">#F44336</color>
     <color name="grey">#959090</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="main_color">#1877F2</color>
+    <color name="main_color">#0a95ff</color>
     <color name="background">#F5F5F5</color>
+    <color name="background1">#F4EDED</color>
     <color name="yellow">#FFEB3B</color>
+    <color name="greenLight">#64BA0B</color>
+    <color name="button">#0a95ff</color>
+    <color name="textButton">#f3f6ff</color>
+    <color name="button2">#e1ecf4</color>
+    <color name="textColor2">#6387ab</color>
 </resources>

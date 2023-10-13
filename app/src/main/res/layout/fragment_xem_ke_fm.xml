@@ -23,7 +23,8 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"></Spinner>
+            android:layout_marginBottom="8dp"
+            ></Spinner>
 
         <EditText
             android:id="@+id/sv_search_shelf"
@@ -49,17 +50,27 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:text="In tem giá kệ"
+    android:background="@drawable/my_button_bg2"
+    android:textColor="@color/textButton"
+    android:padding="3dp"
     />
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Chỉ in 1 mâm"
+        android:background="@drawable/my_button_bg2"
+        android:textColor="@color/textButton"
+        android:padding="3dp"
+        android:layout_marginLeft="5dp"
         />
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="In vị trí kệ"
-
+        android:background="@drawable/my_button_bg2"
+        android:textColor="@color/textButton"
+        android:padding="3dp"
+        android:layout_marginLeft="5dp"
         />
 </LinearLayout>
 

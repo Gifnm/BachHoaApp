@@ -68,6 +68,7 @@ private View view;
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
         view = inflater.inflate(R.layout.fragment_display_product_pm, container, false);
         anhxa(); // Gọi phương thức anhxa() sau khi đã gán giá trị cho view
         return view;

@@ -29,6 +29,7 @@ import ioc.app.bachhoa.api.ShelfService;
 import ioc.app.bachhoa.model.DisplayPlatter;
 import ioc.app.bachhoa.model.DisplayShelves;
 import ioc.app.bachhoa.model.ProductPositioning;
+import ioc.app.bachhoa.model.Store;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -121,7 +122,6 @@ public class xemKe_fm extends Fragment {
         // Set Adapter cho Spinner
 
 
-
         shelfSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -188,6 +188,7 @@ public class xemKe_fm extends Fragment {
                         shelvesList = list;
                         shelfApdapter = new ShelfApdapter(getContext(), R.id.sv_spinner, response.body());
                         shelfSpinner.setAdapter(shelfApdapter);
+                        shelfApdapter.setChangeData(shelvesList);
 
                     }
                 }
@@ -195,7 +196,10 @@ public class xemKe_fm extends Fragment {
 
             @Override
             public void onFailure(Call<List<DisplayShelves>> call, Throwable t) {
-
+shelvesList.add(new DisplayShelves(0,"Chọn kệ",new Store(1)));
+                shelfApdapter = new ShelfApdapter(getContext(), R.id.sv_spinner, shelvesList);
+                shelfSpinner.setAdapter(shelfApdapter);
+                shelfApdapter.setChangeData(shelvesList);
             }
         });
     }
