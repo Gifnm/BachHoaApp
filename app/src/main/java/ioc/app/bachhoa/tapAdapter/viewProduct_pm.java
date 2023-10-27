@@ -183,6 +183,7 @@ public class viewProduct_pm extends Fragment {
                     bundle.putString("barcode","Barcode: " + proPosition.getProduct().getProductID() );
                     bundle.putString("status", proPosition.getProduct().getStatus() ? "KD bình thường" : "Ngưng kinh doanh");
                     bundle.putString("image",proPosition.getProduct().getImage() );
+                    bundle.putString("form",proPosition.getForm()+"");
                     productInfo_fm.setArguments(bundle);
                     fragmentTransaction.replace(R.id.vpo_product_info,productInfo_fm);
                     fragmentTransaction.commit();
@@ -224,15 +225,15 @@ public class viewProduct_pm extends Fragment {
                         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                         ProductInfo_fm productInfo_fm = new ProductInfo_fm();
                         fragmentTransaction.replace(R.id.vpo_product_info,productInfo_fm);
-                        productInfo_fm.getNameOfProd().setText(product.getProductName());
-                        productInfo_fm.getBarcode().setText("Barcode: " + product.getProductID());
-                        productInfo_fm.getInventory().setText("Tồn: " + product.getInventory());
-                        productInfo_fm.getStatus().setText(product.getStatus() ? "KD bình thường" : "Ngưng kinh doanh");
-                        Glide.with(getContext())
-                                .load(product.getImage())
-                                .error(R.drawable.ic_baseline_cloud_download_24)
-                                .into(productInfo_fm.getImg());
-                        fragmentTransaction.commit();
+//                        productInfo_fm.getNameOfProd().setText(product.getProductName());
+//                        productInfo_fm.getBarcode().setText("Barcode: " + product.getProductID());
+//                        productInfo_fm.getInventory().setText("Tồn: " + product.getInventory());
+//                        productInfo_fm.getStatus().setText(product.getStatus() ? "KD bình thường" : "Ngưng kinh doanh");
+//                        Glide.with(getContext())
+//                                .load(product.getImage())
+//                                .error(R.drawable.ic_baseline_cloud_download_24)
+//                                .into(productInfo_fm.getImg());
+//                        fragmentTransaction.commit();
                     } else {
                         Toast.makeText(getActivity(), "Sản phẩm không tồn tại!", Toast.LENGTH_SHORT).show();
                     }

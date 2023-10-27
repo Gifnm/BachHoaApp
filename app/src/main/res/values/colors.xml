@@ -20,4 +20,5 @@
     <color name="textButton">#f3f6ff</color>
     <color name="button2">#e1ecf4</color>
     <color name="textColor2">#6387ab</color>
+    <color name="delete">#ede1dd</color>
 </resources>

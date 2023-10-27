@@ -55,12 +55,33 @@ android:id="@+id/ip_location"
             android:layout_marginRight="8dp"
             />
         <TextView
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/purple_200"
+            android:textColor="@color/red"
             android:textSize="@dimen/text_size_large"
             android:textStyle="bold"
-            android:text="SL: "
+            android:text="Trưng: "
+            android:layout_marginRight="8dp"
+            />
+        <TextView
+            android:id="@+id/ip_form"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/red"
+            android:textSize="@dimen/text_size_large"
+            android:textStyle="bold"
+
+            android:layout_marginRight="8dp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/purple_700"
+            android:textSize="@dimen/text_size_large"
+            android:text="SL:"
+            android:textStyle="bold"
+
             android:layout_marginRight="8dp"
             />
         <TextView
@@ -97,9 +118,6 @@ android:orientation="vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="In tem giá"
-                android:textColor="@color/textButton"
-android:background="@drawable/my_button_bg2"
-
                 ></Button>
         </LinearLayout>
 

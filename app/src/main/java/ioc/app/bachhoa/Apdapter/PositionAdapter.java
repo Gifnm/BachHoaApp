@@ -41,9 +41,10 @@ public class PositionAdapter extends RecyclerView.Adapter<PositionAdapter.Positi
         }
         holder.shelf.setText(productPositioning.getDisplayShelves().getDisSheID() + "");
         holder.barcode.setText(productPositioning.getProduct().getProductID());
-        holder.locaion.setText(productPositioning.getId()+"");
+        holder.locaion.setText(productPositioning.getId() + "");
         holder.nameOfProduct.setText(productPositioning.getProduct().getProductName());
         holder.quanity.setText(productPositioning.getDisplayQuantity() + "");
+        holder.form.setText(productPositioning.getForm()+"");
         Glide.with(context)
                 .load(productPositioning.getProduct().getImage()) // Đường dẫn của ảnh
                 .placeholder(R.drawable.ic_baseline_image_24) // Ảnh tạm thời hiển thị trong lúc đang tải (nếu cần)
@@ -75,12 +76,13 @@ public class PositionAdapter extends RecyclerView.Adapter<PositionAdapter.Positi
     }
 
     public class PositionHolder extends RecyclerView.ViewHolder {
-        private TextView shelf, locaion, quanity, nameOfProduct, barcode;
+        private TextView shelf, locaion, quanity, nameOfProduct, barcode, form;
         private ImageView img;
         private Button delete;
 
         public PositionHolder(@NonNull View itemView) {
             super(itemView);
+            form = itemView.findViewById(R.id.ip_form);
             delete = itemView.findViewById(R.id.ip_delete);
             shelf = itemView.findViewById(R.id.ip_shelf);
             locaion = itemView.findViewById(R.id.ip_locaion);

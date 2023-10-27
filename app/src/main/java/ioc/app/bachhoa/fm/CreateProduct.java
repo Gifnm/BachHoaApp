@@ -181,15 +181,18 @@ public class CreateProduct extends Fragment {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(validateForm()){
                 Product product = new Product();
                 product.setProductID(barcode.getText().toString());
                 product.setProductName(nameProduct.getText().toString());
                 product.setPrice(Float.parseFloat(price.getText().toString()));
                 product.setImportPrice(Float.parseFloat(priceSell.getText().toString()));
                 product.setStatus(status.isSelected());
-                product.setVat(Integer.parseInt(vat.getText().toString()));
+                String vat2= vat.getText().toString();
+                product.setVat(Integer.parseInt(vat2.equals("")?"0":vat2));
                 product.setStore(new Store(1));
-                product.setInventory(Integer.parseInt(quanity.getText().toString()));
+                String inventory2 = quanity.getText().toString();
+                product.setInventory(Integer.parseInt(inventory2.equals("")?"0":inventory2));
 //                product.setNearestExpDate(exp);
                 product.setCategories(new Categories(categoryID));
                 String realPath = RealPathUtil.getRealPath(getContext(), muri);
@@ -208,7 +211,7 @@ public class CreateProduct extends Fragment {
                     }
                 });
 
-            }
+            }}
         });
         select_img.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -377,5 +380,25 @@ setCategories(categories);
         quanity.setText("");
         priceSell.setText("");
         img_selected.setBackgroundResource(R.drawable.ic_baseline_image_24);
+    }
+    private boolean validateForm(){
+if(barcode.getText().toString().equals("")){
+    Toast.makeText(getActivity(), "Nhập mã barcode", Toast.LENGTH_SHORT).show();
+    return false;
+}
+else if(nameProduct.getText().toString().equals("")){
+    Toast.makeText(getActivity(), "Nhập tên sản phẩm", Toast.LENGTH_SHORT).show();
+    return false;
+
+}
+else if(priceSell.getText().toString().equals("")){
+    Toast.makeText(getActivity(), "Nhập giá bán", Toast.LENGTH_SHORT).show();
+    return false;
+}
+else{
+
+    return true;
+}
+
     }
 }

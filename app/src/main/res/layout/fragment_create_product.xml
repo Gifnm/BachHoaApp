@@ -21,37 +21,7 @@
             android:background="@color/background"
             >
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="8dp"
-                >
-                <EditText
-                    android:id="@+id/cp_barcode"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:padding="12dp"
-                    android:hint="Nhập mã barcode"
-                    android:background="@drawable/custom_edit_text"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/grey"
-                    android:inputType="number"
-                    ></EditText>
-                <ImageButton
-                    android:id="@+id/create_product_scan"
-                    android:layout_marginLeft="8dp"
-                    android:layout_width="48dp"
-                android:layout_height="48dp"
-                    android:textColor="@color/white"
-                    android:src="@drawable/scan_qr_svgrepo_com"
 
-                    android:drawableTint="@color/black"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-
-                    />
-            </LinearLayout>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -72,8 +42,42 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="12dp"
                     >
+                    <LinearLayout
+                        android:layout_margin="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="8dp"
 
+                        >
+                        <EditText
+                            android:id="@+id/cp_barcode"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="3"
+                            android:padding="12dp"
+                            android:hint="Nhập mã barcode"
+
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/grey"
+                            android:inputType="number"
+                            ></EditText>
+                        <ImageButton
+                            android:id="@+id/create_product_scan"
+                            android:layout_marginLeft="8dp"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:textColor="@color/white"
+                            android:src="@drawable/barcode_svgrepo_com2"
+
+                            android:drawableTint="@color/black"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+
+                            />
+                    </LinearLayout>
                     <EditText
                         android:layout_margin="5dp"
                         android:id="@+id/cp_name_product"
@@ -84,7 +88,6 @@
                         android:textColorHint="@color/grey"
                         android:hint="Tên sản phẩm"
                         android:textColor="@color/black"
-                        android:background="@drawable/custom_edit_text"
                         android:layout_marginBottom="8dp"
                         />
                     <LinearLayout
@@ -103,7 +106,6 @@
                             android:textSize="@dimen/text_size_medium"
                             android:textColorHint="@color/grey"
                             android:hint="Giá nhập (VD: 31000)"
-                            android:background="@drawable/custom_edit_text"
                             android:layout_marginBottom="8dp"
                             android:textColor="@color/black"
                             android:inputType="number"
@@ -117,8 +119,7 @@
                             android:padding="12dp"
                             android:textSize="@dimen/text_size_medium"
                             android:textColorHint="@color/grey"
-                            android:hint="Nhập giá bán (VD: 32500)"
-                            android:background="@drawable/custom_edit_text"
+                            android:hint="Nhập giá bán"
                             android:layout_marginBottom="8dp"
                             android:textColor="@color/black"
                             android:inputType="number"
@@ -136,6 +137,7 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/text_size_medium"
                 android:layout_marginBottom="8dp"
+                android:layout_marginTop="12dp"
                 ></TextView>
 <androidx.cardview.widget.CardView
     android:layout_marginLeft="2dp"
@@ -147,15 +149,21 @@
 
     >
     <LinearLayout
-        android:layout_margin="5dp"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:layout_marginBottom="12dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
         >
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_marginBottom="12dp"
+        android:layout_marginTop="12dp"
         >
 
         <EditText
@@ -168,7 +176,6 @@
             android:textColor="@color/black"
             android:textColorHint="@color/grey"
             android:hint="Nhập tồn kho của sản phẩm (*)"
-            android:background="@drawable/custom_edit_text"
             android:layout_marginBottom="8dp"
             android:inputType="number"
             />
@@ -225,8 +232,8 @@ android:layout_marginRight="8dp"
                     android:id="@+id/cp_img_selected"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:background="@color/grey"
                     android:src="@drawable/ic_baseline_image_24"
+
                     />
                 <Button
                     android:id="@+id/cp_select_img"

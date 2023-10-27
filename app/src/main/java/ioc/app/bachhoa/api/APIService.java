@@ -26,7 +26,7 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface APIService {
-    String baseURL = "http:192.168.1.6:8083/bachhoa/api/";
+    String baseURL = "http:192.168.1.5:8083/bachhoa/api/";
     Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
     APIService apiService = new Retrofit.Builder().baseUrl(baseURL).addConverterFactory(GsonConverterFactory.create(gson)).build().create(APIService.class);
 
@@ -91,5 +91,7 @@ public interface APIService {
 
     @POST("productPositioning/insert")
     Call<ProductPositioning> insertProPosion(@Body ProductPositioning productPositioning);
+    // 4. Check san pham
+
 }
 

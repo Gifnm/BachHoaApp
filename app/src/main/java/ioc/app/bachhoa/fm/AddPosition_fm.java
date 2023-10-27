@@ -42,6 +42,7 @@ import ioc.app.bachhoa.model.Product;
 import ioc.app.bachhoa.model.ProductPositioning;
 import ioc.app.bachhoa.model.Store;
 import ioc.app.bachhoa.ultil.CaptureAct;
+import ioc.app.bachhoa.ultil.User;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -66,10 +67,11 @@ public class AddPosition_fm extends Fragment {
     ShelfApdapter shelfApdapter;
     PositionAdapter positionAdapter;
     DisplayShelves displShelfIsSelcted;
-    EditText indexOfProduct, quantityDi;
+    EditText indexOfProduct, quantityDi, form;
     Button saveDia, cancelDia;
     Dialog dialog = null;
     String result;
+    int productIndext;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -158,6 +160,7 @@ public class AddPosition_fm extends Fragment {
         quantityDi = dialog.findViewById(R.id.quantity_display);
         saveDia = dialog.findViewById(R.id.btn_saveIndex);
         cancelDia = dialog.findViewById(R.id.btn_cancel_index);
+        form = dialog.findViewById(R.id.form);
         saveDia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -252,6 +255,13 @@ public class AddPosition_fm extends Fragment {
             public void onResponse(Call<List<ProductPositioning>> call, Response<List<ProductPositioning>> response) {
                 listPossitioning = response.body();
                 positionAdapter.setData(listPossitioning);
+                if(listPossitioning.isEmpty()){
+                    productIndext = 1;
+                }
+                else {
+                    productIndext = listPossitioning.size();
+
+                }
             }
 
             @Override
@@ -447,13 +457,13 @@ public class AddPosition_fm extends Fragment {
     }
 
     private void insertPosition(String produtID) {
-        ProductPositioning productPositioning = new ProductPositioning(1, displayPlatterList.get(index), listShelf.get(indexShelf), new Product(produtID), Integer.parseInt(quantityDi.getText().toString()), new Store(1));
+        ProductPositioning productPositioning = new ProductPositioning(Integer.parseInt(indexOfProduct.getText().toString()), displayPlatterList.get(index), listShelf.get(indexShelf), new Product(produtID, User.employee.getStore()), Integer.parseInt(quantityDi.getText().toString()), new Store(1), Integer.parseInt(form.getText().toString()));
         APIService.apiService.insertProPosion(productPositioning).enqueue(new Callback<ProductPositioning>() {
             @Override
             public void onResponse(Call<ProductPositioning> call, Response<ProductPositioning> response) {
-
                 listPossitioning.add(response.body());
                 positionAdapter.setData(listPossitioning);
+                productIndext ++;
             }
 
             @Override
@@ -465,6 +475,7 @@ public class AddPosition_fm extends Fragment {
     }
 
     private void OpenDialog() {
+            indexOfProduct.setText((++productIndext) +"");
         dialog.show();
     }
 }

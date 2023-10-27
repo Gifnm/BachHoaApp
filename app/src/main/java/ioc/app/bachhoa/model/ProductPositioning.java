@@ -8,6 +8,7 @@ public class ProductPositioning {
     private Product product;
     private int displayQuantity;
     private Store store;
+    private int form;
 
     public ProductPositioning(Integer id, DisplayPlatter displayPlatter, DisplayShelves displayShelves, Product product, int displayQuantity, Store store) {
         this.id = id;
@@ -16,6 +17,16 @@ public class ProductPositioning {
         this.product = product;
         this.displayQuantity = displayQuantity;
         this.store = store;
+    }
+
+    public ProductPositioning(Integer id, DisplayPlatter displayPlatter, DisplayShelves displayShelves, Product product, int displayQuantity, Store store, int form) {
+        this.id = id;
+        this.displayPlatter = displayPlatter;
+        this.displayShelves = displayShelves;
+        this.product = product;
+        this.displayQuantity = displayQuantity;
+        this.store = store;
+        this.form = form;
     }
 
     public ProductPositioning() {
@@ -68,5 +79,13 @@ public class ProductPositioning {
 
     public void setStore(Store store) {
         this.store = store;
+    }
+
+    public int getForm() {
+        return form;
+    }
+
+    public void setForm(int form) {
+        this.form = form;
     }
 }

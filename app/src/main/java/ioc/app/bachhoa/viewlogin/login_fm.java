@@ -29,14 +29,15 @@ import retrofit2.Response;
 
 public class login_fm extends Fragment {
     View view;
-    TextView quenMatKhau, dangKy, userLogin, userPass, loginErrol;
-    Button login;
+    TextView quenMatKhau, dangKy, userLogin, userPass, loginErrol,login;
+    //Button login;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.login_fragment, container, false);
         anhxa();
+       // addEvent();
         return view;
     }
 
@@ -44,7 +45,13 @@ public class login_fm extends Fragment {
         loginErrol = (TextView) view.findViewById(R.id.lg_errol);
         userLogin = (EditText) view.findViewById(R.id.lg_username);
         userPass = (EditText) view.findViewById(R.id.lg_password);
-        login = (Button) view.findViewById(R.id.lg_loginButton);
+        login = (TextView) view.findViewById(R.id.lg_loginButton);
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+loginAcoount();
+            }
+        });
         quenMatKhau = (TextView) view.findViewById(R.id.login_sigup);
         dangKy = (TextView) view.findViewById(R.id.login_forgotpassword);
         quenMatKhau.setOnClickListener(new View.OnClickListener() {
@@ -69,17 +76,15 @@ public class login_fm extends Fragment {
             }
         });
         login = (Button) view.findViewById(R.id.loginButton);
-        login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), MainActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-            }
-        });
+
     }
     private void addEvent(){
-
+login.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        loginAcoount();
+    }
+});
 
     }
     private void loginAcoount(){
@@ -91,11 +96,11 @@ public class login_fm extends Fragment {
                 if(response.isSuccessful()){
                     if(response.body() != null){
                         User.employee = response.body();
-                        Intent intent = new Intent();
+                        Intent intent = new Intent(getActivity(), MainActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
                         // Khởi tạo SharedPreferences
-                        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
+                        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("isLogin", Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putInt("employeeID", response.body().getEmployeeID());
                         editor.apply();

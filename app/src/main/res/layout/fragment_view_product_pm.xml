@@ -35,7 +35,7 @@
         android:layout_height="48dp"
 android:textColor="@color/white"
         android:background="?attr/selectableItemBackgroundBorderless"
-        android:src="@drawable/scan_qr_svgrepo_com"
+        android:src="@drawable/barcode_svgrepo_com2"
         android:drawableTint="@color/black"
         />
 </LinearLayout>
