@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_margin="5dp"
+    android:background="@color/white"
+    >
+    <LinearLayout
+
+        android:layout_weight="1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+       <LinearLayout
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:orientation="horizontal"
+           >
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:textColor="@color/black"
+               android:padding="8dp"
+               android:textSize="@dimen/text_size_medium"
+               android:text="Người tạo:"
+               />
+           <TextView
+               android:id="@+id/lsb_name_of_employee"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:textColor="@color/main_color"
+               android:padding="8dp"
+               android:textSize="@dimen/text_size_medium"
+               />
+
+       </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:padding="8dp"
+                android:textSize="@dimen/text_size_medium"
+                android:text="Thời gian:"
+                />
+            <TextView
+                android:id="@+id/lsb_time_create"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:padding="8dp"
+                android:textSize="@dimen/text_size_large"
+                />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:padding="8dp"
+                android:textSize="@dimen/text_size_medium"
+                android:text="Trạng thái:"
+                />
+            <TextView
+                android:id="@+id/lsb_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:textSize="@dimen/text_size_large"
+                />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/lsb_btn_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Xem" />
+</LinearLayout>

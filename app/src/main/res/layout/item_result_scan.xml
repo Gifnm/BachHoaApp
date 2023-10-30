@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:stretchColumns="1,2">
+
+    <TableRow>
+
+        <TextView
+            android:id="@+id/irs_producID"
+            android:layout_column="1"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_size_medium"
+            android:textAlignment="center"
+            android:background="@drawable/border_cell"
+            />
+
+        <TextView
+            android:id="@+id/irs_number_onShelf"
+            android:layout_column="1"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_size_medium"
+            android:textAlignment="center"
+            android:background="@drawable/border_cell"
+            />
+
+    </TableRow>
+</TableLayout>
