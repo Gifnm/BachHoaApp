@@ -11,9 +11,14 @@ import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.io.OutputStream;
+import java.net.Socket;
+
+import ioc.app.bachhoa.DTOEntity.PrintImageUsingSocket;
 import ioc.app.bachhoa.MainActivity;
 import ioc.app.bachhoa.Make_Bill;
 import ioc.app.bachhoa.R;
@@ -28,7 +33,7 @@ import ioc.app.bachhoa.fm.CreateProduct;
  * create an instance of this fragment.
  */
 public class createBill_fm extends Fragment {
-    CardView createProduct, position, makeBill, create_RP;
+    CardView createProduct, position, makeBill, create_RP, printer;
     View view;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -82,7 +87,37 @@ public class createBill_fm extends Fragment {
     }
 
     private void anhxa() {
-        create_RP = (CardView) view.findViewById(R.id.home_create_RP);
+        printer = view.findViewById(R.id.fhf_printer);
+        printer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String printerIp = "192.168.1.7"; // Địa chỉ IP của máy in
+                int printerPort = 9100; // Cổng in của máy in
+
+                try {
+                    // Tạo kết nối tới máy in
+                    Socket socket = new Socket(printerIp, printerPort);
+
+                    // Lấy luồng đầu ra từ kết nối
+                    OutputStream outputStream = socket.getOutputStream();
+
+                    // Chuỗi văn bản cần in
+                    String textToPrint = "Hello, Printer!\n";
+
+                    // Chuyển chuỗi văn bản thành mảng byte và ghi vào luồng đầu ra
+                    byte[] data = textToPrint.getBytes();
+                    outputStream.write(data);
+
+                    // Đóng luồng và kết nối
+                    outputStream.close();
+                    socket.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+    create_RP = (CardView) view.findViewById(R.id.home_create_RP);
         makeBill = (CardView) view.findViewById(R.id.home_make_bill);
         final BottomNavigationView navigationView = getActivity().findViewById(R.id.navigation);
         createProduct = (CardView) view.findViewById(R.id.create_product);
