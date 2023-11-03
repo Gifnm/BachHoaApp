@@ -17,23 +17,32 @@ import retrofit2.http.Part;
 import retrofit2.http.Path;
 
 public interface ShipmentBatchAPI {
-    String baseURL = "http:192.168.1.7:8083/bachhoa/api/shibat/";
+    String baseURL = "http:192.168.1.6:8083/bachhoa/api/shibat/";
     Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
     ShipmentBatchAPI apiService = new Retrofit.Builder().baseUrl(baseURL).addConverterFactory(GsonConverterFactory.create(gson)).build().create(ShipmentBatchAPI.class);
 
-    // Danh sach cac API
-    // 1. Tao mọt ShipmentBatch
-    // 2. Lay danh sach ShipmentBatch
-    // 3. Chuyển đổi trạng thái bàn giao ca
-    // 1. Tao mọt ShipmentBatch
+    /**
+     * API: Tạo một đợt châm hàng
+     *
+     * @param shipmentBatch Đợt châm hàng - Object
+     * @param list          Danh sách đợt châm hàng chi tiết - List Object
+     */
     @POST("insert")
     Call<Void> insert(@Part("ShipmentBatch") ShipmentBatch shipmentBatch, @Part("ShipmentBatchDetail") List<ShipmentBatchDetail> list);
 
-    // 2. Lay danh sach ShipmentBatch
+    /**
+     * API: Lấy danh sách đợt châm hàng
+     *
+     * @param storeID Mã cửa hàng
+     */
     @GET("findALL/{storeID}")
     Call<List<ShipmentBatch>> getByStoreID(@Path("storeID") int storeID);
 
-    // 3. Chuyển đổi trạng thái bàn giao ca
+    /**
+     * API: Chuyển trạng thái đợt châm hàng
+     *
+     * @param shiBatID Mã đợt châm hàng
+     */
     @PUT("setStatus/{shiBatID}")
     Call<Void> setStatus(@Path("shiBatID") String shiBatID);
 

@@ -13,9 +13,15 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 
 public interface PlatterService {
-    String baseURL = "http:192.168.1.7:8083/bachhoa/api/";
+    String baseURL = "http:192.168.1.6:8083/bachhoa/api/";
     Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
     PlatterService apiService = new Retrofit.Builder().baseUrl(baseURL).addConverterFactory(GsonConverterFactory.create(gson)).build().create(PlatterService.class);
+
+    /**
+     * API: Lấy danh sách mâm trưng bày
+     *
+     * @param id Mã số mâm
+     */
     @GET("platter/getPlatters/{id}")
     Call<List<DisplayPlatter>> getListFlatter(@Path("id") int id);
 }

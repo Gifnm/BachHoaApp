@@ -39,14 +39,11 @@ import retrofit2.Response;
 public class login_fm extends Fragment {
     View view;
     TextView quenMatKhau, dangKy, userLogin, userPass, loginErrol, login;
-    ImageView imageView;
     //Button login;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.login_fragment, container, false);
-        imageView = view.findViewById(R.id.hoho);
         anhxa();
         // addEvent();
         return view;
@@ -57,21 +54,7 @@ public class login_fm extends Fragment {
         userLogin = (EditText) view.findViewById(R.id.lg_username);
         userPass = (EditText) view.findViewById(R.id.lg_password);
         login = (TextView) view.findViewById(R.id.lg_loginButton);
-        login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-//loginAcoount();
-                PrintPriceTag printPriceTag = null;
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-                    printPriceTag = new PrintPriceTag(getContext());
-                }
-                //printPriceTag.printBill();
-
-                imageView.setImageBitmap(printPriceTag.SharedBillPNG());
-                sharedPNG(printPriceTag.SharedBillPNG());
-            }
-        });
+        addEvent();
         quenMatKhau = (TextView) view.findViewById(R.id.login_sigup);
         dangKy = (TextView) view.findViewById(R.id.login_forgotpassword);
         quenMatKhau.setOnClickListener(new View.OnClickListener() {
