@@ -11,7 +11,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 
 public interface ProductService {
-    String baseURL = "http:192.168.1.6:8083/bachhoa/api/";
+    String baseURL = "http:192.168.1.7:8083/bachhoa/api/";
     Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
     ProductService apiService = new Retrofit.Builder().baseUrl(baseURL).addConverterFactory(GsonConverterFactory.create(gson)).build().create(ProductService.class);
      /*

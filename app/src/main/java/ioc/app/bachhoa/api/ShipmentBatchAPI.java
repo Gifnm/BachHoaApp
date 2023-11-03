@@ -17,7 +17,7 @@ import retrofit2.http.Part;
 import retrofit2.http.Path;
 
 public interface ShipmentBatchAPI {
-    String baseURL = "http:192.168.1.6:8083/bachhoa/api/shibat/";
+    String baseURL = "http:192.168.1.7:8083/bachhoa/api/shibat/";
     Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
     ShipmentBatchAPI apiService = new Retrofit.Builder().baseUrl(baseURL).addConverterFactory(GsonConverterFactory.create(gson)).build().create(ShipmentBatchAPI.class);
 

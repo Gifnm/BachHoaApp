@@ -1,4 +1,4 @@
-package ioc.app.bachhoa.DTOEntity;
+package ioc.app.bachhoa.ultil;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -16,32 +16,25 @@ import java.net.Socket;
 
 public class PrintImageUsingSocket {
     public void print() {
-        String printerHost = "192.168.1.7"; // Thay thế bằng địa chỉ IP hoặc tên máy chủ của máy in
+        String printerHost = "192.168.1.6"; // Thay thế bằng địa chỉ IP hoặc tên máy chủ của máy in
         int printerPort = 9100; // Thay thế bằng cổng máy in thích hợp
 
         try {
 
             Socket socket = new Socket(printerHost, printerPort);
-//            OutputStream outputStream = socket.getOutputStream();
-//            DataOutputStream dataOutputStream = new DataOutputStream(outputStream);
-//
-//            // Chuyển đổi bitmap thành mảng byte
-//            byte[] imageData = convertBitmapToByteArray(byteArrayToBitmap());
-//
-//            // Gửi dữ liệu hình ảnh đến máy in
-//            dataOutputStream.write(imageData);
-//
-//            // Đóng outputStream, dataOutputStream và socket
-//            dataOutputStream.close();
-//            outputStream.close();
             OutputStream outputStream = socket.getOutputStream();
+            DataOutputStream dataOutputStream = new DataOutputStream(outputStream);
 
-            // Chuỗi văn bản cần in
-            String textToPrint = "Hello, Printer!Hello, Printer!\n";
+            // Chuyển đổi bitmap thành mảng byte
+            byte[] imageData = convertBitmapToByteArray(byteArrayToBitmap());
 
-            // Chuyển chuỗi văn bản thành mảng byte và ghi vào luồng đầu ra
-            byte[] data = textToPrint.getBytes();
-            outputStream.write(data);
+            // Gửi dữ liệu hình ảnh đến máy in
+            dataOutputStream.write(imageData);
+
+            // Đóng outputStream, dataOutputStream và socket
+            dataOutputStream.close();
+            outputStream.close();
+
 
             // Đóng luồng và kết nối
             outputStream.close();
@@ -71,5 +64,9 @@ public class PrintImageUsingSocket {
 
         byte[] byteArray = byteArrayOutputStream.toByteArray();
         return BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+    }
+    private void createBitmap1(){
+
+        
     }
 }

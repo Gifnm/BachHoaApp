@@ -15,17 +15,12 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.io.OutputStream;
-import java.net.Socket;
-
-import ioc.app.bachhoa.DTOEntity.PrintImageUsingSocket;
-import ioc.app.bachhoa.MainActivity;
 import ioc.app.bachhoa.Make_Bill;
 import ioc.app.bachhoa.R;
 import ioc.app.bachhoa.ReplenishmentPeriod;
-import ioc.app.bachhoa.fm.AccountDetail;
 import ioc.app.bachhoa.fm.AddPosition_fm;
 import ioc.app.bachhoa.fm.CreateProduct;
+import ioc.app.bachhoa.ultil.PrintPriceTag;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -91,30 +86,13 @@ public class createBill_fm extends Fragment {
         printer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String printerIp = "192.168.1.7"; // Địa chỉ IP của máy in
-                int printerPort = 9100; // Cổng in của máy in
+                PrintPriceTag printPriceTag = new PrintPriceTag();
+                printPriceTag.printOnePriceTag();
 
-                try {
-                    // Tạo kết nối tới máy in
-                    Socket socket = new Socket(printerIp, printerPort);
+//                PrintImageUsingSocket printImageUsingSocket = new PrintImageUsingSocket();
+//                printImageUsingSocket.print();
 
-                    // Lấy luồng đầu ra từ kết nối
-                    OutputStream outputStream = socket.getOutputStream();
-
-                    // Chuỗi văn bản cần in
-                    String textToPrint = "Hello, Printer!\n";
-
-                    // Chuyển chuỗi văn bản thành mảng byte và ghi vào luồng đầu ra
-                    byte[] data = textToPrint.getBytes();
-                    outputStream.write(data);
-
-                    // Đóng luồng và kết nối
-                    outputStream.close();
-                    socket.close();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
+               Toast.makeText(getContext(), "Print", Toast.LENGTH_SHORT).show();
             }
         });
     create_RP = (CardView) view.findViewById(R.id.home_create_RP);
