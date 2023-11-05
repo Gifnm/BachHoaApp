@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import ioc.app.bachhoa.ImportGood;
 import ioc.app.bachhoa.Make_Bill;
 import ioc.app.bachhoa.R;
 import ioc.app.bachhoa.ReplenishmentPeriod;
@@ -28,7 +29,7 @@ import ioc.app.bachhoa.ultil.PrintPriceTag;
  * create an instance of this fragment.
  */
 public class createBill_fm extends Fragment {
-    CardView createProduct, position, makeBill, create_RP, printer;
+    CardView createProduct, position, makeBill, create_RP, printer, importGood;
     View view;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -82,6 +83,15 @@ public class createBill_fm extends Fragment {
     }
 
     private void anhxa() {
+        importGood = view.findViewById(R.id.fhf_purchase);
+        importGood.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ImportGood.class);
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            }
+        });
         printer = view.findViewById(R.id.fhf_printer);
         printer.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,7 +99,7 @@ public class createBill_fm extends Fragment {
 
             }
         });
-    create_RP = (CardView) view.findViewById(R.id.home_create_RP);
+        create_RP = (CardView) view.findViewById(R.id.home_create_RP);
         makeBill = (CardView) view.findViewById(R.id.home_make_bill);
         final BottomNavigationView navigationView = getActivity().findViewById(R.id.navigation);
         createProduct = (CardView) view.findViewById(R.id.create_product);

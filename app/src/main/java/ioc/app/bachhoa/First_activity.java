@@ -11,7 +11,7 @@ import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import ioc.app.bachhoa.api.EmployeeService;
+import ioc.app.bachhoa.api.EmployeeAPI;
 import ioc.app.bachhoa.model.Employee;
 import ioc.app.bachhoa.ultil.User;
 import retrofit2.Call;
@@ -58,7 +58,7 @@ public class First_activity extends AppCompatActivity {
         if (employeeID == 0) {
             return false;
         } else {
-            EmployeeService.apiService.findById(employeeID).enqueue(new Callback<Employee>() {
+            EmployeeAPI.apiService.findById(employeeID).enqueue(new Callback<Employee>() {
                 @Override
                 public void onResponse(Call<Employee> call, Response<Employee> response) {
                     if (response.isSuccessful()) {

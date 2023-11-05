@@ -13,6 +13,7 @@ import ioc.app.bachhoa.model.DisplayShelves;
 import ioc.app.bachhoa.model.Employee;
 import ioc.app.bachhoa.model.Product;
 import ioc.app.bachhoa.model.ProductPositioning;
+import ioc.app.bachhoa.ultil.LocalVarible;
 import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -26,7 +27,7 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface APIService {
-    String baseURL = "http:192.168.1.3:8083/bachhoa/api/";
+    String baseURL = "http:"+ LocalVarible.ip +":8083/bachhoa/api/";
     Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
     APIService apiService = new Retrofit.Builder().baseUrl(baseURL).addConverterFactory(GsonConverterFactory.create(gson)).build().create(APIService.class);
 

@@ -6,16 +6,17 @@ import com.google.gson.GsonBuilder;
 import java.util.List;
 
 import ioc.app.bachhoa.model.DisplayPlatter;
+import ioc.app.bachhoa.ultil.LocalVarible;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 
-public interface PlatterService {
-    String baseURL = "http:192.168.1.3:8083/bachhoa/api/";
+public interface PlatterAPI {
+    String baseURL = "http:"+ LocalVarible.ip +":8083/bachhoa/api/";
     Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-    PlatterService apiService = new Retrofit.Builder().baseUrl(baseURL).addConverterFactory(GsonConverterFactory.create(gson)).build().create(PlatterService.class);
+    PlatterAPI apiService = new Retrofit.Builder().baseUrl(baseURL).addConverterFactory(GsonConverterFactory.create(gson)).build().create(PlatterAPI.class);
 
     /**
      * API: Lấy danh sách mâm trưng bày

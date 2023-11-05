@@ -11,14 +11,10 @@ import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.journeyapps.barcodescanner.ScanContract;
 import com.journeyapps.barcodescanner.ScanOptions;
@@ -30,8 +26,8 @@ import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 
 import ioc.app.bachhoa.R;
-import ioc.app.bachhoa.api.ProductPositionService;
-import ioc.app.bachhoa.api.ProductService;
+import ioc.app.bachhoa.api.ProductPositionAPI;
+import ioc.app.bachhoa.api.ProductAPI;
 import ioc.app.bachhoa.fm.ProductInfo_fm;
 import ioc.app.bachhoa.model.Product;
 import ioc.app.bachhoa.model.ProductPositioning;
@@ -166,7 +162,7 @@ public class viewProduct_pm extends Fragment {
 
     private void findLocation(String id) {
         //  ProductPositionService.apiService.f
-        ProductPositionService.apiService.findByProductID(id, User.employee.getStore().getStoreID()).enqueue(new Callback<ProductPositioning>() {
+        ProductPositionAPI.apiService.findByProductID(id, User.employee.getStore().getStoreID()).enqueue(new Callback<ProductPositioning>() {
             @Override
             public void onResponse(Call<ProductPositioning> call, Response<ProductPositioning> response) {
                 if (response.body() != null) {
@@ -207,7 +203,7 @@ public class viewProduct_pm extends Fragment {
     }
 
     private void findProduct(String id) {
-        ProductService.apiService.findByID(id, 1).enqueue(new Callback<Product>() {
+        ProductAPI.apiService.findByID(id, 1).enqueue(new Callback<Product>() {
             @Override
             public void onResponse(Call<Product> call, Response<Product> response) {
                 if (response.isSuccessful()) {

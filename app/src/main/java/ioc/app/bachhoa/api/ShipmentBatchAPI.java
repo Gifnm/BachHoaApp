@@ -7,6 +7,7 @@ import java.util.List;
 
 import ioc.app.bachhoa.model.ShipmentBatch;
 import ioc.app.bachhoa.model.ShipmentBatchDetail;
+import ioc.app.bachhoa.ultil.LocalVarible;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -17,7 +18,7 @@ import retrofit2.http.Part;
 import retrofit2.http.Path;
 
 public interface ShipmentBatchAPI {
-    String baseURL = "http:192.168.1.3:8083/bachhoa/api/shibat/";
+    String baseURL = "http:"+ LocalVarible.ip +":8083/bachhoa/api/shibat";
     Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
     ShipmentBatchAPI apiService = new Retrofit.Builder().baseUrl(baseURL).addConverterFactory(GsonConverterFactory.create(gson)).build().create(ShipmentBatchAPI.class);
 

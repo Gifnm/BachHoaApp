@@ -24,12 +24,11 @@ import java.util.List;
 import ioc.app.bachhoa.Apdapter.PostionViewAdapter;
 import ioc.app.bachhoa.Apdapter.ShelfApdapter;
 import ioc.app.bachhoa.R;
-import ioc.app.bachhoa.api.PlatterService;
-import ioc.app.bachhoa.api.ProductPositionService;
-import ioc.app.bachhoa.api.ShelfService;
+import ioc.app.bachhoa.api.PlatterAPI;
+import ioc.app.bachhoa.api.ProductPositionAPI;
+import ioc.app.bachhoa.api.ShelfAPI;
 import ioc.app.bachhoa.model.DisplayPlatter;
 import ioc.app.bachhoa.model.DisplayShelves;
-import ioc.app.bachhoa.model.Product;
 import ioc.app.bachhoa.model.ProductPositioning;
 import ioc.app.bachhoa.model.Store;
 import ioc.app.bachhoa.ultil.PrintPriceTag;
@@ -176,7 +175,7 @@ public class viewShelf_fm extends Fragment {
         printPriceTagOnShlef.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-        ProductPositionService.apiService.getPosByStoreAndShelf(User.employee.getStore().getStoreID(),indexShelf).enqueue(new Callback<List<ProductPositioning>>() {
+        ProductPositionAPI.apiService.getPosByStoreAndShelf(User.employee.getStore().getStoreID(),indexShelf).enqueue(new Callback<List<ProductPositioning>>() {
             @Override
             public void onResponse(Call<List<ProductPositioning>> call, Response<List<ProductPositioning>> response) {
                 PrintPriceTag printPriceTag = new PrintPriceTag(getContext());
@@ -196,7 +195,7 @@ public class viewShelf_fm extends Fragment {
 
     private void getListPosion() {
         if (indexShelf != 0) {
-            ProductPositionService.apiService.getLitsProductPoiton(shelvesList.get(indexShelf).getDisSheID(), platterList.get(indexPlatter).getDisPlaID(), User.employee.getStore().getStoreID()).enqueue(new Callback<List<ProductPositioning>>() {
+            ProductPositionAPI.apiService.getLitsProductPoiton(shelvesList.get(indexShelf).getDisSheID(), platterList.get(indexPlatter).getDisPlaID(), User.employee.getStore().getStoreID()).enqueue(new Callback<List<ProductPositioning>>() {
                 @Override
                 public void onResponse(Call<List<ProductPositioning>> call, Response<List<ProductPositioning>> response) {
                     if (response.isSuccessful()) {
@@ -216,7 +215,7 @@ public class viewShelf_fm extends Fragment {
     }
 
     private void getListShelf() {
-        ShelfService.apiService.getshelfs(User.employee.getStore().getStoreID()).enqueue(new Callback<List<DisplayShelves>>() {
+        ShelfAPI.apiService.getshelfs(User.employee.getStore().getStoreID()).enqueue(new Callback<List<DisplayShelves>>() {
             @Override
             public void onResponse(Call<List<DisplayShelves>> call, Response<List<DisplayShelves>> response) {
                 if (response.isSuccessful()) {
@@ -243,7 +242,7 @@ public class viewShelf_fm extends Fragment {
     }
 
     private void getListPlatter() {
-        PlatterService.apiService.getListFlatter(User.employee.getStore().getStoreID()).enqueue(new Callback<List<DisplayPlatter>>() {
+        PlatterAPI.apiService.getListFlatter(User.employee.getStore().getStoreID()).enqueue(new Callback<List<DisplayPlatter>>() {
             @Override
             public void onResponse(Call<List<DisplayPlatter>> call, Response<List<DisplayPlatter>> response) {
                 if (response.isSuccessful()) {
