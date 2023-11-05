@@ -13,7 +13,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 
 public interface PlatterService {
-    String baseURL = "http:192.168.1.6:8083/bachhoa/api/";
+    String baseURL = "http:192.168.1.3:8083/bachhoa/api/";
     Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
     PlatterService apiService = new Retrofit.Builder().baseUrl(baseURL).addConverterFactory(GsonConverterFactory.create(gson)).build().create(PlatterService.class);
 

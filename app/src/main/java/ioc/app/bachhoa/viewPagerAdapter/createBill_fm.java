@@ -86,13 +86,7 @@ public class createBill_fm extends Fragment {
         printer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PrintPriceTag printPriceTag = new PrintPriceTag();
-                printPriceTag.printOnePriceTag();
 
-//                PrintImageUsingSocket printImageUsingSocket = new PrintImageUsingSocket();
-//                printImageUsingSocket.print();
-
-               Toast.makeText(getContext(), "Print", Toast.LENGTH_SHORT).show();
             }
         });
     create_RP = (CardView) view.findViewById(R.id.home_create_RP);

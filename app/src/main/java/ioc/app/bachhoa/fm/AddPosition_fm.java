@@ -200,7 +200,7 @@ public class AddPosition_fm extends Fragment {
         addOneShelf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DisplayShelves displayShelves = new DisplayShelves(listShelf.size(), "Kệ " + listShelf.size(), new Store(1));
+                DisplayShelves displayShelves = new DisplayShelves(listShelf.size(), "Kệ " + listShelf.size(), User.employee.getStore());
                 APIService.apiService.insertShelf(displayShelves).enqueue(new Callback<DisplayShelves>() {
                     @Override
                     public void onResponse(Call<DisplayShelves> call, Response<DisplayShelves> response) {
@@ -223,7 +223,7 @@ public class AddPosition_fm extends Fragment {
     // Lấy danh sách kệ hiện có
     private List<DisplayShelves> getListShelf() {
         List<DisplayShelves> shelvesList = null;
-        APIService.apiService.getshelfs(1).enqueue(new Callback<List<DisplayShelves>>() {
+        APIService.apiService.getshelfs(User.employee.getStore().getStoreID()).enqueue(new Callback<List<DisplayShelves>>() {
             @Override
             public void onResponse(Call<List<DisplayShelves>> call, Response<List<DisplayShelves>> response) {
                 List<DisplayShelves> list = response.body();
@@ -275,7 +275,7 @@ public class AddPosition_fm extends Fragment {
 
     // Lấy danh sách mâm của cửa hàng
     private void getListPlatterFrom() {
-        APIService.apiService.getListFlatter(1).enqueue(new Callback<List<DisplayPlatter>>() {
+        APIService.apiService.getListFlatter(User.employee.getStore().getStoreID()).enqueue(new Callback<List<DisplayPlatter>>() {
             @Override
             public void onResponse(Call<List<DisplayPlatter>> call, Response<List<DisplayPlatter>> response) {
                 if (response.isSuccessful()) {
@@ -321,7 +321,7 @@ public class AddPosition_fm extends Fragment {
         addOneShelf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DisplayShelves displayShelves = new DisplayShelves(listShelf.size(), "Kệ " + listShelf.size(), new Store(1));
+                DisplayShelves displayShelves = new DisplayShelves(listShelf.size(), "Kệ " + listShelf.size(), User.employee.getStore());
                 APIService.apiService.insertShelf(displayShelves).enqueue(new Callback<DisplayShelves>() {
                     @Override
                     public void onResponse(Call<DisplayShelves> call, Response<DisplayShelves> response) {
@@ -427,7 +427,7 @@ public class AddPosition_fm extends Fragment {
                     if (index < displayPlatterList.size()-1) {
                         index++;
                         platterNumber.setText(displayPlatterList.get(index).getRowName());
-                        getLitsProductPoiton(displShelfIsSelcted.getDisSheID(), displayPlatterList.get(index).getDisPlaID(), 1);
+                        getLitsProductPoiton(displShelfIsSelcted.getDisSheID(), displayPlatterList.get(index).getDisPlaID(), User.employee.getStore().getStoreID());
                     }
                 } else {
 
@@ -447,7 +447,7 @@ public class AddPosition_fm extends Fragment {
                     if (index > 0) {
                         index--;
                         platterNumber.setText(displayPlatterList.get(index).getRowName());
-                        getLitsProductPoiton(displShelfIsSelcted.getDisSheID(), displayPlatterList.get(index).getDisPlaID(), 1);
+                        getLitsProductPoiton(displShelfIsSelcted.getDisSheID(), displayPlatterList.get(index).getDisPlaID(), User.employee.getStore().getStoreID());
                     }
                 } else {
                     Toast.makeText(getActivity(), "Hãy chọn kệ", Toast.LENGTH_SHORT).show();
@@ -457,7 +457,7 @@ public class AddPosition_fm extends Fragment {
     }
 
     private void insertPosition(String produtID) {
-        ProductPositioning productPositioning = new ProductPositioning(Integer.parseInt(indexOfProduct.getText().toString()), displayPlatterList.get(index), listShelf.get(indexShelf), new Product(produtID, User.employee.getStore()), Integer.parseInt(quantityDi.getText().toString()), new Store(1), Integer.parseInt(form.getText().toString()));
+        ProductPositioning productPositioning = new ProductPositioning(Integer.parseInt(indexOfProduct.getText().toString()), displayPlatterList.get(index), listShelf.get(indexShelf), new Product(produtID, User.employee.getStore()), Integer.parseInt(quantityDi.getText().toString()), User.employee.getStore(), Integer.parseInt(form.getText().toString()));
         APIService.apiService.insertProPosion(productPositioning).enqueue(new Callback<ProductPositioning>() {
             @Override
             public void onResponse(Call<ProductPositioning> call, Response<ProductPositioning> response) {

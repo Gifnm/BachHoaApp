@@ -1,5 +1,6 @@
 package ioc.app.bachhoa.tapAdapter;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -28,25 +29,28 @@ import ioc.app.bachhoa.api.ProductPositionService;
 import ioc.app.bachhoa.api.ShelfService;
 import ioc.app.bachhoa.model.DisplayPlatter;
 import ioc.app.bachhoa.model.DisplayShelves;
+import ioc.app.bachhoa.model.Product;
 import ioc.app.bachhoa.model.ProductPositioning;
 import ioc.app.bachhoa.model.Store;
+import ioc.app.bachhoa.ultil.PrintPriceTag;
+import ioc.app.bachhoa.ultil.User;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link xemKe_fm#newInstance} factory method to
+ * Use the {@link viewShelf_fm#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class xemKe_fm extends Fragment {
+public class viewShelf_fm extends Fragment {
     // Khai bao cac bien anh xa cac thanh phan giao dien
     View view;
     Spinner shelfSpinner;
-    Button btn_view_shelf, print;
     ImageButton nextPlatter, prevousPlater;
     EditText searchShelf;
     TextView platterNumber;
+    Button printShlefNumber, printPriceTagOnShlef, printPricetagsOnPlatter;
     RecyclerView posttionRecyCle;
     List<DisplayShelves> shelvesList = new ArrayList<>();
     int indexShelf = 0;
@@ -66,7 +70,7 @@ public class xemKe_fm extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public xemKe_fm() {
+    public viewShelf_fm() {
         // Required empty public constructor
     }
 
@@ -79,8 +83,8 @@ public class xemKe_fm extends Fragment {
      * @return A new instance of fragment xemKe_fm.
      */
     // TODO: Rename and change types and number of parameters
-    public static xemKe_fm newInstance(String param1, String param2) {
-        xemKe_fm fragment = new xemKe_fm();
+    public static viewShelf_fm newInstance(String param1, String param2) {
+        viewShelf_fm fragment = new viewShelf_fm();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -102,7 +106,7 @@ public class xemKe_fm extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         // Tạo biến view để ánh xạ layout
-        view = inflater.inflate(R.layout.fragment_xem_ke_fm, container, false);
+        view = inflater.inflate(R.layout.view_shelf_fm, container, false);
         uiInit();
         addEvent();
         return view;
@@ -110,18 +114,17 @@ public class xemKe_fm extends Fragment {
 
     private void uiInit() {
         searchShelf = view.findViewById(R.id.sv_search_shelf);
-
         shelfSpinner = view.findViewById(R.id.sv_spinner);
         prevousPlater = view.findViewById(R.id.sv_before_platter);
         platterNumber = view.findViewById(R.id.sv_platter_number);
         nextPlatter = view.findViewById(R.id.sv_next_platter);
         posttionRecyCle = view.findViewById(R.id.sv_list_position);
-
+        printShlefNumber = view.findViewById(R.id.vsf_printShelfPosi);
+        printPriceTagOnShlef = view.findViewById(R.id.vsf_printPricetagsOnShlef);
+        printPricetagsOnPlatter = view.findViewById(R.id.vsf_printPriceTagOnPlatter);
         getListShelf();
         getListPlatter();
         // Set Adapter cho Spinner
-
-
         shelfSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -155,15 +158,50 @@ public class xemKe_fm extends Fragment {
                 toNextPlatter();
             }
         });
+        // Su kien in ma so ke
+        printShlefNumber.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        // Su kien in tem gia mam
+        printPricetagsOnPlatter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                printPricetagsOnPlatter(proPosList);
+            }
+        });
+        // Su kien in tem gia ke
+        printPriceTagOnShlef.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+        ProductPositionService.apiService.getPosByStoreAndShelf(User.employee.getStore().getStoreID(),indexShelf).enqueue(new Callback<List<ProductPositioning>>() {
+            @Override
+            public void onResponse(Call<List<ProductPositioning>> call, Response<List<ProductPositioning>> response) {
+                PrintPriceTag printPriceTag = new PrintPriceTag(getContext());
+                ArrayList<Bitmap> arrayList = printPriceTag.generatePriceTags(response.body());
+                Toast.makeText(getContext(), "", Toast.LENGTH_SHORT).show();
+                printPriceTag.printPriceTags(arrayList);
+            }
+
+            @Override
+            public void onFailure(Call<List<ProductPositioning>> call, Throwable t) {
+
+            }
+        });
+            }
+        });
     }
 
     private void getListPosion() {
         if (indexShelf != 0) {
-            ProductPositionService.apiService.getLitsProductPoiton(shelvesList.get(indexShelf).getDisSheID(), platterList.get(indexPlatter).getDisPlaID(), 1).enqueue(new Callback<List<ProductPositioning>>() {
+            ProductPositionService.apiService.getLitsProductPoiton(shelvesList.get(indexShelf).getDisSheID(), platterList.get(indexPlatter).getDisPlaID(), User.employee.getStore().getStoreID()).enqueue(new Callback<List<ProductPositioning>>() {
                 @Override
                 public void onResponse(Call<List<ProductPositioning>> call, Response<List<ProductPositioning>> response) {
                     if (response.isSuccessful()) {
                         if (response.body() != null) {
+                            setData(response.body());
                             postionViewAdapter.setData(response.body());
                         }
                     }
@@ -178,7 +216,7 @@ public class xemKe_fm extends Fragment {
     }
 
     private void getListShelf() {
-        ShelfService.apiService.getshelfs(1).enqueue(new Callback<List<DisplayShelves>>() {
+        ShelfService.apiService.getshelfs(User.employee.getStore().getStoreID()).enqueue(new Callback<List<DisplayShelves>>() {
             @Override
             public void onResponse(Call<List<DisplayShelves>> call, Response<List<DisplayShelves>> response) {
                 if (response.isSuccessful()) {
@@ -196,7 +234,7 @@ public class xemKe_fm extends Fragment {
 
             @Override
             public void onFailure(Call<List<DisplayShelves>> call, Throwable t) {
-shelvesList.add(new DisplayShelves(0,"Chọn kệ",new Store(1)));
+                shelvesList.add(new DisplayShelves(0, "Chọn kệ", new Store(1)));
                 shelfApdapter = new ShelfApdapter(getContext(), R.id.sv_spinner, shelvesList);
                 shelfSpinner.setAdapter(shelfApdapter);
                 shelfApdapter.setChangeData(shelvesList);
@@ -205,7 +243,7 @@ shelvesList.add(new DisplayShelves(0,"Chọn kệ",new Store(1)));
     }
 
     private void getListPlatter() {
-        PlatterService.apiService.getListFlatter(1).enqueue(new Callback<List<DisplayPlatter>>() {
+        PlatterService.apiService.getListFlatter(User.employee.getStore().getStoreID()).enqueue(new Callback<List<DisplayPlatter>>() {
             @Override
             public void onResponse(Call<List<DisplayPlatter>> call, Response<List<DisplayPlatter>> response) {
                 if (response.isSuccessful()) {
@@ -242,6 +280,19 @@ shelvesList.add(new DisplayShelves(0,"Chọn kệ",new Store(1)));
             platterNumber.setText(platterList.get(indexPlatter).getRowName());
             getListPosion();
         }
+
+    }
+
+    private void printPricetagsOnPlatter(List<ProductPositioning> list) {
+        PrintPriceTag printPriceTag = new PrintPriceTag(getContext());
+        ArrayList<Bitmap> arrayList = printPriceTag.generatePriceTags(list);
+
+        printPriceTag.printPriceTags(arrayList);
+
+    }
+
+    private void setData(List<ProductPositioning> list) {
+        proPosList = list;
 
     }
 

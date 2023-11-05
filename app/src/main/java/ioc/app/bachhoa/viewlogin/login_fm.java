@@ -44,8 +44,8 @@ public class login_fm extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.login_fragment,container,false);
         anhxa();
-        // addEvent();
         return view;
     }
 
@@ -54,7 +54,6 @@ public class login_fm extends Fragment {
         userLogin = (EditText) view.findViewById(R.id.lg_username);
         userPass = (EditText) view.findViewById(R.id.lg_password);
         login = (TextView) view.findViewById(R.id.lg_loginButton);
-        addEvent();
         quenMatKhau = (TextView) view.findViewById(R.id.login_sigup);
         dangKy = (TextView) view.findViewById(R.id.login_forgotpassword);
         quenMatKhau.setOnClickListener(new View.OnClickListener() {
@@ -78,11 +77,7 @@ public class login_fm extends Fragment {
                 fragmentTransaction.commit();
             }
         });
-        login = (Button) view.findViewById(R.id.loginButton);
-
-    }
-
-    private void addEvent() {
+        login = view.findViewById(R.id.lg_loginButton);
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,6 +86,7 @@ public class login_fm extends Fragment {
         });
 
     }
+
 
     private void loginAcoount() {
         int user = Integer.parseInt(userLogin.getText().toString());

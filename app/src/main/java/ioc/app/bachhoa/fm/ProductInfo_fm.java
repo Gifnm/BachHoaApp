@@ -1,5 +1,6 @@
 package ioc.app.bachhoa.fm;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -12,8 +13,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
 
 import ioc.app.bachhoa.R;
+import ioc.app.bachhoa.model.ProductPositioning;
+import ioc.app.bachhoa.ultil.PrintPriceTag;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -22,7 +26,7 @@ import ioc.app.bachhoa.R;
  */
 public class ProductInfo_fm extends Fragment {
     ImageView img;
-    TextView shelf, platter, location, quantity, inventory, status, nameOfProd, barcode,form;
+    TextView shelf, platter, location, quantity, inventory, status, nameOfProd, barcode, form;
     Button print;
     View view;
     // TODO: Rename parameter arguments, choose names that match
@@ -72,33 +76,32 @@ public class ProductInfo_fm extends Fragment {
         view = inflater.inflate(R.layout.fragment_product_info_fm, container, false);
         anhXa();
         Bundle bundle = getArguments();
-        if(bundle != null){
-            shelf.setText(bundle.getString("shelf"));
-platter.setText(bundle.getString("platter"));
-quantity.setText(bundle.getString("quantity"));
-status.setText(bundle.getString("satus"));
-barcode.setText(bundle.getString("barcode"));
-nameOfProd.setText(bundle.getString("name"));
-inventory.setText(bundle.getString("inventory"));
-location.setText(bundle.getString("location"));
-form.setText(bundle.getString("form"));
+        if (bundle != null) {
+            String json = bundle.getString("content");
+            Gson gson = new Gson();
+            ProductPositioning productPositioning = gson.fromJson(json, ProductPositioning.class);
 
+            shelf.setText("Kệ: " + productPositioning.getDisplayShelves().getDisSheID());
+            platter.setText("Mâm: " + productPositioning.getDisplayPlatter().getDisPlaID());
+            location.setText("Vị trí " + productPositioning.getId());
+            form.setText("Trưng " + bundle.getString("form"));
+            quantity.setText("SL " + productPositioning.getDisplayQuantity());
+            status.setText(productPositioning.getProduct().getStatus() == true ? "Kinh doanh" : "Ngưng KD");
+            barcode.setText("Barcode: " + productPositioning.getProduct().getProductID());
+            nameOfProd.setText(productPositioning.getProduct().getProductName());
+            inventory.setText("Tồn: " + productPositioning.getProduct().getInventory());
             Glide.with(getContext())
-                            .load(bundle.getString("image"))
-                            .error(R.drawable.ic_baseline_cloud_download_24)
-                            .into(img);
+                    .load(bundle.getString("image"))
+                    .error(R.drawable.ic_baseline_cloud_download_24)
+                    .into(img);
+            printPriceTag(productPositioning);
         }
+
         return view;
     }
 
     private void anhXa() {
         print = view.findViewById((R.id.vpo_print));
-        print.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
         shelf = (TextView) view.findViewById(R.id.vpo_shelf);
         platter = view.findViewById(R.id.vpo_platter);
         location = view.findViewById(R.id.vpo_location);
@@ -111,7 +114,14 @@ form.setText(bundle.getString("form"));
         form = view.findViewById(R.id.vpo_form);
     }
 
-
-
-
+    private void printPriceTag(ProductPositioning productPositioning) {
+        print.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PrintPriceTag printPriceTag = new PrintPriceTag(getContext());
+                Bitmap bitmap = printPriceTag.generateOnePriceTag(productPositioning);
+                printPriceTag.printOnetag(bitmap);
+            }
+        });
+    }
 }

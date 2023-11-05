@@ -51,6 +51,7 @@ import ioc.app.bachhoa.model.Product;
 import ioc.app.bachhoa.model.Store;
 import ioc.app.bachhoa.ultil.CaptureAct;
 import ioc.app.bachhoa.ultil.RealPathUtil;
+import ioc.app.bachhoa.ultil.User;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -190,7 +191,7 @@ public class CreateProduct extends Fragment {
                 product.setStatus(status.isSelected());
                 String vat2= vat.getText().toString();
                 product.setVat(Integer.parseInt(vat2.equals("")?"0":vat2));
-                product.setStore(new Store(1));
+                product.setStore(User.employee.getStore());
                 String inventory2 = quanity.getText().toString();
                 product.setInventory(Integer.parseInt(inventory2.equals("")?"0":inventory2));
 //                product.setNearestExpDate(exp);

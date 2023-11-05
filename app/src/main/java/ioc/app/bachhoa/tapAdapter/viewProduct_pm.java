@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
 import com.journeyapps.barcodescanner.ScanContract;
 import com.journeyapps.barcodescanner.ScanOptions;
 import com.karumi.dexter.Dexter;
@@ -35,6 +36,7 @@ import ioc.app.bachhoa.fm.ProductInfo_fm;
 import ioc.app.bachhoa.model.Product;
 import ioc.app.bachhoa.model.ProductPositioning;
 import ioc.app.bachhoa.ultil.CaptureAct;
+import ioc.app.bachhoa.ultil.User;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -164,7 +166,7 @@ public class viewProduct_pm extends Fragment {
 
     private void findLocation(String id) {
         //  ProductPositionService.apiService.f
-        ProductPositionService.apiService.findByProductID(id, 1).enqueue(new Callback<ProductPositioning>() {
+        ProductPositionService.apiService.findByProductID(id, User.employee.getStore().getStoreID()).enqueue(new Callback<ProductPositioning>() {
             @Override
             public void onResponse(Call<ProductPositioning> call, Response<ProductPositioning> response) {
                 if (response.body() != null) {
@@ -174,6 +176,9 @@ public class viewProduct_pm extends Fragment {
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                     ProductInfo_fm productInfo_fm = new ProductInfo_fm();
                     Bundle bundle = new Bundle();
+                    Gson gson = new Gson();
+                    String content = gson.toJson(proPosition);
+                    bundle.putString("content",content);
                     bundle.putString("shelf","Kệ: " + proPosition.getDisplayShelves().getDisSheID());
                     bundle.putString("platter","Mâm: " + proPosition.getDisplayPlatter().getDisPlaID());
                     bundle.putString("location","Vị trí: " + proPosition.getId());
@@ -187,19 +192,6 @@ public class viewProduct_pm extends Fragment {
                     productInfo_fm.setArguments(bundle);
                     fragmentTransaction.replace(R.id.vpo_product_info,productInfo_fm);
                     fragmentTransaction.commit();
-
-                  // productInfo_fm.getShelf().setText("Kệ: " + proPosition.getDisplayShelves().getDisSheID());
-//                    productInfo_fm.getPlatter().setText("Mâm: " + proPosition.getDisplayPlatter().getDisPlaID());
-//                    productInfo_fm.getLocation().setText("Vị trí: " + proPosition.getId());
-//                    productInfo_fm.getQuantity().setText("SL: " + proPosition.getDisplayQuantity());
-//                    productInfo_fm.getInventory().setText("Tồn: " + proPosition.getProduct().getInventory());
-//                    productInfo_fm.getNameOfProd().setText(proPosition.getProduct().getProductName());
-//                    productInfo_fm.getBarcode().setText("Barcode: " + proPosition.getProduct().getProductID());
-//                    productInfo_fm.getStatus().setText(proPosition.getProduct().getStatus() ? "KD bình thường" : "Ngưng kinh doanh");
-//                    Glide.with(getContext())
-//                            .load(proPosition.getProduct().getImage())
-//                            .error(R.drawable.ic_baseline_cloud_download_24)
-//                            .into(productInfo_fm.getImg());
                 } else {
                     findProduct(id);
 
@@ -225,15 +217,6 @@ public class viewProduct_pm extends Fragment {
                         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                         ProductInfo_fm productInfo_fm = new ProductInfo_fm();
                         fragmentTransaction.replace(R.id.vpo_product_info,productInfo_fm);
-//                        productInfo_fm.getNameOfProd().setText(product.getProductName());
-//                        productInfo_fm.getBarcode().setText("Barcode: " + product.getProductID());
-//                        productInfo_fm.getInventory().setText("Tồn: " + product.getInventory());
-//                        productInfo_fm.getStatus().setText(product.getStatus() ? "KD bình thường" : "Ngưng kinh doanh");
-//                        Glide.with(getContext())
-//                                .load(product.getImage())
-//                                .error(R.drawable.ic_baseline_cloud_download_24)
-//                                .into(productInfo_fm.getImg());
-//                        fragmentTransaction.commit();
                     } else {
                         Toast.makeText(getActivity(), "Sản phẩm không tồn tại!", Toast.LENGTH_SHORT).show();
                     }

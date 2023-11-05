@@ -17,6 +17,7 @@ import java.util.List;
 
 import ioc.app.bachhoa.R;
 import ioc.app.bachhoa.model.ProductPositioning;
+import ioc.app.bachhoa.ultil.PrintPriceTag;
 
 public class PostionViewAdapter extends RecyclerView.Adapter<PostionViewAdapter.PositionViewHolder> {
     // Khai bao list -> Danh sach vi tri
@@ -47,9 +48,18 @@ public class PostionViewAdapter extends RecyclerView.Adapter<PostionViewAdapter.
         holder.inventory.setText("Tồn: " + proPos.getProduct().getInventory());
         holder.nameOfProduct.setText(proPos.getProduct().getProductName());
         holder.barcode.setText(proPos.getProduct().getProductID());
-//        Glide.with(context).load(proPos.getProduct().getImage())
-//                .error(R.drawable.ic_baseline_image_24)
-//                .into(holder.img);
+        holder.print.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PrintPriceTag printPriceTag = new PrintPriceTag(context);
+                printPriceTag.printOnetag(printPriceTag.generateOnePriceTag(proPos));
+            }
+        });
+//        Glide.with(context)
+//                .load(proPos.getProduct().getImage()) // Đường dẫn của ảnh
+//                .placeholder(R.drawable.ic_baseline_image_24) // Ảnh tạm thời hiển thị trong lúc đang tải (nếu cần)
+//                .error(R.drawable.ic_baseline_cloud_download_24) // Ảnh .clouhiển thị khi có lỗi xảy ra trong quá trình tải (nếu cần)
+//                .into(holder.img); // ImageView mà bạn muốn hiển thị ảnh
     }
 
     @Override
@@ -82,6 +92,7 @@ public class PostionViewAdapter extends RecyclerView.Adapter<PostionViewAdapter.
             nameOfProduct = itemView.findViewById(R.id.ivp_name);
             barcode = itemView.findViewById(R.id.ivp_barcode);
             img = itemView.findViewById(R.id.ivp_img);
+            print = itemView.findViewById(R.id.ivp_print);
         }
     }
 }

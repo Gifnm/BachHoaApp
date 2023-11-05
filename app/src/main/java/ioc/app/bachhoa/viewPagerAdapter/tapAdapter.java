@@ -7,7 +7,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import ioc.app.bachhoa.tapAdapter.viewProduct_pm;
-import ioc.app.bachhoa.tapAdapter.xemKe_fm;
+import ioc.app.bachhoa.tapAdapter.viewShelf_fm;
 
 public class tapAdapter extends FragmentStatePagerAdapter {
     public tapAdapter(@NonNull FragmentManager fm, int behavior) {
@@ -21,7 +21,7 @@ public class tapAdapter extends FragmentStatePagerAdapter {
             case 0:
                 return new viewProduct_pm();
             case 1:
-                return new xemKe_fm();
+                return new viewShelf_fm();
             default:
                 return new viewProduct_pm();
 

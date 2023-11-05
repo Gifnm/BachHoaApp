@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    tools:context=".tapAdapter.xemKe_fm">
+    tools:context=".tapAdapter.viewShelf_fm">
 
     <LinearLayout
         android:id="@+id/chonKe"
@@ -12,7 +12,6 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:orientation="horizontal">
-
 
 
         <Spinner
@@ -23,8 +22,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            ></Spinner>
+            android:layout_marginBottom="8dp"></Spinner>
 
         <EditText
             android:id="@+id/sv_search_shelf"
@@ -38,41 +36,38 @@
             android:textSize="@dimen/text_size_medium"></EditText>
 
     </LinearLayout>
-<LinearLayout
-    android:id="@+id/print_shelf"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_below="@+id/chonKe"
-    android:orientation="horizontal"
-    android:gravity="center"
-    >
-<Button
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="In tem giá kệ"
-    android:background="@drawable/my_button_bg2"
-    android:textColor="@color/textButton"
-    android:padding="3dp"
-    />
-    <Button
-        android:layout_width="wrap_content"
+
+    <LinearLayout
+        android:id="@+id/print_shelf"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Chỉ in 1 mâm"
-        android:background="@drawable/my_button_bg2"
-        android:textColor="@color/textButton"
-        android:padding="3dp"
-        android:layout_marginLeft="5dp"
-        />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="In vị trí kệ"
-        android:background="@drawable/my_button_bg2"
-        android:textColor="@color/textButton"
-        android:padding="3dp"
-        android:layout_marginLeft="5dp"
-        />
-</LinearLayout>
+        android:layout_below="@+id/chonKe"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/vsf_printPricetagsOnShlef"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="3dp"
+            android:text="In tem giá kệ" />
+
+        <Button
+            android:id="@+id/vsf_printPriceTagOnPlatter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:padding="3dp"
+            android:text="Chỉ in 1 mâm" />
+
+        <Button
+            android:id="@+id/vsf_printShelfPosi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:padding="3dp"
+            android:text="In vị trí kệ" />
+    </LinearLayout>
 
 
     <RelativeLayout
@@ -98,14 +93,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
                 android:layout_margin="8dp"
+                android:background="@drawable/custom_edit_text"
                 android:minWidth="48dp"
+                android:padding="12dp"
+                android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="@dimen/text_size_large"
-                android:textAlignment="center"
-                android:textStyle="bold"
-                android:padding="12dp"
-                android:background="@drawable/custom_edit_text"
-                ></TextView>
+                android:textStyle="bold"></TextView>
 
             <ImageButton
                 android:id="@+id/sv_next_platter"
