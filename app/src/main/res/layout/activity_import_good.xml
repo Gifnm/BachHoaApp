@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ImportGood">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_alignParentTop="true"
+        android:background="@color/button"
+        android:elevation="4dp"
+        android:theme="?attr/actionBarTheme">
+
+        <!-- Thanh ngang quay lại -->
+        <ImageView
+            android:id="@+id/back_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginStart="8dp"
+            android:contentDescription="Quay lại"
+            android:src="@drawable/ic_baseline_arrow_back_24"
+            app:tint="@color/white" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Danh sách phiếu nhập"
+            android:textColor="@color/textButton"
+            android:textSize="@dimen/text_size_large"></TextView>
+    </androidx.appcompat.widget.Toolbar>
+    <LinearLayout
+        android:id="@+id/aig_find_group_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:orientation="horizontal"
+        android:layout_marginTop="4dp"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:hint="Nhập mã phiếu"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_size_medium"
+            android:padding="8dp"
+            android:background="@drawable/custom_edit_text"
+            />
+<Button
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/my_button_bg"
+    android:text="Tìm"
+    android:textColor="@color/textColor2"
+    android:layout_marginLeft="8dp"
+    ></Button>
+
+        <ImageButton
+            android:id="@+id/vpo_scan"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:textColor="@color/white"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/barcode_svgrepo_com2"
+            android:drawableTint="@color/black"
+            />
+    </LinearLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="8dp"
+        android:layout_below="@+id/aig_find_group_view"
+        />
+</RelativeLayout>
