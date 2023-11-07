@@ -47,6 +47,11 @@ public class DeliveryNoteAdapter extends RecyclerView.Adapter<DeliveryNoteAdapte
         return 0;
     }
 
+    public void setData(List<DeliveryNote> list) {
+        this.list = list;
+
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView deliveryID, nameOfUserCreate, timeCreate;
 
