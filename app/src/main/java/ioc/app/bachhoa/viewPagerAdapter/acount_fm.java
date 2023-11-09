@@ -72,28 +72,10 @@ public class acount_fm extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_account_fm, container, false);
-        anhxa();
+
         return view;
     }
-    private void anhxa() {
-        thongTinTaiKhoan = (CardView) view.findViewById(R.id.account_detail);
-        final BottomNavigationView navigationView = getActivity().findViewById(R.id.navigation);
 
-        thongTinTaiKhoan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                AccountDetail accountDetail = new AccountDetail();
-                fragmentTransaction.add(R.id.main_activity, accountDetail);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
-
-                // Ẩn BottomNavigationView khi chuyển đổi đến Fragment khác
-                navigationView.setVisibility(View.GONE);
-            }
-        });
-    }
 
 
 

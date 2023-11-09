@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,212 +7,107 @@
     tools:context=".viewPagerAdapter.acount_fm"
     android:background="@color/white"
     android:orientation="vertical">
-   <LinearLayout
-       android:layout_width="match_parent"
-       android:layout_height="150dp"
-       android:background="@drawable/card_border_radius"
-       android:gravity="center"
-       >
-       <LinearLayout
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:orientation="horizontal"
-           >
-           <de.hdodenhof.circleimageview.CircleImageView
-               android:layout_width="100dp"
-               android:layout_height="100dp"
-               android:src="@drawable/me"
-               ></de.hdodenhof.circleimageview.CircleImageView>
-          <LinearLayout
-              android:layout_marginLeft="12dp"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:orientation="vertical"
-              >
-              <TextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:text="Cửa hàng: 4496"
-                  android:textColor="@color/white"
-                  android:textSize="@dimen/text_size_medium"
 
-                  />
-              <View
-                  android:layout_width="match_parent"
-                  android:layout_height="0.5dp"
-                  android:background="@color/white"
-                  />
-              <TextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:text="Nhân viên: Nguyễn Minh Thư"
-                  android:textColor="@color/white"
-                  android:textSize="@dimen/text_size_medium"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/faf_store_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        app:cardBackgroundColor="@color/button2"
+        app:cardCornerRadius="5dp"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cửa hàng: 4594"
+            android:layout_margin="20dp"
+            android:textSize="@dimen/text_size_large"
+            android:textColor="@color/textColor2"
+            android:textStyle="bold"
+            />
 
-                  />
-              <View
-                  android:layout_width="match_parent"
-                  android:layout_height="0.5dp"
-                  android:background="@color/white"
-                  />
-              <TextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:text="User: 179698"
-                  android:textColor="@color/white"
-                  android:textSize="@dimen/text_size_medium"
-                  />
-              <View
-                  android:layout_width="match_parent"
-                  android:layout_height="0.5dp"
-                  android:background="@color/white"
-                  />
-              <TextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:text="Vai trò: Quản lý"
-                  android:textColor="@color/white"
-                  android:textSize="@dimen/text_size_medium"
-                  />
-
-          </LinearLayout>
-
-       </LinearLayout>
-
-   </LinearLayout>
-
+    </androidx.cardview.widget.CardView>
 <LinearLayout
-    android:layout_marginTop="12dp"
+    android:layout_below="@+id/faf_store_id"
+    android:layout_above="@+id/faf_logout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:layout_margin="8dp"
+    >
     <androidx.cardview.widget.CardView
-        android:id="@+id/account_detail"
-        android:layout_marginBottom="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="5dp"
-        app:cardElevation="2dp"
+        android:layout_marginBottom="5dp"
+        app:cardBackgroundColor="@color/button2"
         >
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="16dp"
+            android:text="Nuyễn Minh Thư - 179692"
             android:textColor="@color/black"
             android:textSize="@dimen/text_size_medium"
-            android:text="Thông tin tài khoản"
-            android:drawableLeft="@drawable/ic_baseline_person_24"
-            android:drawablePadding="16dp"
-            android:drawableTint="@color/main_color"
-            android:background="@color/white"
-            ></TextView>
+            android:padding="12dp"
+            android:textStyle="bold"
+            />
 
     </androidx.cardview.widget.CardView>
-    <androidx.cardview.widget.CardView
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/grey"
         android:layout_marginBottom="5dp"
+        ></View>
+
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="5dp"
-        app:cardElevation="2dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
         >
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="16dp"
+            android:text="Kết ca thu ngân cửa hàng"
             android:textColor="@color/black"
             android:textSize="@dimen/text_size_medium"
-            android:text="Chấm công"
-            android:drawableLeft="@drawable/ic_baseline_punch_clock_24"
-            android:drawablePadding="16dp"
-            android:drawableTint="@color/main_color"
-            android:background="@color/white"
-            ></TextView>
+            android:padding="12dp"
+            />
 
     </androidx.cardview.widget.CardView>
+
+
     <androidx.cardview.widget.CardView
-        android:layout_marginBottom="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="5dp"
-        app:cardElevation="2dp"
-        >
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="16dp"
-            android:textColor="@color/black"
-            android:textSize="@dimen/text_size_medium"
-            android:text="Lịch phân ca cá nhân"
-            android:drawableLeft="@drawable/ic_baseline_person_pin_circle_24"
-            android:drawablePadding="16dp"
-            android:drawableTint="@color/main_color"
-            android:background="@color/white"
-            ></TextView>
-
-    </androidx.cardview.widget.CardView>
-    <androidx.cardview.widget.CardView
         android:layout_marginBottom="5dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="5dp"
-        app:cardElevation="2dp"
+        android:layout_marginTop="5dp"
         >
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="16dp"
+            android:text="Liên hệ hỗ trợ"
             android:textColor="@color/black"
             android:textSize="@dimen/text_size_medium"
-            android:text="Phân ca cửa hàng"
-            android:drawableLeft="@drawable/ic_baseline_storefront_24"
-            android:drawablePadding="16dp"
-            android:drawableTint="@color/main_color"
-            android:background="@color/white"
-            ></TextView>
+            android:padding="12dp"
+            />
 
     </androidx.cardview.widget.CardView>
-    <androidx.cardview.widget.CardView
-        android:layout_marginBottom="5dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="5dp"
-        app:cardElevation="2dp"
-        >
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="16dp"
-            android:textColor="@color/black"
-            android:textSize="@dimen/text_size_medium"
-            android:text="Quản lý phân ca"
-            android:drawableLeft="@drawable/ic_baseline_manage_accounts_24"
-            android:drawablePadding="16dp"
-            android:drawableTint="@color/main_color"
-            android:background="@color/white"
-            ></TextView>
-
-    </androidx.cardview.widget.CardView>
-    <androidx.cardview.widget.CardView
-        android:layout_marginBottom="5dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="5dp"
-        app:cardElevation="2dp"
-        >
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="16dp"
-            android:textColor="@color/black"
-            android:textSize="@dimen/text_size_medium"
-            android:text="Đăng xuất"
-            android:drawableLeft="@drawable/ic_baseline_logout_24"
-            android:drawablePadding="16dp"
-            android:drawableTint="@color/main_color"
-            android:background="@color/white"
-            ></TextView>
-    </androidx.cardview.widget.CardView>
-
 
 </LinearLayout>
-</LinearLayout>
+    <Button
+        android:id="@+id/faf_logout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="Đăng xuất"
+        android:background="@color/delete"
+        android:textColor="@color/red"
+        android:drawableTop="@drawable/logout_svgrepo_com"
+        />
+</RelativeLayout>

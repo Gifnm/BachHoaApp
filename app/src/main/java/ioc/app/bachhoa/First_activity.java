@@ -28,59 +28,40 @@ public class First_activity extends AppCompatActivity {
         setContentView(R.layout.activity_first);
         internet_status = (TextView) findViewById(R.id.main_status);
         if (isInternetAvailable()) {
-            toLogin();
+            checkLogin();
         } else {
             internet_status.setText("Kiểm tra kết nối mạng!");
         }
 
     }
 
-    public void toLogin() {
-        if (checkLogin()) {
-            Intent intent = new Intent(First_activity.this, MainActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-        } else {
 
-            Intent intent = new Intent(First_activity.this, DangNhap.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-        }
-    }
-
-
-    private boolean checkLogin() {
+    private void checkLogin() {
 
         SharedPreferences sharedPreferences = getSharedPreferences("isLogin", Context.MODE_PRIVATE);
         int employeeID = sharedPreferences.getInt("employeeID", 0);
         if (employeeID == 0) {
-            return false;
+            toLoginView();
         } else {
             EmployeeAPI.apiService.findById(employeeID).enqueue(new Callback<Employee>() {
                 @Override
                 public void onResponse(Call<Employee> call, Response<Employee> response) {
                     if (response.isSuccessful()) {
                         User.employee = response.body();
-                        Toast.makeText(First_activity.this, "Xin chào" + User.employee.getEmployeeName(), Toast.LENGTH_SHORT).show();
-                        setCheck(true);
+                        Toast.makeText(First_activity.this, "Xin chào!" + employeeID, Toast.LENGTH_SHORT).show();
+                        toMain();
                     } else {
-                        Toast.makeText(First_activity.this, "Vui lòng đăng nhập lại " + employeeID, Toast.LENGTH_SHORT).show();
-                        setCheck(false);
                         Intent intent = new Intent(First_activity.this, DangNhap.class);
                         startActivity(intent);
                     }
+
                 }
 
                 @Override
                 public void onFailure(Call<Employee> call, Throwable t) {
                     internet_status.setText("Bảo trì máy chủ!");
-                    setCheck(false);
                 }
             });
-
-            return this.check;
         }
 
 
@@ -95,10 +76,18 @@ public class First_activity extends AppCompatActivity {
         return false;
     }
 
-    private void setCheck(Boolean check) {
-        this.check = check;
-
+    private void toMain() {
+        Intent intent = new Intent(First_activity.this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 
-    ;
+    private void toLoginView() {
+        Intent intent = new Intent(First_activity.this, DangNhap.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+
+    }
 }

@@ -20,10 +20,10 @@ import ioc.app.bachhoa.R;
  * create an instance of this fragment.
  */
 public class displayProduct_pm extends Fragment {
-private ViewPager viewPager;
-private TabLayout tabLayout;
+    private ViewPager viewPager;
+    private TabLayout tabLayout;
     private tapAdapter tapAdapter;
-private View view;
+    private View view;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -76,11 +76,11 @@ private View view;
 
 
     private void anhxa() {
-viewPager = (ViewPager) view.findViewById(R.id.tap_viewpager) ;
-tabLayout = (TabLayout) view.findViewById(R.id.tap);
-tapAdapter = new tapAdapter(getChildFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-viewPager.setAdapter(tapAdapter);
-tabLayout.setupWithViewPager(viewPager);
+        viewPager = (ViewPager) view.findViewById(R.id.tap_viewpager);
+        tabLayout = (TabLayout) view.findViewById(R.id.tap);
+        tapAdapter = new tapAdapter(getChildFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        viewPager.setAdapter(tapAdapter);
+        tabLayout.setupWithViewPager(viewPager);
     }
 
 
