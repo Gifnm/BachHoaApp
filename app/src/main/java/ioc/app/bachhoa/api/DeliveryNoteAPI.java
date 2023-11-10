@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 
 import java.util.List;
 
+import ioc.app.bachhoa.model.DeliveryNote;
 import ioc.app.bachhoa.model.Store;
 import ioc.app.bachhoa.ultil.LocalVarible;
 import retrofit2.Call;
@@ -12,6 +13,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
 import retrofit2.http.Part;
+import retrofit2.http.Path;
 
 public interface DeliveryNoteAPI {
     String baseURL = "http:" + LocalVarible.ip + ":8083/bachhoa/api/deliverynotapi/";
@@ -24,7 +26,7 @@ public interface DeliveryNoteAPI {
      *
      * @param store Object Cửa hàng
      */
-    @GET("getall")
-    Call<List<DeliveryNoteAPI>> getByStore(@Part("store") Store store);
+    @GET("getall/{storeID}")
+    Call<List<DeliveryNote>> getByStore(@Path("storeID") int storeID);
 
 }
