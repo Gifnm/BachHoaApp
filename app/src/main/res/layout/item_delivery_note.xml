@@ -87,7 +87,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/lsb_btn_view"
+        android:id="@+id/idn_btn_check"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Kiểm" />

@@ -8,7 +8,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public interface PurchaseHistoryAPI {
-    String baseURL = "http:"+ LocalVarible.ip +":8083/bachhoa/api/";
+    String baseURL = "http:" + LocalVarible.ip + ":" + LocalVarible.serverPort + "/bachhoa/api/";
     Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
     PurchaseHistoryAPI apiService = new Retrofit.Builder().baseUrl(baseURL).addConverterFactory(GsonConverterFactory.create(gson)).build().create(PurchaseHistoryAPI.class);
 

@@ -3,55 +3,63 @@ package ioc.app.bachhoa.model;
 import java.util.List;
 
 
-
-
 public class Store {
 
-	private int storeID;
+    private int storeID;
 
 
-	private String address;
+    private String address;
 
 
-	private String size;
+    private String size;
 
-	public Store(int storeID, String address, String size) {
-		this.storeID = storeID;
-		this.address = address;
-		this.size = size;
-	}
+    private String storeName;
 
-	public Store(int storeID) {
-		this.storeID = storeID;
-	}
+    public Store(int storeID, String address, String size, String storeName) {
+        this.storeID = storeID;
+        this.address = address;
+        this.size = size;
+        this.storeName = storeName;
+    }
 
-	public Store() {
-	}
+    public Store(int storeID) {
+        this.storeID = storeID;
+    }
 
-	public int getStoreID() {
-		return storeID;
-	}
+    public Store() {
+    }
 
-	public void setStoreID(int storeID) {
-		this.storeID = storeID;
-	}
+    public int getStoreID() {
+        return storeID;
+    }
 
-	public String getAddress() {
-		return address;
-	}
+    public void setStoreID(int storeID) {
+        this.storeID = storeID;
+    }
 
-	public void setAddress(String address) {
-		this.address = address;
-	}
+    public String getAddress() {
+        return address;
+    }
 
-	public String getSize() {
-		return size;
-	}
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
-	public void setSize(String size) {
-		this.size = size;
-	}
+    public String getSize() {
+        return size;
+    }
 
+    public void setSize(String size) {
+        this.size = size;
+    }
+
+    public String getStoreName() {
+        return storeName;
+    }
+
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
+    }
 //    @OneToMany(mappedBy = "store")
 //    private List<Warehouse> warehouses;
 //

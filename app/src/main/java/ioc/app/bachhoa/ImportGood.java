@@ -48,12 +48,10 @@ public class ImportGood extends AppCompatActivity {
     }
 
     private void getDeliVeryNotes() {
-        DeliveryNoteAPI.apiService.getByStore(User.employee.getStore().getStoreID()).enqueue(new Callback<List<DeliveryNote>>() {
+        DeliveryNoteAPI.apiService.getByStore(1).enqueue(new Callback<List<DeliveryNote>>() {
             @Override
             public void onResponse(Call<List<DeliveryNote>> call, Response<List<DeliveryNote>> response) {
-                if (response.isSuccessful()) {
-                    setData(response.body());
-                }
+               deliveryNoteAdapter.setData(response.body());
             }
 
             @Override

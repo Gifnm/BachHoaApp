@@ -46,11 +46,11 @@ public class First_activity extends AppCompatActivity {
             EmployeeAPI.apiService.findById(employeeID).enqueue(new Callback<Employee>() {
                 @Override
                 public void onResponse(Call<Employee> call, Response<Employee> response) {
-                    if (response.isSuccessful()) {
+                    if (response.code() == 200) {
                         User.employee = response.body();
-                        Toast.makeText(First_activity.this, "Xin chào!" + employeeID, Toast.LENGTH_SHORT).show();
                         toMain();
-                    } else {
+                    } else if(response.code() == 401){
+
                         Intent intent = new Intent(First_activity.this, DangNhap.class);
                         startActivity(intent);
                     }

@@ -57,7 +57,7 @@ public class viewShelf_fm extends Fragment {
     int indexPlatter = 0;
     List<ProductPositioning> proPosList = new ArrayList<>();
     //
-    PostionViewAdapter postionViewAdapter = new PostionViewAdapter(getContext());
+    PostionViewAdapter postionViewAdapter = new PostionViewAdapter(getActivity());
     ShelfApdapter shelfApdapter;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -124,6 +124,16 @@ public class viewShelf_fm extends Fragment {
         getListShelf();
         getListPlatter();
         // Set Adapter cho Spinner
+
+        // Set Apdapter cho RecycelView
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
+        posttionRecyCle.setLayoutManager(linearLayoutManager);
+        posttionRecyCle.setAdapter(postionViewAdapter);
+
+    }
+
+    private void addEvent() {
         shelfSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -136,15 +146,6 @@ public class viewShelf_fm extends Fragment {
 
             }
         });
-        // Set Apdapter cho RecycelView
-
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
-        posttionRecyCle.setLayoutManager(linearLayoutManager);
-        posttionRecyCle.setAdapter(postionViewAdapter);
-
-    }
-
-    private void addEvent() {
         prevousPlater.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -200,8 +201,8 @@ public class viewShelf_fm extends Fragment {
                 public void onResponse(Call<List<ProductPositioning>> call, Response<List<ProductPositioning>> response) {
                     if (response.isSuccessful()) {
                         if (response.body() != null) {
+                            Toast.makeText(getContext(), "size: "+ response.body().size(), Toast.LENGTH_SHORT).show();
                             setData(response.body());
-                            postionViewAdapter.setData(response.body());
                         }
                     }
                 }
@@ -291,7 +292,8 @@ public class viewShelf_fm extends Fragment {
     }
 
     private void setData(List<ProductPositioning> list) {
-        proPosList = list;
+        this.proPosList = list;
+        postionViewAdapter.setData(this.proPosList);
 
     }
 

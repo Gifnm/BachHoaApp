@@ -14,7 +14,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 
 public interface PlatterAPI {
-    String baseURL = "http:"+ LocalVarible.ip +":8083/bachhoa/api/";
+    String baseURL = "http:"+ LocalVarible.ip +":"+LocalVarible.serverPort+"/bachhoa/api/";
     Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
     PlatterAPI apiService = new Retrofit.Builder().baseUrl(baseURL).addConverterFactory(GsonConverterFactory.create(gson)).build().create(PlatterAPI.class);
 

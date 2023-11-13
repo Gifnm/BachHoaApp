@@ -10,6 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
 import ioc.app.bachhoa.R;
@@ -19,22 +21,30 @@ public class InputSlipDifferenceAdapter extends RecyclerView.Adapter<InputSlipDi
     private Context context;
     private List<DetailedDeliveryNote> list;
 
+    public InputSlipDifferenceAdapter(Context context) {
+        this.context = context;
+    }
+
     @NonNull
     @Override
     public ViewHoler onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_input_slip_difference, parent, false);
-        return null;
+        return new ViewHoler(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHoler holder, int position) {
         DetailedDeliveryNote deliveryNote = list.get(position);
         if (deliveryNote != null) {
-            holder.numberOnList.setText(deliveryNote.getQuantity() + "");
-            holder.numberCount.setText(deliveryNote.getCount() + "");
-            holder.numberDifference.setText((deliveryNote.getCount() - deliveryNote.getQuantity()) + "");
+            holder.numberOnList.setText("Phiếu: " + deliveryNote.getQuantity());
+            holder.numberCount.setText("Kiểm: " + deliveryNote.getCount());
+            holder.numberDifference.setText("Chênh lệch: " + (deliveryNote.getCount() - deliveryNote.getQuantity()));
             holder.nameOfProduct.setText(deliveryNote.getProduct().getProductName());
             holder.barcode.setText(deliveryNote.getProduct().getProductID());
+            Glide.with(context).load(deliveryNote.getProduct().getImage())
+                    .placeholder(R.drawable.ic_baseline_image_24)
+                    .error(R.drawable.ic_baseline_cloud_download_24)
+                    .into(holder.img);
 
         }
     }

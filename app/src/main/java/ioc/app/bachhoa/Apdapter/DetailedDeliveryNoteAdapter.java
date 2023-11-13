@@ -12,6 +12,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
 import ioc.app.bachhoa.R;
@@ -35,7 +37,7 @@ public class DetailedDeliveryNoteAdapter extends RecyclerView.Adapter<DetailedDe
 
     public void setData(List<DetailedDeliveryNote> list) {
         this.list = list;
-
+        notifyDataSetChanged();
     }
 
     @Override
@@ -45,11 +47,20 @@ public class DetailedDeliveryNoteAdapter extends RecyclerView.Adapter<DetailedDe
         if (deliveryNote != null) {
             holder.nameProduct.setText(deliveryNote.getProduct().getProductName());
             holder.barcode.setText(deliveryNote.getProduct().getProductID());
+            if (deliveryNote.getCount() == 0) {
+
+            }
+            Glide.with(context)
+                    .load(deliveryNote.getProduct().getImage()) // Đường dẫn của ảnh
+                    .placeholder(R.drawable.ic_baseline_image_24) // Ảnh tạm thời hiển thị trong lúc đang tải (nếu cần)
+                    .error(R.drawable.ic_baseline_cloud_download_24) // Ảnh .clouhiển thị khi có lỗi xảy ra trong quá trình tải (nếu cần)
+                    .into(holder.img); // ImageView mà bạn muốn hiển thị ảnh
             holder.reduce1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String numberS = holder.number0.getText().toString();
-                    if (numberS != null) {
+
+                    if (!holder.number0.getText().toString().isEmpty()) {
+                        String numberS = holder.number0.getText().toString();
                         int number = Integer.parseInt(numberS);
                         if (number > 0) {
                             holder.number0.setText((--number) + "");
@@ -61,14 +72,15 @@ public class DetailedDeliveryNoteAdapter extends RecyclerView.Adapter<DetailedDe
             holder.increasse1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String numberS = holder.number0.getText().toString();
-                    if (numberS != null) {
-                        int number = Integer.parseInt(numberS);
-                        if (number > 0) {
-                            holder.number0.setText((++number) + "");
-                            deliveryNote.setCount(number);
 
-                        }
+                    if (holder.number0.getText().toString().isEmpty()) {
+                        holder.number0.setText(1 + "");
+                        deliveryNote.setCount(1);
+                    } else {
+                        String numberS = holder.number0.getText().toString();
+                        int number = Integer.parseInt(numberS);
+                        holder.number0.setText((++number) + "");
+                        deliveryNote.setCount(number);
                     }
                 }
             });

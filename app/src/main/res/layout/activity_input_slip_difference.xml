@@ -32,13 +32,40 @@
             android:textSize="@dimen/text_size_large"></TextView>
     </androidx.appcompat.widget.Toolbar>
 
+    <LinearLayout
+        android:id="@+id/aisd_number_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/aisd_toolbar"
+        android:layout_margin="8dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Danh sách chênh lệch: "
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_size_large" />
+
+        <TextView
+            android:id="@+id/aisd_number_diffrence"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/red"
+            android:text="0"
+            android:textSize="@dimen/text_size_large" />
+
+    </LinearLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/aisd_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/aisd_save"
-        android:layout_below="@+id/aisd_toolbar"
-        android:layout_marginTop="8dp" />
+        android:layout_below="@id/aisd_number_view"
+        android:layout_marginTop="8dp"
+
+        />
 
     <Button
         android:id="@+id/aisd_save"

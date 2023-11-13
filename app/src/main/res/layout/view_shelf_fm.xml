@@ -50,7 +50,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="3dp"
-            android:text="In tem giá kệ" />
+            android:text="In tem giá kệ"
+
+            />
 
         <Button
             android:id="@+id/vsf_printPriceTagOnPlatter"

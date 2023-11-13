@@ -55,11 +55,13 @@ public class PostionViewAdapter extends RecyclerView.Adapter<PostionViewAdapter.
                 printPriceTag.printOnetag(printPriceTag.generateOnePriceTag(proPos));
             }
         });
+
+//        if(context != null){
 //        Glide.with(context)
 //                .load(proPos.getProduct().getImage()) // Đường dẫn của ảnh
 //                .placeholder(R.drawable.ic_baseline_image_24) // Ảnh tạm thời hiển thị trong lúc đang tải (nếu cần)
 //                .error(R.drawable.ic_baseline_cloud_download_24) // Ảnh .clouhiển thị khi có lỗi xảy ra trong quá trình tải (nếu cần)
-//                .into(holder.img); // ImageView mà bạn muốn hiển thị ảnh
+//                .into(holder.img); }// ImageView mà bạn muốn hiển thị ảnh
     }
 
     @Override
@@ -91,7 +93,7 @@ public class PostionViewAdapter extends RecyclerView.Adapter<PostionViewAdapter.
             inventory = itemView.findViewById(R.id.ivp_inventory);
             nameOfProduct = itemView.findViewById(R.id.ivp_name);
             barcode = itemView.findViewById(R.id.ivp_barcode);
-            img = itemView.findViewById(R.id.ivp_img);
+            img = (ImageView) itemView.findViewById(R.id.ip_img);
             print = itemView.findViewById(R.id.ivp_print);
         }
     }

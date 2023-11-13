@@ -16,7 +16,7 @@ import retrofit2.http.Part;
 import retrofit2.http.Path;
 
 public interface DeliveryNoteAPI {
-    String baseURL = "http:" + LocalVarible.ip + ":8083/bachhoa/api/deliverynotapi/";
+    String baseURL = "http:" + LocalVarible.ip + ":"+LocalVarible.serverPort+"/bachhoa/api/deliverynotapi/";
     Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
     DeliveryNoteAPI apiService = new Retrofit.Builder().baseUrl(baseURL).addConverterFactory(GsonConverterFactory.create(gson)).build().create(DeliveryNoteAPI.class);
 

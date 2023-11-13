@@ -21,4 +21,6 @@
     <color name="button2">#e1ecf4</color>
     <color name="textColor2">#6387ab</color>
     <color name="delete">#ede1dd</color>
+    <color name="blueLight">#77acf1</color>
+    <color name="yellowLight">#faecc6</color>
 </resources>

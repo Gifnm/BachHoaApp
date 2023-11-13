@@ -33,7 +33,7 @@
 
     </androidx.appcompat.widget.Toolbar>
 <LinearLayout
-    android:layout_marginTop="8dp"
+    android:layout_margin="8dp"
     android:layout_marginBottom="8dp"
     android:id="@+id/addn_find_view"
     android:layout_width="match_parent"
@@ -42,6 +42,7 @@
     android:layout_below="@+id/addn_toolbar"
     >
     <EditText
+        android:id="@+id/addn_txt_barcode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="3"
@@ -52,13 +53,14 @@
         android:padding="8dp"
         />
 <Button
+    android:id="@+id/addn_btn_find"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:text="Tìm"
     android:layout_marginLeft="8dp"
     />
     <ImageButton
-        android:id="@+id/vpo_scan"
+        android:id="@+id/addn_imb_scan"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_width="48dp"
@@ -81,9 +83,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_margin="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:background="@color/greenLight"
-        android:text="Xem kết quả"
+        android:text="Lưu kiểm"
         android:textColor="@color/white"
         android:textSize="@dimen/text_size_medium" />
 </RelativeLayout>

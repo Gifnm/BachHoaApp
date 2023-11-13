@@ -12,7 +12,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 
 public interface ProductAPI {
-    String baseURL = "http:"+ LocalVarible.ip +":8083/bachhoa/api/product";
+    String baseURL = "http:"+ LocalVarible.ip +":"+LocalVarible.serverPort+"/bachhoa/api/product";
     Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
     ProductAPI apiService = new Retrofit.Builder().baseUrl(baseURL).addConverterFactory(GsonConverterFactory.create(gson)).build().create(ProductAPI.class);
 
