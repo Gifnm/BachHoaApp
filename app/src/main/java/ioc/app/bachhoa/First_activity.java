@@ -1,6 +1,7 @@
 package ioc.app.bachhoa;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,12 +9,18 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.snackbar.Snackbar;
+
 import ioc.app.bachhoa.api.EmployeeAPI;
 import ioc.app.bachhoa.model.Employee;
+import ioc.app.bachhoa.ultil.Message;
 import ioc.app.bachhoa.ultil.User;
+import ioc.app.bachhoa.ultil.UserManager;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -30,7 +37,8 @@ public class First_activity extends AppCompatActivity {
         if (isInternetAvailable()) {
             checkLogin();
         } else {
-            internet_status.setText("Kiểm tra kết nối mạng!");
+            Message message = new Message(First_activity.this);
+            message.messageFailed(internet_status, "Không có kết nối Internet!");
         }
 
     }
@@ -47,9 +55,11 @@ public class First_activity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<Employee> call, Response<Employee> response) {
                     if (response.code() == 200) {
+                        UserManager userManager = UserManager.getInstance();
+                        userManager.setUser(response.body());
                         User.employee = response.body();
                         toMain();
-                    } else if(response.code() == 401){
+                    } else if (response.code() == 401) {
 
                         Intent intent = new Intent(First_activity.this, DangNhap.class);
                         startActivity(intent);
@@ -59,7 +69,8 @@ public class First_activity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<Employee> call, Throwable t) {
-                    internet_status.setText("Bảo trì máy chủ!");
+                    Message message = new Message(First_activity.this);
+                    message.messageFailed(internet_status, "Máy chủ đang bảo trì!");
                 }
             });
         }
@@ -90,4 +101,5 @@ public class First_activity extends AppCompatActivity {
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 
     }
+
 }

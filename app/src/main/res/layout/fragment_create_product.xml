@@ -1,129 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fm.CreateProduct"
     android:background="@color/background"
-    >
+    tools:context=".fm.CreateProduct">
 
     <ScrollView
-        android:layout_margin="8dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/findSetting"
-        >
+        android:layout_margin="8dp">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
             android:background="@color/background"
-            >
+            android:orientation="vertical">
 
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
                 android:text="Thông tin sản phẩm (*)"
                 android:textColor="@color/black"
-                android:textSize="@dimen/text_size_medium"
-               android:layout_marginBottom="8dp"
-                ></TextView>
+                android:textSize="@dimen/text_size_medium"></TextView>
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="8dp"
-                android:layout_marginBottom="12dp"
                 android:layout_margin="2dp"
-                >
+                android:layout_marginBottom="12dp"
+                app:cardCornerRadius="8dp">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
                     android:layout_marginTop="12dp"
                     android:layout_marginBottom="12dp"
-                    >
+                    android:orientation="vertical">
+
                     <LinearLayout
-                        android:layout_margin="5dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
+                        android:layout_margin="5dp"
                         android:layout_marginBottom="8dp"
+                        android:orientation="horizontal"
 
                         >
+
                         <EditText
                             android:id="@+id/cp_barcode"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="3"
-                            android:padding="12dp"
                             android:hint="Nhập mã barcode"
-
-                            android:textColor="@color/black"
-                            android:textColorHint="@color/grey"
                             android:inputType="number"
-                            ></EditText>
+
+                            android:padding="12dp"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/grey"></EditText>
+
                         <ImageButton
                             android:id="@+id/create_product_scan"
-                            android:layout_marginLeft="8dp"
                             android:layout_width="48dp"
                             android:layout_height="48dp"
-                            android:textColor="@color/white"
-                            android:src="@drawable/barcode_svgrepo_com2"
-
-                            android:drawableTint="@color/black"
+                            android:layout_marginLeft="8dp"
                             android:background="?attr/selectableItemBackgroundBorderless"
+                            android:drawableTint="@color/black"
+
+                            android:src="@drawable/barcode_svgrepo_com2"
+                            android:textColor="@color/white"
 
                             />
                     </LinearLayout>
+
                     <EditText
-                        android:layout_margin="5dp"
                         android:id="@+id/cp_name_product"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:padding="12dp"
-                        android:textSize="@dimen/text_size_medium"
-                        android:textColorHint="@color/grey"
-                        android:hint="Tên sản phẩm"
-                        android:textColor="@color/black"
+                        android:layout_margin="5dp"
                         android:layout_marginBottom="8dp"
-                        />
+                        android:hint="Tên sản phẩm"
+                        android:padding="12dp"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/grey"
+                        android:textSize="@dimen/text_size_medium" />
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="horizontal"
-                        >
+                        android:orientation="horizontal">
 
                         <EditText
-                            android:layout_margin="5dp"
-                            android:layout_weight="1"
                             android:id="@+id/cp_priceSell"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:padding="12dp"
-                            android:textSize="@dimen/text_size_medium"
-                            android:textColorHint="@color/grey"
-                            android:hint="Giá nhập (VD: 31000)"
-                            android:layout_marginBottom="8dp"
-                            android:textColor="@color/black"
-                            android:inputType="number"
-                            />
-                        <EditText
                             android:layout_margin="5dp"
+                            android:layout_marginBottom="8dp"
                             android:layout_weight="1"
+                            android:hint="Giá nhập (VD: 31000)"
+                            android:inputType="number"
+                            android:padding="12dp"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/grey"
+                            android:textSize="@dimen/text_size_medium" />
+
+                        <EditText
                             android:id="@+id/cp_price"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:padding="12dp"
-                            android:textSize="@dimen/text_size_medium"
-                            android:textColorHint="@color/grey"
-                            android:hint="Nhập giá bán"
+                            android:layout_margin="5dp"
                             android:layout_marginBottom="8dp"
-                            android:textColor="@color/black"
+                            android:layout_weight="1"
+                            android:hint="Nhập giá bán"
                             android:inputType="number"
-                            />
+                            android:padding="12dp"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/grey"
+                            android:textSize="@dimen/text_size_medium" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -133,250 +130,247 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="8dp"
                 android:text="Thông tin bổ sung:"
                 android:textColor="@color/black"
-                android:textSize="@dimen/text_size_medium"
-                android:layout_marginBottom="8dp"
-                android:layout_marginTop="12dp"
-                ></TextView>
-<androidx.cardview.widget.CardView
-    android:layout_marginLeft="2dp"
-    android:layout_marginRight="2dp"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    app:cardCornerRadius="8dp"
-    android:layout_marginBottom="12dp"
+                android:textSize="@dimen/text_size_medium"></TextView>
 
-    >
-    <LinearLayout
-
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginBottom="12dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        >
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="12dp"
-        android:layout_marginTop="12dp"
-        >
-
-        <EditText
-            android:id="@+id/cp_quanity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="12dp"
-            android:textSize="@dimen/text_size_medium"
-            android:textColor="@color/black"
-            android:textColorHint="@color/grey"
-            android:hint="Nhập tồn kho của sản phẩm (*)"
-            android:layout_marginBottom="8dp"
-            android:inputType="number"
-            />
-        <LinearLayout
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="8dp"
-            >
-
-            <EditText
-                android:id="@+id/cp_vat"
-                android:layout_marginLeft="8dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="12dp"
-                android:textSize="@dimen/text_size_medium"
-                android:hint="VAT"
-                android:textColor="@color/black"
-                android:textColorHint="@color/grey"
-                android:background="@drawable/custom_edit_text"
-                android:inputType="number"
-                ></EditText>
-            <TextView
-                android:layout_marginLeft="5dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="(%)"
-                android:textColor="@color/black"
-                android:textSize="@dimen/text_size_medium"
-                />
-        </LinearLayout>
-    </LinearLayout>
-
-
-
-            <LinearLayout
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="8dp"
-                >
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Chọn ảnh:"
-                    android:textSize="@dimen/text_size_medium"
-                    android:textColor="@color/black"
-android:layout_marginRight="8dp"
-                    android:layout_marginBottom="8dp"
-                    />
-                <ImageView
-                    android:id="@+id/cp_img_selected"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:src="@drawable/ic_baseline_image_24"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_marginBottom="12dp"
+                app:cardCornerRadius="8dp"
 
-                    />
-                <Button
-                    android:id="@+id/cp_select_img"
-                    android:layout_marginLeft="8dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/textColor2"
-                    android:drawableRight="@drawable/ic_baseline_image_24"
-                    android:textSize="12sp"
-                    android:text="Chọn"
-                    android:background="@drawable/my_button_bg"
-                    android:drawableTint="@color/textColor2"
-
-                    />
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                >
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Trạng thái:"
-                    android:textSize="@dimen/text_size_medium"
-                    android:textColor="@color/black"
-                    android:layout_marginBottom="8dp"
-                    />
-                <RadioGroup
-
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    >
-
-                    <RadioButton
-                        android:id="@+id/cp_status"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="8dp"
-                        android:text="Kinh doanh"
-                        android:textColor="@color/black"
-                        android:checked="true"
-                        />
-                    <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="8dp"
-                        android:text="Ngưng kinh doanh"
-android:textColor="@color/black"
-                        />
-                </RadioGroup>
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:text="Hạn sử dụng (EXP):"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/text_size_medium"
-                    />
-                <EditText
-
-                    android:id="@+id/cp_date_exp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:padding="12dp"
-                    android:textSize="@dimen/text_size_medium"
-                    android:textColorHint="@color/grey"
-                    android:textColor="@color/black"
-                    android:hint="yyyy-MM-dd"
-                    android:background="@drawable/custom_edit_text"
-                    android:layout_marginBottom="8dp"
-                    android:inputType="date"
-                    />
-                <ImageButton
-                    android:id="@+id/choose_date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:src="@drawable/ic_baseline_calendar_month_24"
-                    />
-
-            </LinearLayout>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text="Loại:"
-                android:textColor="@color/black"
-                android:textSize="@dimen/text_size_medium" />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 >
 
-                <Spinner
-                    android:id="@+id/cp_categories"
+                <LinearLayout
+
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:background="@color/zxing_transparent"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="12dp"
+                    android:orientation="vertical">
 
-                    ></Spinner>
-                <Button
-                    android:id="@+id/cp_btn_addCategories"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:text="+"
-                    android:textColor="@color/textColor2"
-                    android:background="@drawable/my_button_bg"
-                    ></Button>
-            </LinearLayout>
-    </LinearLayout>
-</androidx.cardview.widget.CardView>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginBottom="12dp"
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:id="@+id/cp_quanity"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
+                            android:layout_weight="1"
+                            android:hint="Nhập tồn kho của sản phẩm (*)"
+                            android:inputType="number"
+                            android:padding="12dp"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/grey"
+                            android:textSize="@dimen/text_size_medium" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <EditText
+                                android:id="@+id/cp_vat"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="8dp"
+                                android:background="@drawable/custom_edit_text"
+                                android:hint="VAT"
+                                android:inputType="number"
+                                android:padding="12dp"
+                                android:textColor="@color/black"
+                                android:textColorHint="@color/grey"
+                                android:textSize="@dimen/text_size_medium"></EditText>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:text="(%)"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/text_size_medium" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:text="Chọn ảnh:"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_size_medium" />
+
+                        <ImageView
+                            android:id="@+id/cp_img_selected"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:src="@drawable/ic_baseline_image_24"
+
+                            />
+
+                        <Button
+                            android:id="@+id/cp_select_img"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8dp"
+                            android:background="@drawable/my_button_bg"
+                            android:drawableRight="@drawable/ic_baseline_image_24"
+                            android:drawableTint="@color/textColor2"
+                            android:text="Chọn"
+                            android:textColor="@color/textColor2"
+                            android:textSize="12sp"
+
+                            />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
+                            android:text="Trạng thái:"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_size_medium" />
+
+                        <RadioGroup
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <RadioButton
+                                android:id="@+id/cp_status"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="8dp"
+                                android:buttonTint="@color/main_color"
+                                android:checked="true"
+                                android:text="Kinh doanh"
+                                android:textColor="@color/black" />
+
+                            <RadioButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="8dp"
+                                android:buttonTint="@color/main_color"
+                                android:text="Ngưng kinh doanh"
+                                android:textColor="@color/black" />
+                        </RadioGroup>
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
+                            android:text="Hạn sử dụng (EXP):"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_size_medium" />
+
+                        <EditText
+
+                            android:id="@+id/cp_date_exp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:layout_weight="3"
+                            android:background="@drawable/custom_edit_text"
+                            android:hint="yyyy-MM-dd"
+                            android:inputType="date"
+                            android:padding="12dp"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/grey"
+                            android:textSize="@dimen/text_size_medium" />
+
+                        <ImageButton
+                            android:id="@+id/choose_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8dp"
+                            android:background="?android:attr/selectableItemBackground"
+                            android:src="@drawable/ic_baseline_calendar_month_24" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:text="Loại:"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_size_medium" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <Spinner
+                            android:id="@+id/cp_categories"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="3"
+                            android:background="@color/zxing_transparent"
+
+                            ></Spinner>
+
+                        <Button
+                            android:id="@+id/cp_btn_addCategories"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8dp"
+                            android:background="@drawable/my_button_bg"
+                            android:text="+"
+                            android:textColor="@color/textColor2"></Button>
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
 
             <Button
                 android:id="@+id/cp_save"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Lưu"
                 android:layout_gravity="center"
-                android:background="@drawable/my_button_bg2"
-                android:textColor="@color/textButton"
                 android:layout_marginTop="12dp"
-                ></Button>
+                android:background="@drawable/my_button_bg2"
+                android:text="Lưu"
+                android:textColor="@color/textButton"></Button>
 
         </LinearLayout>
-
 
 
     </ScrollView>

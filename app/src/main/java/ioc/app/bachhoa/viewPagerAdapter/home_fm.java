@@ -11,24 +11,23 @@ import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import ioc.app.bachhoa.ImportGood;
 import ioc.app.bachhoa.Make_Bill;
+import ioc.app.bachhoa.PrinterActivity;
 import ioc.app.bachhoa.R;
 import ioc.app.bachhoa.ReplenishmentPeriod;
 import ioc.app.bachhoa.fm.AddPosition_fm;
 import ioc.app.bachhoa.fm.CreateProduct;
-import ioc.app.bachhoa.ultil.PrintPriceTag;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link createBill_fm#newInstance} factory method to
+ * Use the {@link home_fm#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class createBill_fm extends Fragment {
+public class home_fm extends Fragment {
     CardView createProduct, position, makeBill, create_RP, printer, importGood;
     View view;
     // TODO: Rename parameter arguments, choose names that match
@@ -40,7 +39,7 @@ public class createBill_fm extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public createBill_fm() {
+    public home_fm() {
         // Required empty public constructor
     }
 
@@ -53,8 +52,8 @@ public class createBill_fm extends Fragment {
      * @return A new instance of fragment createBill_fm.
      */
     // TODO: Rename and change types and number of parameters
-    public static createBill_fm newInstance(String param1, String param2) {
-        createBill_fm fragment = new createBill_fm();
+    public static home_fm newInstance(String param1, String param2) {
+        home_fm fragment = new home_fm();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -96,7 +95,9 @@ public class createBill_fm extends Fragment {
         printer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(getActivity(), PrinterActivity.class);
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
         create_RP = (CardView) view.findViewById(R.id.home_create_RP);

@@ -1,0 +1,5 @@
+<!-- res/drawable/red_background.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#8BC34A" /> <!-- Mã màu đỏ -->
+    <corners android:radius="0dp" /> <!-- Để chắc chắn không có góc bo tròn -->
+</shape>

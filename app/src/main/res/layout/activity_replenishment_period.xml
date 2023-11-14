@@ -11,7 +11,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/button"
+        android:background="@drawable/custom_tool_bar"
         android:elevation="4dp"
         android:theme="?attr/actionBarTheme"
         android:layout_alignParentTop="true">
@@ -25,14 +25,14 @@
             android:layout_gravity="start"
             android:layout_marginStart="8dp"
             android:contentDescription="Quay lại"
-            app:tint="@color/white" />
+            app:tint="@color/black" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Bàn giao ca"
             android:textSize="@dimen/text_size_large"
-            android:textColor="@color/white"
-
+            android:textColor="@color/black"
+android:layout_gravity="center"
             />
     </androidx.appcompat.widget.Toolbar>
 

@@ -51,6 +51,9 @@
             android:layout_height="wrap_content"
             android:padding="3dp"
             android:text="In tem giá kệ"
+            android:textAllCaps="false"
+            android:textColor="@color/text3"
+            android:background="@drawable/my_button_bg"
 
             />
 
@@ -60,7 +63,11 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:padding="3dp"
-            android:text="Chỉ in 1 mâm" />
+            android:text="Chỉ in 1 mâm"
+            android:textAllCaps="false"
+            android:textColor="@color/text3"
+            android:background="@drawable/my_button_bg"
+            />
 
         <Button
             android:id="@+id/vsf_printShelfPosi"
@@ -68,7 +75,11 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:padding="3dp"
-            android:text="In vị trí kệ" />
+            android:text="In vị trí kệ"
+            android:textAllCaps="false"
+            android:textColor="@color/text3"
+            android:background="@drawable/my_button_bg"
+            />
     </LinearLayout>
 
 

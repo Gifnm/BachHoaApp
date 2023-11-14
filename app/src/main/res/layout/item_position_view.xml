@@ -56,6 +56,7 @@
                 android:textColor="@color/purple_700"
                 android:textSize="@dimen/text_size_large"
                 android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/ivp_inventory"
                 android:layout_width="wrap_content"
@@ -91,9 +92,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="In tem giá"
+                    android:textAllCaps="false"
                     android:textColor="@color/black"
-
-                    ></Button>
+                    android:textSize="@dimen/text_size_medium"></Button>
             </LinearLayout>
 
             <LinearLayout
@@ -113,31 +114,31 @@
 
 
                     />
-<LinearLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    >
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:text="Barcode:"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        android:textSize="@dimen/text_size_medium"
-        />
-    <TextView
-        android:id="@+id/ivp_barcode"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:text="####"
-        android:textColor="@color/black"
-        android:textSize="@dimen/text_size_medium"
-        />
 
-</LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="8dp"
+                        android:text="Barcode:"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_size_medium"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/ivp_barcode"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="8dp"
+                        android:text="####"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_size_medium" />
+
+                </LinearLayout>
 
 
             </LinearLayout>

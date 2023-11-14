@@ -48,6 +48,7 @@ public class PostionViewAdapter extends RecyclerView.Adapter<PostionViewAdapter.
         holder.inventory.setText("Tồn: " + proPos.getProduct().getInventory());
         holder.nameOfProduct.setText(proPos.getProduct().getProductName());
         holder.barcode.setText(proPos.getProduct().getProductID());
+        holder.form.setText("Trưng " + proPos.getForm());
         holder.print.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,7 +82,7 @@ public class PostionViewAdapter extends RecyclerView.Adapter<PostionViewAdapter.
 
     public class PositionViewHolder extends RecyclerView.ViewHolder {
         // Khai báo các biến ánh xạ trên ItemViewProduct
-        TextView shelf, location, quantity, inventory, nameOfProduct, barcode;
+        TextView shelf, location, quantity, inventory, nameOfProduct, barcode, form;
         Button print;
         ImageView img;
 
@@ -95,6 +96,7 @@ public class PostionViewAdapter extends RecyclerView.Adapter<PostionViewAdapter.
             barcode = itemView.findViewById(R.id.ivp_barcode);
             img = (ImageView) itemView.findViewById(R.id.ip_img);
             print = itemView.findViewById(R.id.ivp_print);
+            form = itemView.findViewById(R.id.ivp_form);
         }
     }
 }

@@ -9,7 +9,7 @@
     <color name="orange">#FF9800</color>
     <color name="green">#3A833C</color>
     <color name="red">#F44336</color>
-    <color name="grey">#959090</color>
+    <color name="grey">#CDCACA</color>
     <color name="white">#FFFFFFFF</color>
     <color name="main_color">#0a95ff</color>
     <color name="background">#F5F5F5</color>
@@ -23,4 +23,6 @@
     <color name="delete">#ede1dd</color>
     <color name="blueLight">#77acf1</color>
     <color name="yellowLight">#faecc6</color>
+    <color name="button3">#ebf5ff</color>
+    <color name="text3">#5595dc</color>
 </resources>

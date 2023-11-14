@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,8 +32,10 @@ import ioc.app.bachhoa.model.DisplayPlatter;
 import ioc.app.bachhoa.model.DisplayShelves;
 import ioc.app.bachhoa.model.ProductPositioning;
 import ioc.app.bachhoa.model.Store;
+import ioc.app.bachhoa.ultil.ALoadingDialog;
 import ioc.app.bachhoa.ultil.PrintPriceTag;
 import ioc.app.bachhoa.ultil.User;
+import ioc.app.bachhoa.ultil.UserManager;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -59,6 +62,7 @@ public class viewShelf_fm extends Fragment {
     //
     PostionViewAdapter postionViewAdapter = new PostionViewAdapter(getActivity());
     ShelfApdapter shelfApdapter;
+    ALoadingDialog aLoadingDialog;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -139,6 +143,15 @@ public class viewShelf_fm extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 indexShelf = position;
                 getListPosion();
+                aLoadingDialog = new ALoadingDialog(getContext());
+                aLoadingDialog.show();
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        aLoadingDialog.cancel();
+                    }
+                }, 4000);
             }
 
             @Override
@@ -176,32 +189,32 @@ public class viewShelf_fm extends Fragment {
         printPriceTagOnShlef.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-        ProductPositionAPI.apiService.getPosByStoreAndShelf(User.employee.getStore().getStoreID(),indexShelf).enqueue(new Callback<List<ProductPositioning>>() {
-            @Override
-            public void onResponse(Call<List<ProductPositioning>> call, Response<List<ProductPositioning>> response) {
-                PrintPriceTag printPriceTag = new PrintPriceTag(getContext());
-                ArrayList<Bitmap> arrayList = printPriceTag.generatePriceTags(response.body());
-                Toast.makeText(getContext(), "", Toast.LENGTH_SHORT).show();
-                printPriceTag.printPriceTags(arrayList);
-            }
+                ProductPositionAPI.apiService.getPosByStoreAndShelf(User.employee.getStore().getStoreID(), indexShelf).enqueue(new Callback<List<ProductPositioning>>() {
+                    @Override
+                    public void onResponse(Call<List<ProductPositioning>> call, Response<List<ProductPositioning>> response) {
+                        PrintPriceTag printPriceTag = new PrintPriceTag(getContext());
+                        ArrayList<Bitmap> arrayList = printPriceTag.generatePriceTags(response.body());
+                        Toast.makeText(getContext(), "", Toast.LENGTH_SHORT).show();
+                        printPriceTag.printPriceTags(arrayList);
+                    }
 
-            @Override
-            public void onFailure(Call<List<ProductPositioning>> call, Throwable t) {
+                    @Override
+                    public void onFailure(Call<List<ProductPositioning>> call, Throwable t) {
 
-            }
-        });
+                    }
+                });
             }
         });
     }
 
     private void getListPosion() {
         if (indexShelf != 0) {
-            ProductPositionAPI.apiService.getLitsProductPoiton(shelvesList.get(indexShelf).getDisSheID(), platterList.get(indexPlatter).getDisPlaID(), User.employee.getStore().getStoreID()).enqueue(new Callback<List<ProductPositioning>>() {
+            ProductPositionAPI.apiService.getLitsProductPoiton(shelvesList.get(indexShelf).getDisSheID(), platterList.get(indexPlatter).getDisPlaID(), UserManager.getInstance().getUser().getStore().getStoreID()).enqueue(new Callback<List<ProductPositioning>>() {
                 @Override
                 public void onResponse(Call<List<ProductPositioning>> call, Response<List<ProductPositioning>> response) {
                     if (response.isSuccessful()) {
                         if (response.body() != null) {
-                            Toast.makeText(getContext(), "size: "+ response.body().size(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), "size: " + response.body().size(), Toast.LENGTH_SHORT).show();
                             setData(response.body());
                         }
                     }

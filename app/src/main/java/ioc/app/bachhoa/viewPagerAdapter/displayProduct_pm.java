@@ -1,5 +1,7 @@
 package ioc.app.bachhoa.viewPagerAdapter;
 
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -9,6 +11,7 @@ import androidx.viewpager.widget.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.google.android.material.tabs.TabLayout;
 
@@ -78,10 +81,24 @@ public class displayProduct_pm extends Fragment {
     private void anhxa() {
         viewPager = (ViewPager) view.findViewById(R.id.tap_viewpager);
         tabLayout = (TabLayout) view.findViewById(R.id.tap);
+        setTabDividers();
         tapAdapter = new tapAdapter(getChildFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         viewPager.setAdapter(tapAdapter);
         tabLayout.setupWithViewPager(viewPager);
     }
 
+    private void setTabDividers() {
+        View root = tabLayout.getChildAt(0);
+        if (root instanceof LinearLayout) {
+            ((LinearLayout) root).setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
+            GradientDrawable drawable = new GradientDrawable();
+            drawable.setSize(2, 1);
+            drawable.setColor(Color.GRAY);
+            ((LinearLayout) root).setDividerPadding(10);
+            ((LinearLayout) root).setDividerDrawable(drawable);
+
+        }
+
+    }
 
 }

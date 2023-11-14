@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:layout_alignParentTop="true"
-        android:background="@color/button"
+        android:background="@drawable/custom_tool_bar"
         android:elevation="4dp"
         android:theme="?attr/actionBarTheme">
 
@@ -23,14 +23,16 @@
             android:layout_gravity="start"
             android:layout_marginStart="8dp"
             android:src="@drawable/ic_baseline_arrow_back_24"
-            app:tint="@color/white" />
+            app:tint="@color/black" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Quét lỗ trống tại cửa hàng"
-            android:textColor="@color/textButton"
-            android:textSize="@dimen/text_size_large"></TextView>
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_size_large"
+            android:layout_gravity="center"
+            ></TextView>
     </androidx.appcompat.widget.Toolbar>
 
     <LinearLayout
