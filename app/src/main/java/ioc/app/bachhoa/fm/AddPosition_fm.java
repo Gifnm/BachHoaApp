@@ -41,6 +41,7 @@ import ioc.app.bachhoa.model.DisplayShelves;
 import ioc.app.bachhoa.model.Product;
 import ioc.app.bachhoa.model.ProductPositioning;
 import ioc.app.bachhoa.model.Store;
+import ioc.app.bachhoa.ultil.ALoadingDialog;
 import ioc.app.bachhoa.ultil.CaptureAct;
 import ioc.app.bachhoa.ultil.User;
 import retrofit2.Call;
@@ -250,6 +251,8 @@ public class AddPosition_fm extends Fragment {
 
 
     private void getLitsProductPoiton(int shelfid, int platterID, int storeID) {
+        ALoadingDialog aLoadingDialog = new ALoadingDialog(getContext());
+        aLoadingDialog.show();
         APIService.apiService.getLitsProductPoiton(shelfid, platterID, storeID).enqueue(new Callback<List<ProductPositioning>>() {
             @Override
             public void onResponse(Call<List<ProductPositioning>> call, Response<List<ProductPositioning>> response) {
@@ -262,11 +265,12 @@ public class AddPosition_fm extends Fragment {
                     productIndext = listPossitioning.size();
 
                 }
+                aLoadingDialog.cancel();
             }
 
             @Override
             public void onFailure(Call<List<ProductPositioning>> call, Throwable t) {
-
+aLoadingDialog.cancel();
             }
         });
 

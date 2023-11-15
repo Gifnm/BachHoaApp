@@ -11,11 +11,13 @@ import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import ioc.app.bachhoa.ImportGood;
 import ioc.app.bachhoa.Make_Bill;
+import ioc.app.bachhoa.PrintPriceTagActivity;
 import ioc.app.bachhoa.PrinterActivity;
 import ioc.app.bachhoa.R;
 import ioc.app.bachhoa.ReplenishmentPeriod;
@@ -28,7 +30,8 @@ import ioc.app.bachhoa.fm.CreateProduct;
  * create an instance of this fragment.
  */
 public class home_fm extends Fragment {
-    CardView createProduct, position, makeBill, create_RP, printer, importGood;
+    CardView position, create_RP, printer;
+    LinearLayout makeBill, createProduct, importGood, printPriceTag;
     View view;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -82,6 +85,15 @@ public class home_fm extends Fragment {
     }
 
     private void anhxa() {
+        printPriceTag = view.findViewById(R.id.fh_print_price_tag);
+        printPriceTag.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), PrintPriceTagActivity.class);
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            }
+        });
         importGood = view.findViewById(R.id.fhf_purchase);
         importGood.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,9 +113,9 @@ public class home_fm extends Fragment {
             }
         });
         create_RP = (CardView) view.findViewById(R.id.home_create_RP);
-        makeBill = (CardView) view.findViewById(R.id.home_make_bill);
+        makeBill = view.findViewById(R.id.home_make_bill);
         final BottomNavigationView navigationView = getActivity().findViewById(R.id.navigation);
-        createProduct = (CardView) view.findViewById(R.id.create_product);
+        createProduct = view.findViewById(R.id.create_product);
         position = (CardView) view.findViewById(R.id.home_position);
         createProduct.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -49,6 +49,7 @@ import ioc.app.bachhoa.api.APIService;
 import ioc.app.bachhoa.model.Categories;
 import ioc.app.bachhoa.model.Product;
 import ioc.app.bachhoa.model.Store;
+import ioc.app.bachhoa.ultil.ALoadingDialog;
 import ioc.app.bachhoa.ultil.CaptureAct;
 import ioc.app.bachhoa.ultil.RealPathUtil;
 import ioc.app.bachhoa.ultil.User;
@@ -84,6 +85,7 @@ public class CreateProduct extends Fragment {
     Spinner categories;
     Date exp;
     int categoryID;
+    ALoadingDialog aLoadingDialog;
     int idCategories;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -136,6 +138,7 @@ public class CreateProduct extends Fragment {
     }
 
     private void anhxa() {
+        aLoadingDialog = new ALoadingDialog(getContext());
         chooseDate = (ImageButton) view.findViewById(R.id.choose_date);
         createProductScan = (ImageButton) view.findViewById(R.id.create_product_scan);
         barcode = (EditText) view.findViewById(R.id.cp_barcode);
@@ -182,6 +185,7 @@ public class CreateProduct extends Fragment {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                aLoadingDialog.show();
                 if(validateForm()){
                 Product product = new Product();
                 product.setProductID(barcode.getText().toString());
@@ -212,7 +216,9 @@ public class CreateProduct extends Fragment {
                     }
                 });
 
-            }}
+            }
+            aLoadingDialog.cancel();
+            }
         });
         select_img.setOnClickListener(new View.OnClickListener() {
             @Override

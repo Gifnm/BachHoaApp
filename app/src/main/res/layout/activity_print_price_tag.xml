@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PrintPriceTagActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/appt_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/custom_tool_bar"
+        tools:ignore="MissingConstraints">
+
+        <ImageView
+            android:id="@+id/appt_back_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginStart="8dp"
+            android:src="@drawable/ic_baseline_arrow_back_24"
+            app:tint="@color/black" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="In tem giá"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_size_large" />
+
+        <ImageView
+            android:id="@+id/appt_choose_printer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginRight="8dp"
+            android:src="@drawable/print_setting"
+            app:tint="@color/button" />
+    </androidx.appcompat.widget.Toolbar>
+
+    <LinearLayout
+        android:id="@+id/appt_find_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/appt_toolbar"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="4dp"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/appt_barcode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:background="@drawable/custom_edit_text"
+            android:hint="Nhập mã sản phẩm / SKU"
+            android:padding="8dp"
+            android:textSize="@dimen/text_size_medium" />
+
+        <Button
+            android:id="@+id/appt_btn_find"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:text="Tìm" />
+
+        <ImageButton
+            android:id="@+id/appt_imb_scan"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginLeft="8dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:drawableTint="@color/black"
+            android:src="@drawable/barcode_svgrepo_com2"
+            android:textColor="@color/white"
+
+            />
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/appt_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/appt_btn_print"
+        android:layout_below="@+id/appt_find_view" />
+
+    <Button
+        android:id="@+id/appt_btn_print"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/custom_button"
+        android:text="In tem"
+        android:textAllCaps="false"
+        android:textColor="@color/text3" />
+</RelativeLayout>

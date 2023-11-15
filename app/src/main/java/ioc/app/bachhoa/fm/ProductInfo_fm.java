@@ -82,7 +82,7 @@ public class ProductInfo_fm extends Fragment {
             ProductPositioning productPositioning = gson.fromJson(json, ProductPositioning.class);
 
             shelf.setText("Kệ: " + productPositioning.getDisplayShelves().getDisSheID());
-            platter.setText("Mâm: " + productPositioning.getDisplayPlatter().getDisPlaID());
+            //platter.setText("Mâm: " + productPositioning.getDisplayPlatter().getDisPlaID());
             location.setText("Vị trí " + productPositioning.getId());
             form.setText("Trưng " + bundle.getString("form"));
             quantity.setText("SL " + productPositioning.getDisplayQuantity());

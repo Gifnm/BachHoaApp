@@ -8,6 +8,32 @@
     tools:context=".viewPagerAdapter.displayProduct_pm">
 
     <!-- TODO: Update blank fragment layout -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/fdp_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/custom_tool_bar"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Trưng bày hàng hóa"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_size_large" />
+
+        <ImageView
+            android:id="@+id/fdp_choose_printer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginRight="8dp"
+            android:src="@drawable/print_setting"
+            app:tint="@color/button" />
+    </androidx.appcompat.widget.Toolbar>
+
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/tap_viewpager"
         android:layout_width="match_parent"
@@ -19,6 +45,7 @@
         android:id="@+id/tap"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/fdp_toolbar"
         android:background="@color/white"
         app:tabBackground="@color/tab_selected"
         app:tabIndicatorColor="@color/main_color"

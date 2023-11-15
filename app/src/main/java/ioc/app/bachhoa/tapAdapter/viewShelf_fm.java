@@ -33,6 +33,7 @@ import ioc.app.bachhoa.model.DisplayShelves;
 import ioc.app.bachhoa.model.ProductPositioning;
 import ioc.app.bachhoa.model.Store;
 import ioc.app.bachhoa.ultil.ALoadingDialog;
+import ioc.app.bachhoa.ultil.Message;
 import ioc.app.bachhoa.ultil.PrintPriceTag;
 import ioc.app.bachhoa.ultil.User;
 import ioc.app.bachhoa.ultil.UserManager;
@@ -125,10 +126,9 @@ public class viewShelf_fm extends Fragment {
         printShlefNumber = view.findViewById(R.id.vsf_printShelfPosi);
         printPriceTagOnShlef = view.findViewById(R.id.vsf_printPricetagsOnShlef);
         printPricetagsOnPlatter = view.findViewById(R.id.vsf_printPriceTagOnPlatter);
+        // Set Adapter cho Spinner
         getListShelf();
         getListPlatter();
-        // Set Adapter cho Spinner
-
         // Set Apdapter cho RecycelView
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
@@ -143,15 +143,6 @@ public class viewShelf_fm extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 indexShelf = position;
                 getListPosion();
-                aLoadingDialog = new ALoadingDialog(getContext());
-                aLoadingDialog.show();
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        aLoadingDialog.cancel();
-                    }
-                }, 4000);
             }
 
             @Override
@@ -194,7 +185,6 @@ public class viewShelf_fm extends Fragment {
                     public void onResponse(Call<List<ProductPositioning>> call, Response<List<ProductPositioning>> response) {
                         PrintPriceTag printPriceTag = new PrintPriceTag(getContext());
                         ArrayList<Bitmap> arrayList = printPriceTag.generatePriceTags(response.body());
-                        Toast.makeText(getContext(), "", Toast.LENGTH_SHORT).show();
                         printPriceTag.printPriceTags(arrayList);
                     }
 
@@ -208,16 +198,18 @@ public class viewShelf_fm extends Fragment {
     }
 
     private void getListPosion() {
+        ALoadingDialog aLoadingDialog = new ALoadingDialog(getContext());
+
         if (indexShelf != 0) {
             ProductPositionAPI.apiService.getLitsProductPoiton(shelvesList.get(indexShelf).getDisSheID(), platterList.get(indexPlatter).getDisPlaID(), UserManager.getInstance().getUser().getStore().getStoreID()).enqueue(new Callback<List<ProductPositioning>>() {
                 @Override
                 public void onResponse(Call<List<ProductPositioning>> call, Response<List<ProductPositioning>> response) {
                     if (response.isSuccessful()) {
                         if (response.body() != null) {
-                            Toast.makeText(getContext(), "size: " + response.body().size(), Toast.LENGTH_SHORT).show();
                             setData(response.body());
                         }
                     }
+
                 }
 
                 @Override
@@ -310,4 +302,8 @@ public class viewShelf_fm extends Fragment {
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
 }
