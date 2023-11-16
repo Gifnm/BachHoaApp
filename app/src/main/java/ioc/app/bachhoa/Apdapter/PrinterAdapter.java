@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -62,7 +63,7 @@ public class PrinterAdapter extends RecyclerView.Adapter<PrinterAdapter.ViewHole
 
     class ViewHoler extends RecyclerView.ViewHolder {
         private TextView nameOfPrinter, pageSize, ipAddress;
-        private Button removePrinter;
+        private ImageButton removePrinter;
 
         public ViewHoler(@NonNull View itemView) {
             super(itemView);

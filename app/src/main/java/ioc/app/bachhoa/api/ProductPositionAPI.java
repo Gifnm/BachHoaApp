@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 
 import java.util.List;
 
+import ioc.app.bachhoa.DTOEntity.PriceTag;
 import ioc.app.bachhoa.model.ProductPositioning;
 import ioc.app.bachhoa.ultil.LocalVarible;
 import retrofit2.Call;
@@ -16,7 +17,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public interface ProductPositionAPI {
-    String baseURL = "http:" + LocalVarible.ip + ":" + LocalVarible.serverPort + "/bachhoa/api/";
+    String baseURL = "http:" + LocalVarible.ip + ":" + LocalVarible.serverPort + "/bachhoa/api/productPosition/";
     Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
     ProductPositionAPI apiService = new Retrofit.Builder().baseUrl(baseURL).addConverterFactory(GsonConverterFactory.create(gson)).build().create(ProductPositionAPI.class);
 
@@ -26,7 +27,7 @@ public interface ProductPositionAPI {
      * @param id      Mã sản phẩm
      * @param storeID Mã của hàng
      */
-    @GET("productPosition/findByID/{id}/{storeID}")
+    @GET("findByID/{id}/{storeID}")
     Call<ProductPositioning> findByProductID(@Path("id") String id, @Path("storeID") int storeID);
 
     /**
@@ -36,7 +37,7 @@ public interface ProductPositionAPI {
      * @param platterID Mã số mâm
      * @param storeID   Mã cửa hàng
      */
-    @GET("productPositioning/{shelfID}/{platterNb}/{storeID}")
+    @GET("{shelfID}/{platterNb}/{storeID}")
     Call<List<ProductPositioning>> getLitsProductPoiton(@Path("shelfID") int shelfID, @Path("platterNb") int platterID, @Path("storeID") int storeID);
 
 
@@ -45,7 +46,7 @@ public interface ProductPositionAPI {
      *
      * @param productPositioning Đối tượng vị trí - model
      */
-    @POST("productPositioning/insert")
+    @POST("insert")
     Call<ProductPositioning> insertProPosion(@Body ProductPositioning productPositioning);
 
     /**
@@ -57,4 +58,12 @@ public interface ProductPositionAPI {
     @GET("getPosByStoreAndShelf/{storeID}/{disSheID}")
     Call<List<ProductPositioning>> getPosByStoreAndShelf(@Path("storeID") int storeID, @Path("disSheID") int disSheID);
 
+    /**
+     * API: Lấy tem giá
+     *
+     * @param  storeID Mã cửa hàng
+     * @param  productID Mã sản phẩm - barcode - sku
+     */
+    @GET("getPriceTag/{storeID}/{productID}")
+    Call<PriceTag> getPriceTag(@Path("storeID") int storeID, @Path("productID") String productID);
 }

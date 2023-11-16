@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.util.Log;
 import android.widget.Toast;
@@ -27,9 +28,11 @@ import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Paragraph;
 
 import java.io.ByteArrayOutputStream;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import ioc.app.bachhoa.DTOEntity.PriceTag;
 import ioc.app.bachhoa.model.Bill;
 import ioc.app.bachhoa.model.BillDetail;
 import ioc.app.bachhoa.model.ProductPositioning;
@@ -37,8 +40,10 @@ import ioc.app.bachhoa.model.ProductPositioning;
 public class PrintPriceTag {
     private Context context;
     private int port = 9100;
-    private String ipPrinter = "192.168.1.8";
+    private String ipPrinter = "192.168.1.6";
+    DecimalFormat decimalFormat = new DecimalFormat("#,###");
 
+    // C
     public PrintPriceTag(Context context) {
         this.context = context;
     }
@@ -132,13 +137,45 @@ public class PrintPriceTag {
                 setAlign(Paint.Align.CENTER).
                 setColor(Color.BLACK).
                 setTextSize(28).
-                addText("Kệ " + productPositioning.getDisplayShelves().getDisSheID() + "Mâm " + productPositioning.getDisplayPlatter().getDisPlaID() + "Vị trí " + productPositioning.getId() + "Trưng " + productPositioning.getForm())
+                addText("Kệ " + productPositioning.getDisplayShelves().getDisSheID() + " Mâm " + productPositioning.getDisplayPlatter().getDisPlaID() + " Vị trí " + productPositioning.getId() + " Trưng " + productPositioning.getForm())
                 .addLine()
                 .addText(productPositioning.getProduct().getProductName())
                 .addImage(generateBarcode(productPositioning.getProduct().getProductID(), 350, 70)).addParagraph()
                 .setTextSize(40)
                 .addText(productPositioning.getProduct().getPrice() + "").addParagraph();
         return receipt.build();
+    }
+
+    /**
+     * Tạo ảnh 1 tem giá có giảm giá
+     *
+     * @param priceTag Object Vị trí sản phẩm
+     */
+    public Bitmap generateOnePriceTagSalse(PriceTag priceTag) {
+        ReceiptBuilder receipt = new ReceiptBuilder(600);
+        receipt.setMarginTop(0).
+                setAlign(Paint.Align.CENTER).
+                setColor(Color.BLACK).
+                setTextSize(28).
+                addText("Kệ " + priceTag.getProductPositioning().getDisplayShelves().getDisSheID() + " Mâm " + priceTag.getProductPositioning().getDisplayPlatter().getDisPlaID() + " Vị trí " + priceTag.getProductPositioning().getId() + " Trưng " + priceTag.getProductPositioning().getForm())
+                .addLine()
+                .setTextSize(42)
+                .addText(priceTag.getDiscountDetails().getDiscount().getDiscountType() )
+                .setTextSize(34)
+                .addText(priceTag.getProductPositioning().getProduct().getProductName())
+                .addImage(generateQr(priceTag.getProductPositioning().getProduct().getProductID(), 140, 140))
+                .setTextSize(36)
+                .addText(decimalFormat.format(priceTag.getProductPositioning().getProduct().getPrice()) + " VND giảm còn")
+                .setTextSize(70)
+                .addText(decimalFormat.format(priceTag.getProductPositioning().getProduct().getPrice() * ((100 - Double.parseDouble(priceTag.getDiscountDetails().getDisID()))/100)) + " VND")
+                .setTextSize(28)
+                .addText("Từ ngày " + priceTag.getDiscountDetails().getStartTime() +" đến " + priceTag.getDiscountDetails().getEndTime());
+        Bitmap invoice = receipt.build();
+        Matrix matrix = new Matrix();
+
+        matrix.postRotate(90);
+        Bitmap rotatedBitmap = Bitmap.createBitmap(invoice, 0, 0, invoice.getWidth(), invoice.getHeight(), matrix, true);
+        return rotatedBitmap;
     }
 
     /**
@@ -275,6 +312,23 @@ public class PrintPriceTag {
         MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
         try {
             BitMatrix bitMatrix = multiFormatWriter.encode(barcode, BarcodeFormat.CODE_128, width, height);
+            Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+
+            for (int i = 0; i < width; i++) {
+                for (int j = 0; j < height; j++) {
+                    bitmap.setPixel(i, j, bitMatrix.get(i, j) ? Color.BLACK : Color.WHITE);
+                }
+            }
+            return bitmap;
+        } catch (Exception e) {
+            Log.e("MyApp", "StackTrace: " + Log.getStackTraceString(e));
+            return null;
+        }
+    }
+    private Bitmap generateQr(String barcode, int width, int height) {
+        MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
+        try {
+            BitMatrix bitMatrix = multiFormatWriter.encode(barcode, BarcodeFormat.QR_CODE, width, height);
             Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
 
             for (int i = 0; i < width; i++) {

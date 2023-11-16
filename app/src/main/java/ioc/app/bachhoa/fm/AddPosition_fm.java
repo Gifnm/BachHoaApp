@@ -258,10 +258,9 @@ public class AddPosition_fm extends Fragment {
             public void onResponse(Call<List<ProductPositioning>> call, Response<List<ProductPositioning>> response) {
                 listPossitioning = response.body();
                 positionAdapter.setData(listPossitioning);
-                if(listPossitioning.isEmpty()){
+                if (listPossitioning.isEmpty()) {
                     productIndext = 1;
-                }
-                else {
+                } else {
                     productIndext = listPossitioning.size();
 
                 }
@@ -270,7 +269,7 @@ public class AddPosition_fm extends Fragment {
 
             @Override
             public void onFailure(Call<List<ProductPositioning>> call, Throwable t) {
-aLoadingDialog.cancel();
+                aLoadingDialog.cancel();
             }
         });
 
@@ -428,7 +427,7 @@ aLoadingDialog.cancel();
             @Override
             public void onClick(View v) {
                 if (indexShelf != 0) {
-                    if (index < displayPlatterList.size()-1) {
+                    if (index < displayPlatterList.size() - 1) {
                         index++;
                         platterNumber.setText(displayPlatterList.get(index).getRowName());
                         getLitsProductPoiton(displShelfIsSelcted.getDisSheID(), displayPlatterList.get(index).getDisPlaID(), User.employee.getStore().getStoreID());
@@ -467,7 +466,7 @@ aLoadingDialog.cancel();
             public void onResponse(Call<ProductPositioning> call, Response<ProductPositioning> response) {
                 listPossitioning.add(response.body());
                 positionAdapter.setData(listPossitioning);
-                productIndext ++;
+                productIndext++;
             }
 
             @Override
@@ -479,7 +478,7 @@ aLoadingDialog.cancel();
     }
 
     private void OpenDialog() {
-            indexOfProduct.setText((++productIndext) +"");
+        indexOfProduct.setText((++productIndext) + "");
         dialog.show();
     }
 }

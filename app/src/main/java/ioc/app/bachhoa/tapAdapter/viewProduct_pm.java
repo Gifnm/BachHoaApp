@@ -176,7 +176,7 @@ public class viewProduct_pm extends Fragment {
                     String content = gson.toJson(proPosition);
                     bundle.putString("content",content);
                     bundle.putString("shelf","Kệ: " + proPosition.getDisplayShelves().getDisSheID());
-                    //bundle.putString("platter","Mâm: " + proPosition.getDisplayPlatter().getDisPlaID());
+                    bundle.putString("platter","Mâm: " + proPosition.getDisplayPlatter().getDisPlaID());
                     bundle.putString("location","Vị trí: " + proPosition.getId());
                     bundle.putString("quantity", "SL: " + proPosition.getDisplayQuantity());
                     bundle.putString("inventory","Tồn: " + proPosition.getProduct().getInventory() );

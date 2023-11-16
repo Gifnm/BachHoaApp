@@ -49,12 +49,11 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <Button
+        <ImageButton
             android:id="@+id/iop_remove"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/delete"
-            android:text="Xóa"
-            android:textColor="@color/red" />
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/remove_svgrepo_com" />
     </LinearLayout>
 </LinearLayout>
