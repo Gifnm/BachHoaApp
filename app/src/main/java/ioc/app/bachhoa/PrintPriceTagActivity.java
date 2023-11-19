@@ -5,11 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Dialog;
 import android.os.Bundle;
+import android.util.Printer;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.journeyapps.barcodescanner.ScanContract;
@@ -33,11 +37,14 @@ import retrofit2.Response;
 public class PrintPriceTagActivity extends AppCompatActivity {
     // Khai báo các biến ánh xạ thành phần giao diện
     private EditText barcode;
-    private Button btnFind, btnPrint;
+    private Button btnFind, btnPrint, exit, choose;
     private ImageButton imbScan;
+    private ImageView choosePrinter;
     private RecyclerView listView;
     private PrintPriceTagAdapter printPriceTagAapter;
     private List<PriceTag> list = new ArrayList<>();
+    private List<Printer> printers = new ArrayList<>();
+    private Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +61,7 @@ public class PrintPriceTagActivity extends AppCompatActivity {
         btnPrint = findViewById(R.id.appt_btn_print);
         imbScan = findViewById(R.id.appt_imb_scan);
         listView = findViewById(R.id.appt_list);
+        choosePrinter = findViewById(R.id.appt_choose_printer);
 
         // Tạo bố cục dọc
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
@@ -64,12 +72,23 @@ public class PrintPriceTagActivity extends AppCompatActivity {
     }
 
     private void addEvent() {
+        choosePrinter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog = new Dialog(PrintPriceTagActivity.this);
+                dialog.setContentView(R.layout.choose_printer);
+                dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                dialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.custom_dialog));
+                dialog.setCancelable(false);
+                dialog.show();
+            }
+        });
         // In tem giá
         btnPrint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 PrintPriceTag printPriceTag = new PrintPriceTag(PrintPriceTagActivity.this);
-                for (PriceTag priceTag : list){
+                for (PriceTag priceTag : list) {
                     printPriceTag.printOnetag(printPriceTag.generateOnePriceTagSalse(priceTag));
                 }
             }
