@@ -8,10 +8,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Handler;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -49,9 +53,10 @@ import retrofit2.Response;
 public class viewShelf_fm extends Fragment {
     // Khai bao cac bien anh xa cac thanh phan giao dien
     View view;
+    List<String> list2 = new ArrayList<>();
     Spinner shelfSpinner;
     ImageButton nextPlatter, prevousPlater;
-    EditText searchShelf;
+    AutoCompleteTextView searchShelf;
     TextView platterNumber;
     Button printShlefNumber, printPriceTagOnShlef, printPricetagsOnPlatter;
     RecyclerView posttionRecyCle;
@@ -127,10 +132,8 @@ public class viewShelf_fm extends Fragment {
         printPriceTagOnShlef = view.findViewById(R.id.vsf_printPricetagsOnShlef);
         printPricetagsOnPlatter = view.findViewById(R.id.vsf_printPriceTagOnPlatter);
         // Set Adapter cho Spinner
-        getListShelf();
-        getListPlatter();
         // Set Apdapter cho RecycelView
-
+        loadData();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
         posttionRecyCle.setLayoutManager(linearLayoutManager);
         posttionRecyCle.setAdapter(postionViewAdapter);
@@ -138,6 +141,35 @@ public class viewShelf_fm extends Fragment {
     }
 
     private void addEvent() {
+        searchShelf.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                list2.clear();
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                list2.clear(); // Xóa toàn bộ danh sách để cập nhật lại với kết quả tìm kiếm mới
+                for (DisplayShelves displayShelves : shelvesList) {
+                    if (String.valueOf(displayShelves.getDisSheID()).contains(s.toString())) {
+                        list2.add(String.valueOf(displayShelves.getDisSheID()));
+                    }
+                }
+                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_dropdown_item_1line, list2);
+                searchShelf.setAdapter(arrayAdapter);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        searchShelf.setOnItemClickListener((parent, view, position, id) -> {
+            getListPosionWithShelfID(Integer.parseInt(searchShelf.getText().toString()));
+            // Xử lý khi người dùng chọn một mục từ danh sách gợi ý ở vị trí 'position'
+            // Ví dụ: Hiển thị thông tin hoặc thực hiện hành động cụ thể với mục đã chọn.
+            // Ở đây, selectedItem chứa giá trị mà người dùng đã chọn.
+        });
         shelfSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -220,6 +252,31 @@ public class viewShelf_fm extends Fragment {
         }
     }
 
+    private void getListPosionWithShelfID(int id) {
+        Toast.makeText(getContext(), "Hallo", Toast.LENGTH_SHORT).show();
+        ALoadingDialog aLoadingDialog = new ALoadingDialog(getContext());
+        aLoadingDialog.show();
+
+        ProductPositionAPI.apiService.getLitsProductPoiton(id, platterList.get(indexPlatter).getDisPlaID(), UserManager.getInstance().getUser().getStore().getStoreID()).enqueue(new Callback<List<ProductPositioning>>() {
+            @Override
+            public void onResponse(Call<List<ProductPositioning>> call, Response<List<ProductPositioning>> response) {
+                if (response.isSuccessful()) {
+                    if (response.body() != null) {
+                        setData(response.body());
+                        aLoadingDialog.cancel();
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<List<ProductPositioning>> call, Throwable t) {
+
+            }
+        });
+    }
+
+
     private void getListShelf() {
         ShelfAPI.apiService.getshelfs(User.employee.getStore().getStoreID()).enqueue(new Callback<List<DisplayShelves>>() {
             @Override
@@ -300,6 +357,11 @@ public class viewShelf_fm extends Fragment {
         this.proPosList = list;
         postionViewAdapter.setData(this.proPosList);
 
+    }
+
+    public void loadData() {
+        getListShelf();
+        getListPlatter();
     }
 
     @Override

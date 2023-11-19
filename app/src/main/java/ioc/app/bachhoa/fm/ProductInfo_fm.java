@@ -119,8 +119,8 @@ public class ProductInfo_fm extends Fragment {
             @Override
             public void onClick(View v) {
                 PrintPriceTag printPriceTag = new PrintPriceTag(getContext());
-                Bitmap bitmap = printPriceTag.generateOnePriceTag(productPositioning);
-                printPriceTag.printOnetag(bitmap);
+                //Bitmap bitmap = printPriceTag.generateOnePriceTag(productPositioning);
+               // printPriceTag.printOnetag(bitmap);
             }
         });
     }

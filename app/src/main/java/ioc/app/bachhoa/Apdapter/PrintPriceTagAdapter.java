@@ -46,13 +46,19 @@ public class PrintPriceTagAdapter extends RecyclerView.Adapter<PrintPriceTagAdap
             holder.nameOfProduct.setText(pricetag.getProductPositioning().getProduct().getProductName());
             if (pricetag.getDiscountDetails() != null) {
                 String price = String.valueOf(pricetag.getProductPositioning().getProduct().getPrice());
-                // Tạo một đối tượng SpannableString với nội dung bạn muốn
-                SpannableString spannableString = new SpannableString(price);
-                // Áp dụng StrikethroughSpan để tạo hiệu ứng gạch ngang
-                spannableString.setSpan(new StrikethroughSpan(), 0, spannableString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                holder.price.setText(decimalFormat.format(pricetag.getProductPositioning().getProduct().getPrice()) + "VND");
-                holder.priceSale.setText(decimalFormat.format(pricetag.getProductPositioning().getProduct().getPrice() * ((100 - Double.parseDouble(pricetag.getDiscountDetails().getDisID())) / 100))+" VND");
-                holder.price.setPaintFlags(holder.price.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                if (pricetag.getDiscountDetails().getDisID().equals("2t1")) {
+                    holder.price.setText(pricetag.getProductPositioning().getProduct().getPrice() + "");
+                    holder.priceSale.setText("Mua 2 tặng 1");
+                } else {
+                    // Tạo một đối tượng SpannableString với nội dung bạn muốn
+                    SpannableString spannableString = new SpannableString(price);
+                    // Áp dụng StrikethroughSpan để tạo hiệu ứng gạch ngang
+                    spannableString.setSpan(new StrikethroughSpan(), 0, spannableString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    holder.price.setText(decimalFormat.format(pricetag.getProductPositioning().getProduct().getPrice()) + "VND");
+                    holder.price.setPaintFlags(holder.price.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                    holder.priceSale.setText(decimalFormat.format(pricetag.getProductPositioning().getProduct().getPrice() * ((100 - Double.parseDouble(pricetag.getDiscountDetails().getDisID())) / 100)) + " VND");
+                }
+
             } else {
                 holder.price.setText(decimalFormat.format(pricetag.getProductPositioning().getProduct().getPrice()));
             }

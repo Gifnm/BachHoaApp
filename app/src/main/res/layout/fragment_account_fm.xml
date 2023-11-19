@@ -125,7 +125,8 @@
                         android:padding="12dp"
                         android:text="Liên hệ hỗ trợ"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/text_size_medium" />
+                        android:textSize="@dimen/text_size_medium"
+                        />
 
                 </androidx.cardview.widget.CardView>
 
@@ -135,6 +136,14 @@
 
 
     </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/faf_logout"
+        android:textSize="@dimen/text_size_medium"
+        android:textAlignment="center"
+        android:text="Phiên bản phần mềm 1.01\nBản quyền thuộc về 197698"
+        />
     <Button
         android:id="@+id/faf_logout"
         android:layout_width="match_parent"
