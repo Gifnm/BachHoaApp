@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Printer;
 import android.view.View;
@@ -25,8 +26,13 @@ import java.util.List;
 
 import ioc.app.bachhoa.Apdapter.PrintPriceTagAdapter;
 import ioc.app.bachhoa.DTOEntity.PriceTag;
+import ioc.app.bachhoa.api.PrinterAPI;
 import ioc.app.bachhoa.api.ProductPositionAPI;
+import ioc.app.bachhoa.fm.PrinterBottomSheetFragment;
+import ioc.app.bachhoa.model.Printers;
+import ioc.app.bachhoa.ultil.ALoadingDialog;
 import ioc.app.bachhoa.ultil.CaptureAct;
+import ioc.app.bachhoa.ultil.ItemClick;
 import ioc.app.bachhoa.ultil.Message;
 import ioc.app.bachhoa.ultil.PrintPriceTag;
 import ioc.app.bachhoa.ultil.UserManager;
@@ -75,12 +81,29 @@ public class PrintPriceTagActivity extends AppCompatActivity {
         choosePrinter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog = new Dialog(PrintPriceTagActivity.this);
-                dialog.setContentView(R.layout.choose_printer);
-                dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                dialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.custom_dialog));
-                dialog.setCancelable(false);
-                dialog.show();
+                PrinterAPI.apiService.getAll(UserManager.getInstance().getUser().getStore().getStoreID()).enqueue(new Callback<List<Printers>>() {
+                    @Override
+                    public void onResponse(Call<List<Printers>> call, Response<List<Printers>> response) {
+                        if (response.isSuccessful()) {
+                            PrinterBottomSheetFragment printerBottomSheetFragment = new PrinterBottomSheetFragment(PrintPriceTagActivity.this, response.body(), new ItemClick() {
+                                @Override
+                                public void clickItem(Printers printers) {
+                                    SharedPreferences sharedPreferences = PrintPriceTagActivity.this.getSharedPreferences("printerip", PrintPriceTagActivity.this.MODE_PRIVATE);
+                                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                                    editor.putString("printerip", printers.getIpAddress());
+                                    editor.apply();
+                                }
+                            });
+                            printerBottomSheetFragment.show(getSupportFragmentManager(), printerBottomSheetFragment.getTag());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<Printers>> call, Throwable t) {
+
+                    }
+                });
+
             }
         });
         // In tem giá
@@ -88,9 +111,9 @@ public class PrintPriceTagActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 PrintPriceTag printPriceTag = new PrintPriceTag(PrintPriceTagActivity.this);
-                for (PriceTag priceTag : list) {
-                    printPriceTag.printOnetag(printPriceTag.generateOnePriceTagSalse(priceTag));
-                }
+
+                printPriceTag.printPriceTags(printPriceTag.generatePriceTags2(list));
+
             }
         });
         // Scan sản phẩm
@@ -119,13 +142,18 @@ public class PrintPriceTagActivity extends AppCompatActivity {
     }
 
     private void getPriceTag(String productID) {
+        ALoadingDialog aLoadingDialog = new ALoadingDialog(PrintPriceTagActivity.this);
+        aLoadingDialog.show();
         ProductPositionAPI.apiService.getPriceTag(UserManager.getInstance().getUser().getStore().getStoreID(), productID).enqueue(new Callback<PriceTag>() {
             @Override
             public void onResponse(Call<PriceTag> call, Response<PriceTag> response) {
                 if (response.isSuccessful()) {
-                    setDataForList(response.body()
-                    );
+//                    Toast.makeText(PrintPriceTagActivity.this, response.body().getProductPositioning().getProduct().getProductName(), Toast.LENGTH_SHORT).show();
+                    setDataForList(response.body());
+                    aLoadingDialog.cancel();
+
                 } else if (response.code() == 204) {
+                    aLoadingDialog.cancel();
                     Message message = new Message(PrintPriceTagActivity.this);
                     message.messageFailed(btnFind, "Sản phẩm không tồn tại!");
                 }
@@ -133,7 +161,7 @@ public class PrintPriceTagActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<PriceTag> call, Throwable t) {
-
+                aLoadingDialog.cancel();
             }
         });
 

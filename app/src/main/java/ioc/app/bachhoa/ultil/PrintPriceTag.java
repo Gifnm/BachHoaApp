@@ -1,6 +1,7 @@
 package ioc.app.bachhoa.ultil;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -8,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.dantsu.escposprinter.EscPosCharsetEncoding;
@@ -40,7 +42,7 @@ import ioc.app.bachhoa.model.ProductPositioning;
 public class PrintPriceTag {
     private Context context;
     private int port = 9100;
-    private String ipPrinter = "192.168.1.6";
+    private String ipPrinter = "192.168.1.5";
     DecimalFormat decimalFormat = new DecimalFormat("#,###");
 
     // C
@@ -81,18 +83,26 @@ public class PrintPriceTag {
     public void printOnetag(Bitmap bitmap) {
         new Thread(new Runnable() {
             public void run() {
-                EscPosPrinterCommands printerCommands = new EscPosPrinterCommands(new TcpConnection(ipPrinter, port, 1000));
-                try {
-                    printerCommands.connect();
-                    printerCommands.reset();
-                    printerCommands.printImage(EscPosPrinterCommands
-                            .bitmapToBytes(bitmap, false));
-                    printerCommands.feedPaper(50);
-                    printerCommands.cutPaper();
-                } catch (EscPosConnectionException e) {
-                    e.printStackTrace();
+                SharedPreferences sharedPreferences = context.getSharedPreferences("printerip", context.MODE_PRIVATE);
+                String ip = sharedPreferences.getString("printerip", "");
+                if (!ipPrinter.equals("")) {
+                    EscPosPrinterCommands printerCommands = new EscPosPrinterCommands(new TcpConnection(ip, port, 1000));
+                    try {
+                        printerCommands.connect();
+                        printerCommands.reset();
+                        printerCommands.printImage(EscPosPrinterCommands
+                                .bitmapToBytes(bitmap, false));
+//                    printerCommands.feedPaper(50);
+//                    printerCommands.cutPaper();
+                    } catch (EscPosConnectionException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    Toast.makeText(context, "Hãy chọn máy in!", Toast.LENGTH_SHORT).show();
+
                 }
             }
+
 
         }).start();
     }
@@ -129,20 +139,22 @@ public class PrintPriceTag {
     /**
      * Tạo ảnh 1 tem giá
      *
-     * @param productPositioning Object Vị trí sản phẩm
+     * @param priceTag Object Vị trí sản phẩm
      */
-    public Bitmap generateOnePriceTag(ProductPositioning productPositioning) {
+    public Bitmap generateOnePriceTag(PriceTag priceTag) {
         ReceiptBuilder receipt = new ReceiptBuilder(383);
-        receipt.
+        receipt.setTextSize(34).
                 setAlign(Paint.Align.CENTER).
-                setColor(Color.BLACK).
-                setTextSize(28).
-                addText("Kệ " + productPositioning.getDisplayShelves().getDisSheID() + " Mâm " + productPositioning.getDisplayPlatter().getDisPlaID() + " Vị trí " + productPositioning.getId() + " Trưng " + productPositioning.getForm())
-                .addLine()
-                .addText(productPositioning.getProduct().getProductName())
-                .addImage(generateBarcode(productPositioning.getProduct().getProductID(), 350, 70)).addParagraph()
-                .setTextSize(40)
-                .addText(productPositioning.getProduct().getPrice() + "").addParagraph();
+                setColor(Color.BLACK);
+        if (priceTag.getProductPositioning().getId() != 0) {
+            receipt.setTextSize(28).
+                    addText("Kệ " + priceTag.getProductPositioning().getDisplayShelves().getDisSheID() + " Mâm " + priceTag.getProductPositioning().getDisplayPlatter().getDisPlaID() + " Vị trí " + priceTag.getProductPositioning().getId() + " Trưng " + priceTag.getProductPositioning().getForm())
+                    .addLine();
+        }
+        receipt.addText(priceTag.getProductPositioning().getProduct().getProductName())
+                .addImage(generateBarcode(priceTag.getProductPositioning().getProduct().getProductID(), 350, 70)).addParagraph()
+                .setTextSize(50)
+                .addText(decimalFormat.format(priceTag.getProductPositioning().getProduct().getPrice()) + "VND").addParagraph();
         return receipt.build();
     }
 
@@ -151,25 +163,55 @@ public class PrintPriceTag {
      *
      * @param priceTag Object Vị trí sản phẩm
      */
-    public Bitmap generateOnePriceTagSalse(PriceTag priceTag) {
+    public Bitmap generateOnePriceTagPurcent(PriceTag priceTag) {
         ReceiptBuilder receipt = new ReceiptBuilder(600);
         receipt.setMarginTop(0).
                 setAlign(Paint.Align.CENTER).
-                setColor(Color.BLACK).
-                setTextSize(28).
-                addText("Kệ " + priceTag.getProductPositioning().getDisplayShelves().getDisSheID() + " Mâm " + priceTag.getProductPositioning().getDisplayPlatter().getDisPlaID() + " Vị trí " + priceTag.getProductPositioning().getId() + " Trưng " + priceTag.getProductPositioning().getForm())
-                .addLine()
-                .setTextSize(42)
-                .addText(priceTag.getDiscountDetails().getDiscount().getDiscountType() )
+                setColor(Color.BLACK);
+        if (priceTag.getProductPositioning().getId() != 0) {
+            receipt.setTextSize(28).
+                    addText("Kệ " + priceTag.getProductPositioning().getDisplayShelves().getDisSheID() + " Mâm " + priceTag.getProductPositioning().getDisplayPlatter().getDisPlaID() + " Vị trí " + priceTag.getProductPositioning().getId() + " Trưng " + priceTag.getProductPositioning().getForm())
+                    .addLine();
+        }
+
+        receipt.setTextSize(42)
+                .addText(priceTag.getDiscountDetails().getDiscount().getDiscountType())
                 .setTextSize(34)
                 .addText(priceTag.getProductPositioning().getProduct().getProductName())
                 .addImage(generateQr(priceTag.getProductPositioning().getProduct().getProductID(), 140, 140))
                 .setTextSize(36)
                 .addText(decimalFormat.format(priceTag.getProductPositioning().getProduct().getPrice()) + " VND giảm còn")
                 .setTextSize(70)
-                .addText(decimalFormat.format(priceTag.getProductPositioning().getProduct().getPrice() * ((100 - Double.parseDouble(priceTag.getDiscountDetails().getDisID()))/100)) + " VND")
+                .addText(decimalFormat.format(priceTag.getProductPositioning().getProduct().getPrice() * ((100 - Double.parseDouble(priceTag.getDiscountDetails().getDisID())) / 100)) + " VND")
                 .setTextSize(28)
-                .addText("Từ ngày " + priceTag.getDiscountDetails().getStartTime() +" đến " + priceTag.getDiscountDetails().getEndTime());
+                .addText("Từ ngày " + priceTag.getDiscountDetails().getStartTime() + " đến " + priceTag.getDiscountDetails().getEndTime());
+        Bitmap invoice = receipt.build();
+        Matrix matrix = new Matrix();
+
+        matrix.postRotate(90);
+        Bitmap rotatedBitmap = Bitmap.createBitmap(invoice, 0, 0, invoice.getWidth(), invoice.getHeight(), matrix, true);
+        return rotatedBitmap;
+    }
+
+    public Bitmap generateOnePriceTagGitfOne(PriceTag priceTag) {
+        ReceiptBuilder receipt = new ReceiptBuilder(600);
+        receipt.setMarginTop(0).
+                setAlign(Paint.Align.CENTER).
+                setColor(Color.BLACK);
+        if (priceTag.getProductPositioning().getId() != 0) {
+            receipt.setTextSize(28).
+                    addText("Kệ " + priceTag.getProductPositioning().getDisplayShelves().getDisSheID() + " Mâm " + priceTag.getProductPositioning().getDisplayPlatter().getDisPlaID() + " Vị trí " + priceTag.getProductPositioning().getId() + " Trưng " + priceTag.getProductPositioning().getForm())
+                    .addLine();
+        }
+        receipt.setTextSize(54)
+                .addText(priceTag.getDiscountDetails().getDiscount().getDiscountType())
+                .setTextSize(34)
+                .addText(priceTag.getProductPositioning().getProduct().getProductName())
+                .addImage(generateQr(priceTag.getProductPositioning().getProduct().getProductID(), 140, 140))
+                .setTextSize(70)
+                .addText(decimalFormat.format(priceTag.getProductPositioning().getProduct().getPrice() )+ " VND")
+                .setTextSize(28)
+                .addText("Từ ngày " + priceTag.getDiscountDetails().getStartTime() + " đến " + priceTag.getDiscountDetails().getEndTime());
         Bitmap invoice = receipt.build();
         Matrix matrix = new Matrix();
 
@@ -199,6 +241,24 @@ public class PrintPriceTag {
                     .setTextSize(40)
                     .addText(productPositioning.getProduct().getPrice() + "").addParagraph();
             arrayList.add(receipt.build());
+        }
+        return arrayList;
+    }
+
+    public ArrayList<Bitmap> generatePriceTags2(List<PriceTag> list) {
+        ArrayList<Bitmap> arrayList = new ArrayList<>();
+        for (PriceTag priceTag :
+                list) {
+            if (priceTag.getDiscountDetails() != null) {
+                if (priceTag.getDiscountDetails().getDisID().equals("2t1")) {
+                    arrayList.add(generateOnePriceTagGitfOne(priceTag));
+                } else {
+                    arrayList.add(generateOnePriceTagPurcent(priceTag));
+                }
+            } else {
+                arrayList.add(generateOnePriceTag(priceTag));
+            }
+
         }
         return arrayList;
     }
@@ -325,6 +385,7 @@ public class PrintPriceTag {
             return null;
         }
     }
+
     private Bitmap generateQr(String barcode, int width, int height) {
         MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
         try {

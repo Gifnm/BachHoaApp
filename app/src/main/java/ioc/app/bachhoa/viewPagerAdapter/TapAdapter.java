@@ -9,8 +9,8 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import ioc.app.bachhoa.tapAdapter.viewProduct_pm;
 import ioc.app.bachhoa.tapAdapter.viewShelf_fm;
 
-public class tapAdapter extends FragmentStatePagerAdapter {
-    public tapAdapter(@NonNull FragmentManager fm, int behavior) {
+public class TapAdapter extends FragmentStatePagerAdapter {
+    public TapAdapter(@NonNull FragmentManager fm, int behavior) {
         super(fm, behavior);
     }
 

@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import com.google.android.material.tabs.TabLayout;
 
 import ioc.app.bachhoa.R;
+import ioc.app.bachhoa.tapAdapter.viewShelf_fm;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,7 +26,7 @@ import ioc.app.bachhoa.R;
 public class displayProduct_pm extends Fragment {
     private ViewPager viewPager;
     private TabLayout tabLayout;
-    private tapAdapter tapAdapter;
+    private TapAdapter tapAdapter;
     private View view;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -82,7 +83,7 @@ public class displayProduct_pm extends Fragment {
         viewPager = (ViewPager) view.findViewById(R.id.tap_viewpager);
         tabLayout = (TabLayout) view.findViewById(R.id.tap);
         setTabDividers();
-        tapAdapter = new tapAdapter(getChildFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        tapAdapter = new TapAdapter(getChildFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         viewPager.setAdapter(tapAdapter);
         tabLayout.setupWithViewPager(viewPager);
     }

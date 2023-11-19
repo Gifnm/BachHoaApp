@@ -53,7 +53,7 @@ public class PostionViewAdapter extends RecyclerView.Adapter<PostionViewAdapter.
             @Override
             public void onClick(View v) {
                 PrintPriceTag printPriceTag = new PrintPriceTag(context);
-                printPriceTag.printOnetag(printPriceTag.generateOnePriceTag(proPos));
+               // printPriceTag.printOnetag(printPriceTag.generateOnePriceTag(proPos));
             }
         });
 

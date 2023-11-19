@@ -12,6 +12,7 @@
     android:layout_weight="3"
     android:text="Tên máy in"
     android:textSize="@dimen/text_size_medium"
+    android:drawableLeft="@drawable/print_setting"
     android:textColor="@color/black"
     android:layout_marginRight="8dp"
     />
@@ -19,5 +20,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/icp_radio_button"
+        android:buttonTint="@color/main_color"
         />
 </LinearLayout>
