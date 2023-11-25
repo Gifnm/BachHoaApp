@@ -42,7 +42,7 @@ import ioc.app.bachhoa.model.ProductPositioning;
 public class PrintPriceTag {
     private Context context;
     private int port = 9100;
-    private String ipPrinter = "192.168.1.6";
+    private String ipPrinter = "192.168.1.5";
     DecimalFormat decimalFormat = new DecimalFormat("#,###");
 
     // C
