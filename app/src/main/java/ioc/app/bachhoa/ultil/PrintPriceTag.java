@@ -37,12 +37,13 @@ import java.util.List;
 import ioc.app.bachhoa.DTOEntity.PriceTag;
 import ioc.app.bachhoa.model.Bill;
 import ioc.app.bachhoa.model.BillDetail;
+import ioc.app.bachhoa.model.DisplayShelves;
 import ioc.app.bachhoa.model.ProductPositioning;
 
 public class PrintPriceTag {
     private Context context;
     private int port = 9100;
-    private String ipPrinter = "192.168.1.5";
+    private String ipPrinter = "192.168.1.1";
     DecimalFormat decimalFormat = new DecimalFormat("#,###");
 
     // C
@@ -210,7 +211,7 @@ public class PrintPriceTag {
                 .addText(priceTag.getProductPositioning().getProduct().getProductName())
                 .addImage(generateQr(priceTag.getProductPositioning().getProduct().getProductID(), 140, 140))
                 .setTextSize(70)
-                .addText(decimalFormat.format(priceTag.getProductPositioning().getProduct().getPrice() )+ " VND")
+                .addText(decimalFormat.format(priceTag.getProductPositioning().getProduct().getPrice()) + " VND")
                 .setTextSize(28)
                 .addText("Từ ngày " + priceTag.getDiscountDetails().getStartTime() + " đến " + priceTag.getDiscountDetails().getEndTime());
         Bitmap invoice = receipt.build();
@@ -226,27 +227,26 @@ public class PrintPriceTag {
      *
      * @param list Danh sách Vị trí sản phẩm
      */
-    public ArrayList<Bitmap> generatePriceTags(List<ProductPositioning> list) {
-        ArrayList<Bitmap> arrayList = new ArrayList<>();
-        for (ProductPositioning productPositioning :
-                list) {
-            ReceiptBuilder receipt = new ReceiptBuilder(383);
-            receipt.
-                    setAlign(Paint.Align.CENTER).
-                    setColor(Color.BLACK).
-                    setTextSize(28).
-                    addText("Kệ " + productPositioning.getDisplayShelves().getDisSheID() + "Mâm " + productPositioning.getDisplayPlatter().getDisPlaID() + "Vị trí " + productPositioning.getId() + "Trưng " + productPositioning.getForm())
-                    .addLine()
-                    .addText(productPositioning.getProduct().getProductName())
-                    .addImage(generateBarcode(productPositioning.getProduct().getProductID(), 350, 70)).addParagraph()
-                    .setTextSize(40)
-                    .addText(productPositioning.getProduct().getPrice() + "").addParagraph();
-            arrayList.add(receipt.build());
-        }
-        return arrayList;
-    }
-
-    public ArrayList<Bitmap> generatePriceTags2(List<PriceTag> list) {
+//    public ArrayList<Bitmap> generatePriceTags(List<ProductPositioning> list) {
+//        ArrayList<Bitmap> arrayList = new ArrayList<>();
+//        for (ProductPositioning productPositioning :
+//                list) {
+//            ReceiptBuilder receipt = new ReceiptBuilder(383);
+//            receipt.
+//                    setAlign(Paint.Align.CENTER).
+//                    setColor(Color.BLACK).
+//                    setTextSize(28).
+//                    addText("Kệ " + productPositioning.getDisplayShelves().getDisSheID() + "Mâm " + productPositioning.getDisplayPlatter().getDisPlaID() + "Vị trí " + productPositioning.getId() + "Trưng " + productPositioning.getForm())
+//                    .addLine()
+//                    .addText(productPositioning.getProduct().getProductName())
+//                    .addImage(generateBarcode(productPositioning.getProduct().getProductID(), 350, 70)).addParagraph()
+//                    .setTextSize(40)
+//                    .addText(productPositioning.getProduct().getPrice() + "").addParagraph();
+//            arrayList.add(receipt.build());
+//        }
+//        return arrayList;
+//    }
+    public ArrayList<Bitmap> generatePriceTags(List<PriceTag> list) {
         ArrayList<Bitmap> arrayList = new ArrayList<>();
         for (PriceTag priceTag :
                 list) {
@@ -405,5 +405,36 @@ public class PrintPriceTag {
         }
     }
 
+    public void prinerShelfNumber(List<DisplayShelves> list) {
 
+        for (DisplayShelves displayShelves :
+                list) {
+            new Thread(new Runnable() {
+                public void run() {
+                    try {
+                        SharedPreferences sharedPreferences = context.getSharedPreferences("printerip", context.MODE_PRIVATE);
+                        String ip = sharedPreferences.getString("printerip", "");
+                        if (!ipPrinter.equals("")) {
+                            EscPosPrinter printer = new EscPosPrinter(new TcpConnection(ip, 9300, 15), 203, 48f, 32);
+                            for (DisplayShelves displayShelves :
+                                    list) {
+                                printer
+                                        .printFormattedText(
+                                                "[C]<u><font size='big'>" + displayShelves.getDisSheID() + "</font></u>"
+                                        );
+                            }
+                        }
+                        else{
+                            Toast.makeText(context, "Hãy chọn máy in!", Toast.LENGTH_SHORT).show();
+
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+
+
+        }
+    }
 }

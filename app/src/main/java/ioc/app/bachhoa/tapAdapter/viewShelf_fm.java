@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -17,7 +16,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -28,6 +26,7 @@ import java.util.List;
 
 import ioc.app.bachhoa.Apdapter.PostionViewAdapter;
 import ioc.app.bachhoa.Apdapter.ShelfApdapter;
+import ioc.app.bachhoa.DTOEntity.PriceTag;
 import ioc.app.bachhoa.R;
 import ioc.app.bachhoa.api.PlatterAPI;
 import ioc.app.bachhoa.api.ProductPositionAPI;
@@ -37,7 +36,6 @@ import ioc.app.bachhoa.model.DisplayShelves;
 import ioc.app.bachhoa.model.ProductPositioning;
 import ioc.app.bachhoa.model.Store;
 import ioc.app.bachhoa.ultil.ALoadingDialog;
-import ioc.app.bachhoa.ultil.Message;
 import ioc.app.bachhoa.ultil.PrintPriceTag;
 import ioc.app.bachhoa.ultil.User;
 import ioc.app.bachhoa.ultil.UserManager;
@@ -58,7 +56,7 @@ public class viewShelf_fm extends Fragment {
     ImageButton nextPlatter, prevousPlater;
     AutoCompleteTextView searchShelf;
     TextView platterNumber;
-    Button printShlefNumber, printPriceTagOnShlef, printPricetagsOnPlatter;
+    Button printShlefNumber, printPriceTagOnShlef, printPricetagsOnPlatter, printShelfPosi;
     RecyclerView posttionRecyCle;
     List<DisplayShelves> shelvesList = new ArrayList<>();
     int indexShelf = 0;
@@ -122,6 +120,7 @@ public class viewShelf_fm extends Fragment {
     }
 
     private void uiInit() {
+        printShelfPosi = view.findViewById(R.id.vsf_printShelfPosi);
         searchShelf = view.findViewById(R.id.sv_search_shelf);
         shelfSpinner = view.findViewById(R.id.sv_spinner);
         prevousPlater = view.findViewById(R.id.sv_before_platter);
@@ -141,6 +140,13 @@ public class viewShelf_fm extends Fragment {
     }
 
     private void addEvent() {
+        printShelfPosi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PrintPriceTag printPriceTag = new PrintPriceTag(getContext());
+                printPriceTag.prinerShelfNumber(shelvesList);
+            }
+        });
         searchShelf.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -212,16 +218,16 @@ public class viewShelf_fm extends Fragment {
         printPriceTagOnShlef.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ProductPositionAPI.apiService.getPosByStoreAndShelf(User.employee.getStore().getStoreID(), indexShelf).enqueue(new Callback<List<ProductPositioning>>() {
+                ProductPositionAPI.apiService.getPosByStoreAndShelf(User.employee.getStore().getStoreID(), indexShelf).enqueue(new Callback<List<PriceTag>>() {
                     @Override
-                    public void onResponse(Call<List<ProductPositioning>> call, Response<List<ProductPositioning>> response) {
+                    public void onResponse(Call<List<PriceTag>> call, Response<List<PriceTag>> response) {
                         PrintPriceTag printPriceTag = new PrintPriceTag(getContext());
                         ArrayList<Bitmap> arrayList = printPriceTag.generatePriceTags(response.body());
                         printPriceTag.printPriceTags(arrayList);
                     }
 
                     @Override
-                    public void onFailure(Call<List<ProductPositioning>> call, Throwable t) {
+                    public void onFailure(Call<List<PriceTag>> call, Throwable t) {
 
                     }
                 });
@@ -346,10 +352,10 @@ public class viewShelf_fm extends Fragment {
     }
 
     private void printPricetagsOnPlatter(List<ProductPositioning> list) {
-        PrintPriceTag printPriceTag = new PrintPriceTag(getContext());
-        ArrayList<Bitmap> arrayList = printPriceTag.generatePriceTags(list);
-
-        printPriceTag.printPriceTags(arrayList);
+//        PrintPriceTag printPriceTag = new PrintPriceTag(getContext());
+//        ArrayList<Bitmap> arrayList = printPriceTag.generatePriceTags(list);
+//
+//        printPriceTag.printPriceTags(arrayList);
 
     }
 

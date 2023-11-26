@@ -5,7 +5,7 @@ public class LocalVarible {
      * Địa chỉ ip máy chủ
      * - Dùng để kết nối đến máy chủ thông qua API
      */
-    public static String ip = "192.168.1.8";
+    public static String ip = "192.168.1.30";
 
     /**
      * Cổng để kết nối đến máy chủ

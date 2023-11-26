@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".InventoryActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/a_inventory_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:ignore="MissingConstraints">
+
+        <ImageView
+            android:id="@+id/ai_back_activity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_margin="8dp"
+            android:src="@drawable/ic_baseline_arrow_back_24"
+            app:tint="@color/black" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Kiểm kê"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_size_large" />
+    </androidx.appcompat.widget.Toolbar>
+
+    <Button
+        android:id="@+id/a_inventory_proactive_inventory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/a_inventory_toolbar"
+        android:layout_marginLeft="8dp"
+        android:background="@drawable/my_button_bg"
+        android:text="Kiểm kê chủ động"
+        android:textAllCaps="false"
+        android:textColor="@color/text3" />
+
+    <LinearLayout
+        android:id="@+id/a_inventory_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/a_inventory_proactive_inventory"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/sv_before_platter"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+
+            android:src="@drawable/ic_baseline_navigate_before_24"></ImageButton>
+
+        <TextView
+            android:id="@+id/sv_platter_number"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_margin="8dp"
+            android:background="@drawable/custom_edit_text"
+            android:hint="25/11/2023"
+            android:minWidth="48dp"
+            android:padding="12dp"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_size_large"
+            android:textStyle="bold"></TextView>
+
+        <ImageButton
+            android:id="@+id/sv_next_platter"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_baseline_navigate_next_24"></ImageButton>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/a_inventory_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/a_inventory_date"
+        android:layout_margin="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/background"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/addn_txt_barcode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:background="@drawable/custom_edit_text"
+            android:backgroundTint="@color/white"
+            android:hint="Nhập mã sản phẩm"
+            android:padding="8dp"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_size_medium" />
+
+        <Button
+            android:id="@+id/addn_btn_find"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:background="@drawable/my_button_bg"
+            android:text="Tìm"
+            android:textColor="@color/text3" />
+
+        <ImageButton
+            android:id="@+id/addn_imb_scan"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:drawableTint="@color/black"
+            android:src="@drawable/barcode_svgrepo_com2"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/a_inventory_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/a_inventory_search" />
+
+</RelativeLayout>

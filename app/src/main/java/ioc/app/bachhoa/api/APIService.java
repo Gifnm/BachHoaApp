@@ -87,10 +87,10 @@ public interface APIService {
     Call<Void> createBillDetail(@Path("listDetail") List<BillDetail> list, @Path("billID") String billID);
 
     // ProductPositoning API
-    @GET("productPositioning/{shelfID}/{platterNb}/{storeID}")
+    @GET("productPosition/{shelfID}/{platterNb}/{storeID}")
     Call<List<ProductPositioning>> getLitsProductPoiton(@Path("shelfID") int shelfID, @Path("platterNb") int platterID, @Path("storeID") int storeID);
 
-    @POST("productPositioning/insert")
+    @POST("productPosition/insert")
     Call<ProductPositioning> insertProPosion(@Body ProductPositioning productPositioning);
     // 4. Check san pham
 

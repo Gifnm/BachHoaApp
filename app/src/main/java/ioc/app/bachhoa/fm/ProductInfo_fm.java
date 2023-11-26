@@ -80,12 +80,20 @@ public class ProductInfo_fm extends Fragment {
             String json = bundle.getString("content");
             Gson gson = new Gson();
             ProductPositioning productPositioning = gson.fromJson(json, ProductPositioning.class);
+            if (productPositioning.getId() != 0) {
+                shelf.setText("Kệ: " + productPositioning.getDisplayShelves().getDisSheID());
+                platter.setText("Mâm: " + productPositioning.getDisplayPlatter().getDisPlaID());
+                location.setText("Vị trí " + productPositioning.getId());
+                form.setText("Trưng " + bundle.getString("form"));
+                quantity.setText("SL " + productPositioning.getDisplayQuantity());
+            } else {
+                shelf.setVisibility(View.GONE);
+                platter.setVisibility(View.GONE);
+                location.setVisibility(View.GONE);
+                form.setText("Chưa có vị trí trưng bày");
+                quantity.setVisibility(View.GONE);
+            }
 
-            shelf.setText("Kệ: " + productPositioning.getDisplayShelves().getDisSheID());
-            platter.setText("Mâm: " + productPositioning.getDisplayPlatter().getDisPlaID());
-            location.setText("Vị trí " + productPositioning.getId());
-            form.setText("Trưng " + bundle.getString("form"));
-            quantity.setText("SL " + productPositioning.getDisplayQuantity());
             status.setText(productPositioning.getProduct().getStatus() == true ? "Kinh doanh" : "Ngưng KD");
             barcode.setText("Barcode: " + productPositioning.getProduct().getProductID());
             nameOfProd.setText(productPositioning.getProduct().getProductName());
@@ -120,7 +128,7 @@ public class ProductInfo_fm extends Fragment {
             public void onClick(View v) {
                 PrintPriceTag printPriceTag = new PrintPriceTag(getContext());
                 //Bitmap bitmap = printPriceTag.generateOnePriceTag(productPositioning);
-               // printPriceTag.printOnetag(bitmap);
+                // printPriceTag.printOnetag(bitmap);
             }
         });
     }

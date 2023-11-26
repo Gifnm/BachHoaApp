@@ -51,6 +51,7 @@ import ioc.app.bachhoa.model.Product;
 import ioc.app.bachhoa.model.Store;
 import ioc.app.bachhoa.ultil.ALoadingDialog;
 import ioc.app.bachhoa.ultil.CaptureAct;
+import ioc.app.bachhoa.ultil.Message;
 import ioc.app.bachhoa.ultil.RealPathUtil;
 import ioc.app.bachhoa.ultil.User;
 import okhttp3.MediaType;
@@ -181,43 +182,45 @@ public class CreateProduct extends Fragment {
 
     private void AddEvent() {
         getCategories();
-
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                aLoadingDialog.show();
-                if(validateForm()){
-                Product product = new Product();
-                product.setProductID(barcode.getText().toString());
-                product.setProductName(nameProduct.getText().toString());
-                product.setPrice(Float.parseFloat(price.getText().toString()));
-                product.setImportPrice(Float.parseFloat(priceSell.getText().toString()));
-                product.setStatus(status.isSelected());
-                String vat2= vat.getText().toString();
-                product.setVat(Integer.parseInt(vat2.equals("")?"0":vat2));
-                product.setStore(User.employee.getStore());
-                String inventory2 = quanity.getText().toString();
-                product.setInventory(Integer.parseInt(inventory2.equals("")?"0":inventory2));
+
+                if (validateForm()) {
+                    aLoadingDialog.show();
+                    Product product = new Product();
+                    product.setProductID(barcode.getText().toString());
+                    product.setProductName(nameProduct.getText().toString());
+                    product.setPrice(Float.parseFloat(price.getText().toString()));
+                    product.setImportPrice(Float.parseFloat(priceSell.getText().toString()));
+                    product.setStatus(status.isChecked());
+                    String vat2 = vat.getText().toString();
+                    product.setVat(Integer.parseInt(vat2.equals("") ? "0" : vat2));
+                    product.setStore(User.employee.getStore());
+                    String inventory2 = quanity.getText().toString();
+                    product.setInventory(Integer.parseInt(inventory2.equals("") ? "0" : inventory2));
 //                product.setNearestExpDate(exp);
-                product.setCategories(new Categories(categoryID));
-                String realPath = RealPathUtil.getRealPath(getContext(), muri);
-                File file = new File(realPath);
-                RequestBody requestBodyavt = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-                MultipartBody.Part mPart = MultipartBody.Part.createFormData("image", file.getName(), requestBodyavt);
-                APIService.apiService.uploadSanPhamWithImage(product, mPart).enqueue(new Callback<Void>() {
-                    @Override
-                    public void onResponse(Call<Void> call, Response<Void> response) {
-                        clearForm();
-                    }
+                    product.setCategories(new Categories(categoryID));
+                    String realPath = RealPathUtil.getRealPath(getContext(), muri);
+                    File file = new File(realPath);
+                    RequestBody requestBodyavt = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+                    MultipartBody.Part mPart = MultipartBody.Part.createFormData("image", file.getName(), requestBodyavt);
+                    APIService.apiService.uploadSanPhamWithImage(product, mPart).enqueue(new Callback<Void>() {
+                        @Override
+                        public void onResponse(Call<Void> call, Response<Void> response) {
+                            clearForm();
+                            Message message = new Message(getContext());
+                            message.messageSucceed(save, "Thêm thành công!");
+                        }
 
-                    @Override
-                    public void onFailure(Call<Void> call, Throwable t) {
-                        Toast.makeText(getActivity(), "Failure", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                        @Override
+                        public void onFailure(Call<Void> call, Throwable t) {
+                            Toast.makeText(getActivity(), "Failure", Toast.LENGTH_SHORT).show();
+                        }
+                    });
 
-            }
-            aLoadingDialog.cancel();
+                }
+                aLoadingDialog.cancel();
             }
         });
         select_img.setOnClickListener(new View.OnClickListener() {
@@ -358,22 +361,23 @@ public class CreateProduct extends Fragment {
 
     public void getCategories() {
 
-APIService.apiService.getCategories().enqueue(new Callback<List<Categories>>() {
-    @Override
-    public void onResponse(Call<List<Categories>> call, Response<List<Categories>> response) {
-        List<Categories> categories = (List<Categories>) response.body();
-setCategories(categories);
+        APIService.apiService.getCategories().enqueue(new Callback<List<Categories>>() {
+            @Override
+            public void onResponse(Call<List<Categories>> call, Response<List<Categories>> response) {
+                List<Categories> categories = (List<Categories>) response.body();
+                setCategories(categories);
+            }
+
+            @Override
+            public void onFailure(Call<List<Categories>> call, Throwable t) {
+
+            }
+        });
+
+
     }
 
-    @Override
-    public void onFailure(Call<List<Categories>> call, Throwable t) {
-
-    }
-});
-
-
-    }
-    private void clearForm(){
+    private void clearForm() {
 
         barcode.setText("");
         price.setText("");
@@ -386,26 +390,24 @@ setCategories(categories);
         muri = null;
         quanity.setText("");
         priceSell.setText("");
-        img_selected.setBackgroundResource(R.drawable.ic_baseline_image_24);
+        img_selected.setImageResource(R.drawable.ic_baseline_image_24);
     }
-    private boolean validateForm(){
-if(barcode.getText().toString().equals("")){
-    Toast.makeText(getActivity(), "Nhập mã barcode", Toast.LENGTH_SHORT).show();
-    return false;
-}
-else if(nameProduct.getText().toString().equals("")){
-    Toast.makeText(getActivity(), "Nhập tên sản phẩm", Toast.LENGTH_SHORT).show();
-    return false;
 
-}
-else if(priceSell.getText().toString().equals("")){
-    Toast.makeText(getActivity(), "Nhập giá bán", Toast.LENGTH_SHORT).show();
-    return false;
-}
-else{
+    private boolean validateForm() {
+        if (barcode.getText().toString().equals("")) {
+            Toast.makeText(getActivity(), "Nhập mã barcode", Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (nameProduct.getText().toString().equals("")) {
+            Toast.makeText(getActivity(), "Nhập tên sản phẩm", Toast.LENGTH_SHORT).show();
+            return false;
 
-    return true;
-}
+        } else if (priceSell.getText().toString().equals("")) {
+            Toast.makeText(getActivity(), "Nhập giá bán", Toast.LENGTH_SHORT).show();
+            return false;
+        } else {
+
+            return true;
+        }
 
     }
 }

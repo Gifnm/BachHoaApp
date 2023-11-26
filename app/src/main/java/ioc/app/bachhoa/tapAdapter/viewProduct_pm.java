@@ -190,7 +190,6 @@ public class viewProduct_pm extends Fragment {
                     fragmentTransaction.commit();
                 } else {
                     findProduct(id);
-
                 }
             }
 

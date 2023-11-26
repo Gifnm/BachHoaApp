@@ -1,6 +1,9 @@
 package ioc.app.bachhoa.viewPagerAdapter;
 
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.cardview.widget.CardView;
@@ -11,12 +14,16 @@ import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import ioc.app.bachhoa.DangNhap;
 import ioc.app.bachhoa.MainActivity;
 import ioc.app.bachhoa.R;
 import ioc.app.bachhoa.fm.AccountDetail;
+import ioc.app.bachhoa.ultil.UserManager;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,12 +31,13 @@ import ioc.app.bachhoa.fm.AccountDetail;
  * create an instance of this fragment.
  */
 public class acount_fm extends Fragment {
-
+    private Button btnLogout;
+    private TextView storeID, user;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-// Tao doi tuong View de anhxa
+    // Tao doi tuong View de anhxa
     View view;
     CardView thongTinTaiKhoan;
     // TODO: Rename and change types of parameters
@@ -72,14 +80,30 @@ public class acount_fm extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_account_fm, container, false);
-
+        uiInit();
         return view;
     }
 
-
-
-
-
-
-
+    private void uiInit() {
+        btnLogout = view.findViewById(R.id.faf_logout);
+        storeID = view.findViewById((R.id.faf_store_id));
+        user = view.findViewById(R.id.faf_user);
+        storeID.setText("Cửa hàng: "+ UserManager.getInstance().getUser().getStore().getStoreID());
+        user.setText(UserManager.getInstance().getUser().getEmployeeName() +" - "+ UserManager.getInstance().getUser().getEmployeeID());
+       addEvent();
+    }
+    private void addEvent(){
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences sharedPreferences = getActivity().getSharedPreferences("isLogin", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.clear();
+                editor.apply();
+                Intent intent = new Intent(getActivity(), DangNhap.class);
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            }
+        });
+    }
 }

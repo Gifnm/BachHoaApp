@@ -16,7 +16,7 @@ import ioc.app.bachhoa.R;
  * create an instance of this fragment.
  */
 public class NearDate_fm extends Fragment {
-
+    private View view;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -61,6 +61,7 @@ public class NearDate_fm extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_near_date_fm, container, false);
+        view = inflater.inflate(R.layout.fragment_near_date_fm, container, false);
+        return view;
     }
 }

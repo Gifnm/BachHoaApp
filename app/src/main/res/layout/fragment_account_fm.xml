@@ -9,7 +9,7 @@
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/faf_store_id"
+        android:id="@+id/faf_store_id_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -20,6 +20,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/faf_store_id"
             android:text="Cửa hàng: 4594"
             android:layout_margin="20dp"
             android:textSize="@dimen/text_size_large"
@@ -33,7 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/faf_logout"
-        android:layout_below="@+id/faf_store_id"
+        android:layout_below="@+id/faf_store_id_view"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
@@ -51,6 +52,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/faf_user"
                 android:padding="12dp"
                 android:text="Nuyễn Minh Thư - 179692"
                 android:textColor="@color/text3"

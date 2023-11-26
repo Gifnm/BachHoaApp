@@ -1,16 +1,14 @@
-package ioc.app.bachhoa.viewPagerAdapter;
+package ioc.app.bachhoa;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-import ioc.app.bachhoa.R;
-
-public class EXPSystemActivity extends AppCompatActivity {
+public class InventoryActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_expsystem);
+        setContentView(R.layout.activity_inventory);
     }
 }

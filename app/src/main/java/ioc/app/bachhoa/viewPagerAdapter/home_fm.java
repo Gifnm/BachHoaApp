@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import ioc.app.bachhoa.EXPSystemActivity;
 import ioc.app.bachhoa.ImportGood;
 import ioc.app.bachhoa.Make_Bill;
 import ioc.app.bachhoa.PrintPriceTagActivity;
@@ -31,7 +32,7 @@ import ioc.app.bachhoa.fm.CreateProduct;
  */
 public class home_fm extends Fragment {
     CardView position, create_RP, printer;
-    LinearLayout makeBill, createProduct, importGood, printPriceTag;
+    LinearLayout makeBill, createProduct, importGood, printPriceTag, expCheck;
     View view;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -85,6 +86,15 @@ public class home_fm extends Fragment {
     }
 
     private void anhxa() {
+        expCheck = view.findViewById(R.id.fhf_exp);
+        expCheck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), EXPSystemActivity.class);
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            }
+        });
         printPriceTag = view.findViewById(R.id.fh_print_price_tag);
         printPriceTag.setOnClickListener(new View.OnClickListener() {
             @Override

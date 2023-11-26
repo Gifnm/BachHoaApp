@@ -8,6 +8,7 @@ import java.util.List;
 import ioc.app.bachhoa.DTOEntity.PriceTag;
 import ioc.app.bachhoa.model.ProductPositioning;
 import ioc.app.bachhoa.ultil.LocalVarible;
+import ioc.app.bachhoa.ultil.PrintPriceTag;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -56,7 +57,7 @@ public interface ProductPositionAPI {
      * @param disSheID Mã số kệ
      */
     @GET("getPosByStoreAndShelf/{storeID}/{disSheID}")
-    Call<List<ProductPositioning>> getPosByStoreAndShelf(@Path("storeID") int storeID, @Path("disSheID") int disSheID);
+    Call<List<PriceTag>> getPosByStoreAndShelf(@Path("storeID") int storeID, @Path("disSheID") int disSheID);
 
     /**
      * API: Lấy tem giá

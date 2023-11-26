@@ -42,7 +42,9 @@
         android:layout_height="wrap_content"
        android:layout_below="@id/fap_toolbar"
         android:orientation="horizontal"
-        android:padding="8dp">
+        android:padding="8dp"
+        android:background="@color/background"
+        >
 
         <Spinner
             android:id="@+id/ap_list_shelf"
@@ -57,7 +59,7 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
 
-            android:src="@drawable/ic_baseline_plus_one_24"
+            android:src="@drawable/plus_svgrepo_com"
             android:layout_marginRight="8dp"
             />
         <ImageButton
@@ -103,7 +105,7 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
 
-            android:src="@drawable/ic_baseline_plus_one_24"></ImageButton>
+            android:src="@drawable/plus_svgrepo_com"></ImageButton>
     </LinearLayout>
 <View
     android:layout_width="match_parent"

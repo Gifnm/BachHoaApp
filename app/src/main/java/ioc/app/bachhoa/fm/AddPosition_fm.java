@@ -258,8 +258,8 @@ public class AddPosition_fm extends Fragment {
             public void onResponse(Call<List<ProductPositioning>> call, Response<List<ProductPositioning>> response) {
                 listPossitioning = response.body();
                 positionAdapter.setData(listPossitioning);
-                if (listPossitioning.isEmpty()) {
-                    productIndext = 1;
+                if (listPossitioning == null) {
+                    productIndext = 0;
                 } else {
                     productIndext = listPossitioning.size();
 
@@ -464,9 +464,16 @@ public class AddPosition_fm extends Fragment {
         APIService.apiService.insertProPosion(productPositioning).enqueue(new Callback<ProductPositioning>() {
             @Override
             public void onResponse(Call<ProductPositioning> call, Response<ProductPositioning> response) {
+                if(listPossitioning == null){
+                    listPossitioning = new ArrayList<>();
+                    listPossitioning.add(response.body());
+                    positionAdapter.setData(listPossitioning);
+                    productIndext++;
+                }
+                else{
                 listPossitioning.add(response.body());
                 positionAdapter.setData(listPossitioning);
-                productIndext++;
+                productIndext++;}
             }
 
             @Override

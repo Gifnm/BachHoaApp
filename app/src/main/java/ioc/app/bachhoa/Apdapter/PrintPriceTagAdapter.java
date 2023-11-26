@@ -60,7 +60,7 @@ public class PrintPriceTagAdapter extends RecyclerView.Adapter<PrintPriceTagAdap
                 }
 
             } else {
-                holder.price.setText(decimalFormat.format(pricetag.getProductPositioning().getProduct().getPrice()));
+                holder.price.setText(decimalFormat.format(pricetag.getProductPositioning().getProduct().getPrice()) +"VND");
             }
 
 
