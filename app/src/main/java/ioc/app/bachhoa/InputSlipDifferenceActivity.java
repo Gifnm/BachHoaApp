@@ -25,6 +25,7 @@ import ioc.app.bachhoa.Apdapter.InputSlipDifferenceAdapter;
 import ioc.app.bachhoa.DTOEntity.ProductOnShelf;
 import ioc.app.bachhoa.api.DetailedDeliveryNoteAPI;
 import ioc.app.bachhoa.model.DetailedDeliveryNote;
+import ioc.app.bachhoa.ultil.ALoadingDialog;
 import ioc.app.bachhoa.ultil.User;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -75,8 +76,8 @@ public class InputSlipDifferenceActivity extends AppCompatActivity {
                 }
             }
             inputSlipDifferenceAdapter.setChangeData(differenceList);
-            if(differenceList != null){
-                numberDiffernce.setText(differenceList.size()+"");
+            if (differenceList != null) {
+                numberDiffernce.setText(differenceList.size() + "");
             }
         }
     }
@@ -86,7 +87,7 @@ public class InputSlipDifferenceActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(InputSlipDifferenceActivity.this);
-                builder.setMessage(differenceList.isEmpty()?"Lưu và bỏ qua chênh lệch?":"Xác nhận liêu nhập hàng?");
+                builder.setMessage(differenceList.isEmpty() ? "Lưu và bỏ qua chênh lệch?" : "Xác nhận liêu nhập hàng?");
                 builder.setNegativeButton("HỦY", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -98,8 +99,6 @@ public class InputSlipDifferenceActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                         save();
-//                        differenceList.clear();
-//                        inputSlipDifferenceAdapter.setChangeData(differenceList);
                     }
                 });
                 AlertDialog dialog = builder.create();
@@ -109,17 +108,20 @@ public class InputSlipDifferenceActivity extends AppCompatActivity {
     }
 
     private void save() {
+        ALoadingDialog alertDialog = new ALoadingDialog(InputSlipDifferenceActivity.this);
+        alertDialog.show();
         DetailedDeliveryNoteAPI.apiService.save(detailedDeliveryNoteList, User.employee.getEmployeeID()).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
                     Toast.makeText(InputSlipDifferenceActivity.this, "Thành công", Toast.LENGTH_SHORT).show();
+                    alertDialog.cancel();
                 }
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-
+                alertDialog.cancel();
             }
         });
 

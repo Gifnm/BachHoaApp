@@ -1,5 +1,6 @@
 package ioc.app.bachhoa.viewPagerAdapter;
 
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
@@ -11,12 +12,24 @@ import androidx.viewpager.widget.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.google.android.material.tabs.TabLayout;
 
+import java.util.List;
+
+import ioc.app.bachhoa.PrintPriceTagActivity;
 import ioc.app.bachhoa.R;
+import ioc.app.bachhoa.api.PrinterAPI;
+import ioc.app.bachhoa.fm.PrinterBottomSheetFragment;
+import ioc.app.bachhoa.model.Printers;
 import ioc.app.bachhoa.tapAdapter.viewShelf_fm;
+import ioc.app.bachhoa.ultil.ItemClick;
+import ioc.app.bachhoa.ultil.UserManager;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -28,6 +41,7 @@ public class displayProduct_pm extends Fragment {
     private TabLayout tabLayout;
     private TapAdapter tapAdapter;
     private View view;
+    private ImageView choosePrinter;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -82,10 +96,12 @@ public class displayProduct_pm extends Fragment {
     private void anhxa() {
         viewPager = (ViewPager) view.findViewById(R.id.tap_viewpager);
         tabLayout = (TabLayout) view.findViewById(R.id.tap);
+        choosePrinter = view.findViewById(R.id.fdp_choose_printer);
         setTabDividers();
         tapAdapter = new TapAdapter(getChildFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         viewPager.setAdapter(tapAdapter);
         tabLayout.setupWithViewPager(viewPager);
+        addEvent();
     }
 
     private void setTabDividers() {
@@ -100,6 +116,36 @@ public class displayProduct_pm extends Fragment {
 
         }
 
+    }
+
+    private void addEvent() {
+        choosePrinter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PrinterAPI.apiService.getAll(UserManager.getInstance().getUser().getStore().getStoreID()).enqueue(new Callback<List<Printers>>() {
+                    @Override
+                    public void onResponse(Call<List<Printers>> call, Response<List<Printers>> response) {
+                        if (response.isSuccessful()) {
+                            PrinterBottomSheetFragment printerBottomSheetFragment = new PrinterBottomSheetFragment(getActivity(), response.body(), new ItemClick() {
+                                @Override
+                                public void clickItem(Printers printers) {
+                                    SharedPreferences sharedPreferences = getActivity().getSharedPreferences("printerip", getActivity().MODE_PRIVATE);
+                                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                                    editor.putString("printerip", printers.getIpAddress());
+                                    editor.apply();
+                                }
+                            });
+                            printerBottomSheetFragment.show(getActivity().getSupportFragmentManager(), printerBottomSheetFragment.getTag());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<Printers>> call, Throwable t) {
+
+                    }
+                });
+            }
+        });
     }
 
 }

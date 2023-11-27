@@ -36,6 +36,7 @@ import ioc.app.bachhoa.model.DisplayShelves;
 import ioc.app.bachhoa.model.ProductPositioning;
 import ioc.app.bachhoa.model.Store;
 import ioc.app.bachhoa.ultil.ALoadingDialog;
+import ioc.app.bachhoa.ultil.Message;
 import ioc.app.bachhoa.ultil.PrintPriceTag;
 import ioc.app.bachhoa.ultil.User;
 import ioc.app.bachhoa.ultil.UserManager;
@@ -179,8 +180,13 @@ public class viewShelf_fm extends Fragment {
         shelfSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                indexShelf = position;
-                getListPosion();
+                if (position == 0) {
+                    proPosList.clear();
+                    postionViewAdapter.setData(proPosList);
+                } else {
+                    indexShelf = position;
+                    getListPosion();
+                }
             }
 
             @Override
@@ -204,14 +210,17 @@ public class viewShelf_fm extends Fragment {
         printShlefNumber.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                // Toast.makeText(getContext(), "NumerShelf", Toast.LENGTH_SHORT).show();
+                PrintPriceTag printPriceTag = new PrintPriceTag(getContext());
+                printPriceTag.setView(printShelfPosi);
+                printPriceTag.prinerShelfNumber(shelvesList);
             }
         });
         // Su kien in tem gia mam
         printPricetagsOnPlatter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                printPricetagsOnPlatter(proPosList);
+                printPricetagsOnPlatter();
             }
         });
         // Su kien in tem gia ke
@@ -222,6 +231,7 @@ public class viewShelf_fm extends Fragment {
                     @Override
                     public void onResponse(Call<List<PriceTag>> call, Response<List<PriceTag>> response) {
                         PrintPriceTag printPriceTag = new PrintPriceTag(getContext());
+                        printPriceTag.setView(printPriceTagOnShlef);
                         ArrayList<Bitmap> arrayList = printPriceTag.generatePriceTags(response.body());
                         printPriceTag.printPriceTags(arrayList);
                     }
@@ -351,12 +361,27 @@ public class viewShelf_fm extends Fragment {
 
     }
 
-    private void printPricetagsOnPlatter(List<ProductPositioning> list) {
-//        PrintPriceTag printPriceTag = new PrintPriceTag(getContext());
-//        ArrayList<Bitmap> arrayList = printPriceTag.generatePriceTags(list);
-//
-//        printPriceTag.printPriceTags(arrayList);
+    private void printPricetagsOnPlatter() {
+        if (indexShelf != 0) {
+            ProductPositionAPI.apiService.getPriceTagsOnPlatter(indexShelf, ++indexPlatter, UserManager.getInstance().getUser().getStore().getStoreID()).enqueue(new Callback<List<PriceTag>>() {
+                @Override
+                public void onResponse(Call<List<PriceTag>> call, Response<List<PriceTag>> response) {
+                    if (response.isSuccessful() && response.body() != null) {
+                        PrintPriceTag printPriceTag = new PrintPriceTag(getContext());
+                        printPriceTag.setView(printPricetagsOnPlatter);
+                        printPriceTag.printPriceTags(printPriceTag.generatePriceTags(response.body()));
+                    }
+                }
 
+                @Override
+                public void onFailure(Call<List<PriceTag>> call, Throwable t) {
+
+                }
+            });
+        } else {
+            Message message = new Message(getContext());
+            message.messageFailed(printPricetagsOnPlatter, "Hãy chọn kệ");
+        }
     }
 
     private void setData(List<ProductPositioning> list) {

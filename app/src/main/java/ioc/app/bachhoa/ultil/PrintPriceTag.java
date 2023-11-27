@@ -44,11 +44,20 @@ public class PrintPriceTag {
     private Context context;
     private int port = 9100;
     private String ipPrinter = "192.168.1.1";
+    private View view;
     DecimalFormat decimalFormat = new DecimalFormat("#,###");
 
     // C
     public PrintPriceTag(Context context) {
         this.context = context;
+    }
+
+    public View getView() {
+        return view;
+    }
+
+    public void setView(View view) {
+        this.view = view;
     }
 
     /**
@@ -117,20 +126,29 @@ public class PrintPriceTag {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                EscPosPrinterCommands printerCommands = new EscPosPrinterCommands(new TcpConnection(ipPrinter, port, 1000));
-                try {
-                    printerCommands.connect();
-
-                    printerCommands.reset();
-                    for (Bitmap bitmap : list
-                    ) {
-                        printerCommands.printImage(EscPosPrinterCommands
-                                .bitmapToBytes(bitmap, false));
+                SharedPreferences sharedPreferences = context.getSharedPreferences("printerip", Context.MODE_PRIVATE);
+                String ip = sharedPreferences.getString("printerip", "");
+                if (!ip.equals(null)) {
+                    EscPosPrinterCommands printerCommands = new EscPosPrinterCommands(new TcpConnection(ip, port, 1000));
+                    try {
+                        printerCommands.connect();
+                        Message message = new Message(context);
+                        message.messageSucceed(view, "In thành công!");
+                        printerCommands.reset();
+                        for (Bitmap bitmap : list
+                        ) {
+                            printerCommands.printImage(EscPosPrinterCommands
+                                    .bitmapToBytes(bitmap, false));
+                        }
+                        printerCommands.feedPaper(50);
+                        printerCommands.cutPaper();
+                    } catch (EscPosConnectionException e) {
+                        Message message = new Message(context);
+                        message.messageFailed(view, "Không thể kết nối máy in!");
+                        e.printStackTrace();
                     }
-                    printerCommands.feedPaper(50);
-                    printerCommands.cutPaper();
-                } catch (EscPosConnectionException e) {
-                    e.printStackTrace();
+                } else {
+                    Toast.makeText(context, "Hãy chọn máy in!", Toast.LENGTH_SHORT).show();
                 }
             }
         }).start();
@@ -407,34 +425,35 @@ public class PrintPriceTag {
 
     public void prinerShelfNumber(List<DisplayShelves> list) {
 
-        for (DisplayShelves displayShelves :
-                list) {
-            new Thread(new Runnable() {
-                public void run() {
-                    try {
-                        SharedPreferences sharedPreferences = context.getSharedPreferences("printerip", context.MODE_PRIVATE);
-                        String ip = sharedPreferences.getString("printerip", "");
-                        if (!ipPrinter.equals("")) {
-                            EscPosPrinter printer = new EscPosPrinter(new TcpConnection(ip, 9300, 15), 203, 48f, 32);
-                            for (DisplayShelves displayShelves :
-                                    list) {
-                                printer
-                                        .printFormattedText(
-                                                "[C]<u><font size='big'>" + displayShelves.getDisSheID() + "</font></u>"
-                                        );
-                            }
-                        }
-                        else{
-                            Toast.makeText(context, "Hãy chọn máy in!", Toast.LENGTH_SHORT).show();
 
+        new Thread(new Runnable() {
+            public void run() {
+                SharedPreferences sharedPreferences = context.getSharedPreferences("printerip", context.MODE_PRIVATE);
+                String ip = sharedPreferences.getString("printerip", "");
+                // Log.e("ip",ip+"");
+                try {
+                    if (!ip.equals("")) {
+                        EscPosPrinter printer = new EscPosPrinter(new TcpConnection(ip.trim(), 9100, 1000), 203, 48f, 32);
+                        Message message = new Message(context);
+                        message.messageSucceed(view, "In thành công!");
+                        for (DisplayShelves displayShelves :
+                                list) {
+                            printer
+                                    .printFormattedText(
+                                            "[C]<font size='big-6'>" + displayShelves.getDisSheID() + "</font>"
+                                    );
                         }
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                    } else {
+                        Toast.makeText(context, "Hãy chọn máy in!", Toast.LENGTH_SHORT).show();
+
                     }
+                } catch (Exception e) {
+                    // Log.e("er",e+"");
+                    e.printStackTrace();
                 }
-            }).start();
+            }
+        }).start();
 
 
-        }
     }
 }

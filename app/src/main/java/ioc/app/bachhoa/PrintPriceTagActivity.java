@@ -42,7 +42,7 @@ import retrofit2.Response;
 public class PrintPriceTagActivity extends AppCompatActivity {
     // Khai báo các biến ánh xạ thành phần giao diện
     private EditText barcode;
-    private Button btnFind, btnPrint, exit, choose;
+    private Button btnFind, btnPrint;
     private ImageButton imbScan;
     private ImageView choosePrinter;
     private RecyclerView listView;
@@ -110,9 +110,10 @@ public class PrintPriceTagActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 PrintPriceTag printPriceTag = new PrintPriceTag(PrintPriceTagActivity.this);
-                for (PriceTag priceTag : list) {
-                    printPriceTag.printPriceTags(printPriceTag.generatePriceTags(list));
-                }
+                printPriceTag.setView(btnPrint);
+                printPriceTag.printPriceTags(printPriceTag.generatePriceTags(list));
+                list.clear();
+                printPriceTagAapter.setChangeData(list);
             }
         });
         // Scan sản phẩm

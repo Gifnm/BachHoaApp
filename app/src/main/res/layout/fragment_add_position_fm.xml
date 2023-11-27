@@ -28,6 +28,7 @@
             android:layout_gravity="center"
             android:textColor="@color/black"
             android:textSize="@dimen/text_size_large" />
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -35,6 +36,14 @@
             android:src="@drawable/print_setting"
             android:layout_marginRight="8dp"
             app:tint="@color/button" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/fapf_help"
+            android:layout_gravity="right"
+            android:src="@drawable/help_svgrepo_com"
+            android:layout_marginRight="8dp"
+            app:tint="@color/grey" />
     </androidx.appcompat.widget.Toolbar>
     <LinearLayout
         android:id="@+id/select_product"

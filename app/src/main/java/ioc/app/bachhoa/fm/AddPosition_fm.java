@@ -57,7 +57,7 @@ public class AddPosition_fm extends Fragment {
     // Khai báo các biến cục bộ
     View view;
     Spinner shelfSpinner;
-    ImageButton addOneShelf, scan, prevous, next, addOnePlatter;
+    ImageButton addOneShelf, scan, prevous, next, addOnePlatter, help;
     TextView platterNumber;
     RecyclerView listPositionItem;
     List<DisplayShelves> listShelf;

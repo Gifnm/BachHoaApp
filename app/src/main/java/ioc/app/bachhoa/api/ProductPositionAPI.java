@@ -51,7 +51,7 @@ public interface ProductPositionAPI {
     Call<ProductPositioning> insertProPosion(@Body ProductPositioning productPositioning);
 
     /**
-     * API: Lấy danh sách vị trí theo đơn vị kệ
+     * API: Lấy danh sách tem giá theo kệ
      *
      * @param storeID  Mã cửa hàng
      * @param disSheID Mã số kệ
@@ -60,11 +60,21 @@ public interface ProductPositionAPI {
     Call<List<PriceTag>> getPosByStoreAndShelf(@Path("storeID") int storeID, @Path("disSheID") int disSheID);
 
     /**
-     * API: Lấy tem giá
+     * API: Lấy tem giá 1 sản phẩm
      *
-     * @param  storeID Mã cửa hàng
-     * @param  productID Mã sản phẩm - barcode - sku
+     * @param storeID   Mã cửa hàng
+     * @param productID Mã sản phẩm - barcode - sku
      */
     @GET("getPriceTag/{storeID}/{productID}")
     Call<PriceTag> getPriceTag(@Path("storeID") int storeID, @Path("productID") String productID);
+
+    /**
+     * API: Lấy danh sách tem giá theo mâm
+     *
+     * @param shelfID   mã số kệ
+     * @param platterID mã số mâm
+     * @param storeID   mã số cửa hàng
+     */
+    @GET("getPricetagByPlatter/{shelfID}/{platterNb}/{storeID}")
+    Call<List<PriceTag>> getPriceTagsOnPlatter(@Path("shelfID") int shelfID, @Path("platterNb") int platterID, @Path("storeID") int storeID);
 }

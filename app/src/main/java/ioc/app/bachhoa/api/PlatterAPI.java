@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 
 import java.util.List;
 
+import ioc.app.bachhoa.DTOEntity.PriceTag;
 import ioc.app.bachhoa.model.DisplayPlatter;
 import ioc.app.bachhoa.ultil.LocalVarible;
 import retrofit2.Call;
@@ -25,4 +26,5 @@ public interface PlatterAPI {
      */
     @GET("platter/getPlatters/{id}")
     Call<List<DisplayPlatter>> getListFlatter(@Path("id") int id);
+
 }

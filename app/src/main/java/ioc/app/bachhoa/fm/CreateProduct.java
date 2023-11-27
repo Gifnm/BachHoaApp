@@ -149,7 +149,6 @@ public class CreateProduct extends Fragment {
         save = (Button) view.findViewById(R.id.cp_save);
         addCategories = (Button) view.findViewById(R.id.cp_btn_addCategories);
         date_exp = (EditText) view.findViewById(R.id.cp_date_exp);
-        select_img = (Button) view.findViewById(R.id.cp_select_img);
         img_selected = (ImageView) view.findViewById(R.id.cp_img_selected);
         status = (RadioButton) view.findViewById(R.id.cp_status);
         vat = (EditText) view.findViewById(R.id.cp_vat);
@@ -181,6 +180,12 @@ public class CreateProduct extends Fragment {
     }
 
     private void AddEvent() {
+        img_selected.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                requestPemission();
+            }
+        });
         getCategories();
         save.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -221,12 +226,6 @@ public class CreateProduct extends Fragment {
 
                 }
                 aLoadingDialog.cancel();
-            }
-        });
-        select_img.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                requestPemission();
             }
         });
         createProductScan.setOnClickListener(new View.OnClickListener() {
@@ -390,7 +389,7 @@ public class CreateProduct extends Fragment {
         muri = null;
         quanity.setText("");
         priceSell.setText("");
-        img_selected.setImageResource(R.drawable.ic_baseline_image_24);
+        img_selected.setImageResource(R.drawable.add_image_svgrepo_com);
     }
 
     private boolean validateForm() {

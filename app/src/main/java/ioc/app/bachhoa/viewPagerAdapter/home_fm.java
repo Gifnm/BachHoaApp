@@ -17,6 +17,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import ioc.app.bachhoa.EXPSystemActivity;
 import ioc.app.bachhoa.ImportGood;
+import ioc.app.bachhoa.InventoryActivity;
 import ioc.app.bachhoa.Make_Bill;
 import ioc.app.bachhoa.PrintPriceTagActivity;
 import ioc.app.bachhoa.PrinterActivity;
@@ -32,7 +33,7 @@ import ioc.app.bachhoa.fm.CreateProduct;
  */
 public class home_fm extends Fragment {
     CardView position, create_RP, printer;
-    LinearLayout makeBill, createProduct, importGood, printPriceTag, expCheck;
+    LinearLayout makeBill, createProduct, importGood, printPriceTag, expCheck, inventory;
     View view;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -86,6 +87,7 @@ public class home_fm extends Fragment {
     }
 
     private void anhxa() {
+        inventory = view.findViewById(R.id.fhf_inventory);
         expCheck = view.findViewById(R.id.fhf_exp);
         expCheck.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -145,6 +147,14 @@ public class home_fm extends Fragment {
     }
 
     private void addEvent() {
+        inventory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), InventoryActivity.class);
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            }
+        });
         position.setOnClickListener(new View.OnClickListener() {
             final BottomNavigationView navigationView = getActivity().findViewById(R.id.navigation);
 
